@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import { theme } from "../utils/theme";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../utils/globalStyles";
