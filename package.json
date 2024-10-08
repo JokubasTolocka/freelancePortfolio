@@ -19,6 +19,7 @@
     "@fontsource/dela-gothic-one": "^5.1.0",
     "@mdx-js/react": "^3.0.1",
     "babel-plugin-styled-components": "^2.1.4",
+    "framer-motion": "^11.11.2",
     "gatsby": "^5.13.7",
     "gatsby-plugin-mdx": "^5.13.1",
     "gatsby-plugin-netlify-cms": "^7.12.1",

@@ -25,14 +25,14 @@ type Props = {
   children: string;
 };
 
-const Text = styled.span<{ variant: Variant }>`
+const Text = styled.span<{ $variant: Variant }>`
   font-family: "Dela Gothic One";
   color: ${(props) => props.theme.black};
-  font-size: ${(props) => FontSize[props.variant]};
+  font-size: ${(props) => FontSize[props.$variant]};
 `;
 
 const Typography = ({ variant = "Heading1", children }: Props) => {
-  return <Text variant={variant}>{children}</Text>;
+  return <Text $variant={variant}>{children}</Text>;
 };
 
 export default Typography;

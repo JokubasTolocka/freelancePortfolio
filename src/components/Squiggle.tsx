@@ -9,6 +9,7 @@ const StyledSquiggle = styled(SquiggleIcon)`
   width: 38px;
   height: 38px;
   transform: rotate(${getRandomRotation()}deg);
+  fill: none !important;
 `;
 
 const Squiggle = () => <StyledSquiggle />;
