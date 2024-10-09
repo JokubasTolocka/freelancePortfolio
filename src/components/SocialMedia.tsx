@@ -2,6 +2,8 @@ import React from "react";
 import LinkedInIcon from "../assets/linkedIn.svg";
 import GithubIcon from "../assets/github.svg";
 import styled, { css } from "styled-components";
+import constants from "../constants/constants.json";
+import Link from "./Link";
 
 const iconStyles = css`
   fill: ${({ theme }) => theme.colors.black};
@@ -25,8 +27,12 @@ const Wrapper = styled.div`
 
 const SocialMedia = () => (
   <Wrapper>
-    <StyledLinkedInIcon />
-    <StyledGithubIcon />
+    <Link href={constants.LINKED_IN_URL}>
+      <StyledLinkedInIcon />
+    </Link>
+    <Link href={constants.GITHUB_URL}>
+      <StyledGithubIcon />
+    </Link>
   </Wrapper>
 );
 
