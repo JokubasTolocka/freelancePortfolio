@@ -4,11 +4,13 @@ import Typography from "../typography/HeadingTypography";
 import Squiggle from "../Squiggle";
 import SocialMedia from "../SocialMedia";
 
+export const HEADER_CONTENT_HEIGHT = 72;
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 72px;
+  height: ${HEADER_CONTENT_HEIGHT}px;
   padding: 0 32px;
   width: 100%;
   border-bottom: ${({ theme }) => `1px solid ${theme.colors.black}`};
