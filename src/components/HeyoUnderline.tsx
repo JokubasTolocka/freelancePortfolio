@@ -36,7 +36,7 @@ const HeyoUnderline = () => {
     >
       <motion.path
         {...{ ...animationProps, transition: { delay: 1 } }}
-        d="M2 22.5896C60.8994 18.3825 119.394 13.2248 178.508 11.3269C312.856 7.01374 447.308 5.77443 581.678 2"
+        d="M1 19C60.3333 12.6667 258.9 0.400003 578.5 2"
         strokeLinecap="round"
       />
     </motion.svg>
