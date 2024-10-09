@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Typography from "../typography/HeadingTypography";
+import Typography from "../Typography";
 import Squiggle from "../Squiggle";
 import SocialMedia from "../SocialMedia";
 

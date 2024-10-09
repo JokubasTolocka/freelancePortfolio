@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { HEADER_CONTENT_HEIGHT } from "./Header/Content";
-import Heyo from "./Heyo";
-import HeyoUnderline from "./HeyoUnderline";
+import { HEADER_CONTENT_HEIGHT } from "../components/Header/Content";
+import Heyo from "../components/Heyo";
+import HeyoUnderline from "../components/HeyoUnderline";
 
 const LandingContainer = styled.div`
   display: flex;

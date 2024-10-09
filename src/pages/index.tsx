@@ -5,7 +5,7 @@ import { theme } from "../utils/theme";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../utils/globalStyles";
 import GlobalFonts from "../utils/globalFonts";
-import App from "../components/App";
+import App from "../modules/App";
 
 const IndexPage: React.FC<PageProps> = () => (
   <ThemeProvider theme={theme}>
