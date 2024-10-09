@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 const BlackMaskWrapper = styled(Wrapper)`
   position: absolute;
   z-index: 3;
-  top: 0;
+  top: 100;
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
   -webkit-mask: url("./cursorMask.svg");
@@ -36,13 +36,14 @@ const ClipContent = styled.div`
 `;
 
 const FULL_CIRCLE_SIZE = 2000;
+const INITIAL_MASK_POSITION = 400;
 
 const Header = () => {
   const { x, y } = useMousePos();
   const [isMouseHovering, setIsMouseHovering] = useState(false);
   const [{ savedX, savedY }, setSavedPosition] = useState({
-    savedX: 0,
-    savedY: 0,
+    savedX: INITIAL_MASK_POSITION,
+    savedY: INITIAL_MASK_POSITION,
   });
 
   const CIRCLE_SIZE = isMouseHovering ? FULL_CIRCLE_SIZE : 0;
@@ -64,6 +65,7 @@ const Header = () => {
       WebkitMaskPosition: `${savedX - CIRCLE_SIZE / 2}px ${
         savedY - CIRCLE_SIZE / 2
       }px`,
+      top: 0,
     },
     transition: { type: "tween", ease: "easeIn" },
   };
