@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@fontsource/dela-gothic-one": "^5.1.0",
+    "@fontsource/lora": "^5.1.0",
     "@mdx-js/react": "^3.0.1",
     "babel-plugin-styled-components": "^2.1.4",
     "framer-motion": "^11.11.2",

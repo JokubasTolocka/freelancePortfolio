@@ -1369,6 +1369,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/dela-gothic-one/-/dela-gothic-one-5.1.0.tgz#b7d8c5c1f1b381b97c5bdb4e699540a30e975475"
   integrity sha512-ZEgmKAHvB5N1oY36B2wMnQo4PonHlxkJ/bHu7qNrP9+h9VijiwbqVYww+rOglcsHxIjVhDOyp8Uj+vTFtyYUFQ==
 
+"@fontsource/lora@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/lora/-/lora-5.1.0.tgz#4a98542d537974d4c0684d0908cb30c56c4887cb"
+  integrity sha512-kHhtKc/ETrNN0X+TsfSAqeE/WQcazkSa97Sxzkg/Uo2rZ+O3kCts595Cmu116O5gw4z0Bc37voD67rEA6iRv/w==
+
 "@gatsbyjs/parcel-namer-relative-to-cwd@^2.13.1":
   version "2.13.1"
   resolved "https://registry.yarnpkg.com/@gatsbyjs/parcel-namer-relative-to-cwd/-/parcel-namer-relative-to-cwd-2.13.1.tgz#79d2692330a942394200c9bf3e820a4e55075ffb"

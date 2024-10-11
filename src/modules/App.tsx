@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { HEADER_CONTENT_HEIGHT } from "../components/Header/Content";
 import Heyo from "../components/Heyo";
-import HeyoUnderline from "../components/HeyoUnderline";
+import LandingText from "./LandingText";
 
 const LandingContainer = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const LandingContainer = styled.div`
 const App = () => (
   <LandingContainer>
     <Heyo />
-    <HeyoUnderline />
+    <LandingText />
   </LandingContainer>
 );
 
