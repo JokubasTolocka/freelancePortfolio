@@ -4,8 +4,8 @@ import styled, { useTheme } from "styled-components";
 
 const StyledStarSVG = styled(motion.svg)`
   position: absolute;
-  right: 0px;
-  top: 38px;
+  right: -5px;
+  top: 34px;
 `;
 
 const Star = () => {
@@ -36,19 +36,19 @@ const Star = () => {
     >
       <path
         d="M17.6739 1.74219C16.8151 5.69871 12.4779 13.6117 2 13.6117"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M17.6745 29.59C18.2832 25.6842 21.3571 17.8726 28.7832 17.8726"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M17.6745 1.59003C18.2832 7.01756 21.3571 17.8726 28.7832 17.8726"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M17.6739 29.59C16.8151 24.2639 12.4779 13.6118 2 13.6118"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </StyledStarSVG>
   );

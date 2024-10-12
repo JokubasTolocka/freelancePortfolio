@@ -12,16 +12,14 @@ const Wrapper = styled.div`
   position: absolute;
 `;
 
+const StyledSVG = styled(motion.svg)`
+  overflow: visible;
+`;
+
 const Heyo = () => {
   const icon = {
-    hidden: {
-      scale: 0,
-      y: 50,
-    },
-    visible: {
-      scale: 1,
-      y: 0,
-    },
+    hidden: { scale: 0, y: 50 },
+    visible: { scale: 1, y: 0 },
   };
 
   const animationProps = {
@@ -29,7 +27,7 @@ const Heyo = () => {
     animate: "visible",
     transition: {
       duration: 0.4,
-      ease: "spring",
+      type: "spring",
     },
     strokeDasharray: "0 1",
     variants: icon,
@@ -43,14 +41,11 @@ const Heyo = () => {
       animate={{ y: -100 }}
       transition={{ duration: 0.8, ease: "easeInOut", delay: 2 }}
     >
-      <motion.svg
+      <StyledSVG
         width="508"
         height="181"
         viewBox="0 0 508 181"
         xmlns="http://www.w3.org/2000/svg"
-        style={{
-          overflow: "visible",
-        }}
       >
         <motion.path
           {...{ ...animationProps, transition: { delay: ANIMATION_DELAY } }}
@@ -72,7 +67,7 @@ const Heyo = () => {
           {...{ ...animationProps, transition: { delay: ANIMATION_DELAY * 5 } }}
           d="M489.046 0.410004C496.726 0.410004 501.976 2.09 504.796 5.45C507.676 8.75001 508.366 13.31 506.866 19.13C506.506 20.81 505.846 22.91 504.886 25.43C503.926 27.89 502.876 30.29 501.736 32.63L476.356 83.3C474.856 86.18 473.146 88.28 471.226 89.6C469.366 90.92 467.206 91.58 464.746 91.58C462.286 91.58 460.486 90.92 459.346 89.6C458.266 88.28 457.756 86.15 457.816 83.21L459.526 32.36C459.646 30.26 459.826 28.13 460.066 25.97C460.306 23.75 460.636 21.83 461.056 20.21C462.676 13.91 465.796 9.05 470.416 5.63C475.036 2.15 481.246 0.410004 489.046 0.410004ZM453.226 138.47C446.806 138.47 441.886 137 438.466 134.06C435.106 131.06 433.426 127.37 433.426 122.99C433.426 119.33 434.536 115.91 436.756 112.73C439.036 109.49 442.306 106.88 446.566 104.9C450.826 102.86 455.896 101.84 461.776 101.84C468.256 101.84 472.996 103.4 475.996 106.52C478.996 109.64 480.496 113.54 480.496 118.22C480.496 121.88 479.386 125.24 477.166 128.3C474.946 131.36 471.796 133.82 467.716 135.68C463.636 137.54 458.806 138.47 453.226 138.47Z"
         />
-      </motion.svg>
+      </StyledSVG>
       <HeyoUnderline />
     </Wrapper>
   );

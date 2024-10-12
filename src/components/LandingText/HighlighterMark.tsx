@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-  transform: rotate(-2deg);
+const Wrapper = styled(motion.div)`
   position: absolute;
   right: 122px;
   top: 95px;
@@ -24,12 +23,12 @@ const HighlighterMark = () => {
     transition: {
       duration: 0.25,
       ease: [0, 0.1, 0.3, 1],
-      delay: 6,
+      delay: 7,
     },
   };
 
   return (
-    <Wrapper>
+    <Wrapper whileHover={{ rotate: -4 }} style={{ rotate: -2 }}>
       <Mark {...highlighterAnimationProps} />
     </Wrapper>
   );

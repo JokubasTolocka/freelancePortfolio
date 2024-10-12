@@ -1,5 +1,10 @@
 import { motion } from "framer-motion";
 import React from "react";
+import styled from "styled-components";
+
+const StyledSVG = styled(motion.svg)`
+  margin-top: 16px;
+`;
 
 const HeyoUnderline = () => {
   const icon = {
@@ -27,20 +32,19 @@ const HeyoUnderline = () => {
   };
 
   return (
-    <motion.svg
+    <StyledSVG
       width="584"
       height="25"
       viewBox="0 0 584 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ marginTop: 16 }}
     >
       <motion.path
         {...{ ...animationProps, transition: { delay: 1.5 } }}
         d="M1 19C60.3333 12.6667 258.9 0.400003 578.5 2"
         strokeLinecap="round"
       />
-    </motion.svg>
+    </StyledSVG>
   );
 };
 
