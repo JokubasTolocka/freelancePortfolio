@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 import React from "react";
+import styled from "styled-components";
+
+const StyledSVG = styled(motion.svg)`
+  margin-top: 16px;
+`;
 
 const HeyoUnderline = () => {
-  const icon = {
+  const line = {
     hidden: {
       opacity: 0,
       pathLength: 0,
@@ -16,18 +21,15 @@ const HeyoUnderline = () => {
   const animationProps = {
     initial: "hidden",
     animate: "visible",
-    transition: {
-      duration: 1,
-      ease: "easeInOut",
-    },
+    transition: { delay: 1.5 },
     stroke: "black",
     strokeWidth: 3,
     strokeDasharray: "0 1",
-    variants: icon,
+    variants: line,
   };
 
   return (
-    <motion.svg
+    <StyledSVG
       width="584"
       height="25"
       viewBox="0 0 584 25"
@@ -35,11 +37,11 @@ const HeyoUnderline = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <motion.path
-        {...{ ...animationProps, transition: { delay: 1 } }}
+        {...animationProps}
         d="M1 19C60.3333 12.6667 258.9 0.400003 578.5 2"
         strokeLinecap="round"
       />
-    </motion.svg>
+    </StyledSVG>
   );
 };
 
