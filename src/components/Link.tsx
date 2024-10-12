@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
 import React, { PropsWithChildren } from "react";
+import styled from "styled-components";
 
 type Props = {
   href: string;
   isStatic?: boolean;
 };
+
+const StyledA = styled(motion.a)`
+  line-height: 0;
+`;
 
 const Link = ({ children, href, isStatic }: PropsWithChildren<Props>) => {
   const animationProps = !isStatic && {
@@ -15,9 +20,9 @@ const Link = ({ children, href, isStatic }: PropsWithChildren<Props>) => {
   };
 
   return (
-    <motion.a href={href} target="_blank" {...animationProps}>
+    <StyledA href={href} target="_blank" {...animationProps}>
       {children}
-    </motion.a>
+    </StyledA>
   );
 };
 
