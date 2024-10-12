@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import useMousePos from "../../hooks/useMousePos";
 import Content from "./Content";
-import Mask from "./Mask";
 
 const Wrapper = styled.div`
   width: 100%;

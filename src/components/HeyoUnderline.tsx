@@ -7,7 +7,7 @@ const StyledSVG = styled(motion.svg)`
 `;
 
 const HeyoUnderline = () => {
-  const icon = {
+  const line = {
     hidden: {
       opacity: 0,
       pathLength: 0,
@@ -21,14 +21,11 @@ const HeyoUnderline = () => {
   const animationProps = {
     initial: "hidden",
     animate: "visible",
-    transition: {
-      duration: 1,
-      ease: "easeInOut",
-    },
+    transition: { delay: 1.5 },
     stroke: "black",
     strokeWidth: 3,
     strokeDasharray: "0 1",
-    variants: icon,
+    variants: line,
   };
 
   return (
@@ -40,7 +37,7 @@ const HeyoUnderline = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <motion.path
-        {...{ ...animationProps, transition: { delay: 1.5 } }}
+        {...animationProps}
         d="M1 19C60.3333 12.6667 258.9 0.400003 578.5 2"
         strokeLinecap="round"
       />

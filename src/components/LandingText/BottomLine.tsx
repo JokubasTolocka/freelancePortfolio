@@ -33,26 +33,46 @@ const StyledBoyLaptop = styled(BoyLaptop)`
   ${iconSize}
 `;
 
+const designAnimationProps = {
+  animate: { x: -38 },
+  transition: {
+    delay: 7,
+    type: "tween",
+  },
+};
+
+const colorPalleteAnimationProps = {
+  initial: { scale: 0 },
+  animate: { scale: 1 },
+  transition: { delay: 7.2 },
+};
+
+const andProgrammingAnimationProps = {
+  animate: { x: 5 },
+  transition: {
+    delay: 7,
+    type: "tween",
+  },
+};
+
+const boyLaptopAnimationProps = {
+  initial: { scale: 0 },
+  animate: { scale: 1 },
+  transition: { delay: 7.2 },
+};
+
 const BottomLine = () => (
   <BottomLineWrapper>
-    <motion.div animate={{ x: -38 }} transition={{ delay: 7, type: "tween" }}>
+    <motion.div {...designAnimationProps}>
       <AnimatedLetters title="design " delayChildren={3} />
     </motion.div>
-    <ColorPalleteWrapper
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 7.2 }}
-    >
+    <ColorPalleteWrapper {...colorPalleteAnimationProps}>
       <StyledColorPallete />
     </ColorPalleteWrapper>
-    <motion.div animate={{ x: 5 }} transition={{ delay: 7, type: "tween" }}>
+    <motion.div {...andProgrammingAnimationProps}>
       <AnimatedLetters title="and programming" delayChildren={3.15} />
     </motion.div>
-    <BoyLaptopWrapper
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 7.5 }}
-    >
+    <BoyLaptopWrapper {...boyLaptopAnimationProps}>
       <StyledBoyLaptop />
     </BoyLaptopWrapper>
   </BottomLineWrapper>
