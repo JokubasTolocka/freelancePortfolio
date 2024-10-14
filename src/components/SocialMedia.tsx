@@ -1,9 +1,11 @@
-import React from "react";
+import React, { PropsWithChildren, useRef, useState, MouseEvent } from "react";
 import LinkedInIcon from "../assets/linkedIn.svg";
 import GithubIcon from "../assets/github.svg";
 import styled, { css } from "styled-components";
 import constants from "../constants/constants.json";
 import Link from "./Link";
+import { motion } from "framer-motion";
+import MagneticBox from "./MagneticBox";
 
 const iconStyles = css`
   fill: ${({ theme }) => theme.colors.black};
@@ -28,10 +30,14 @@ const Wrapper = styled.div`
 const SocialMedia = () => (
   <Wrapper>
     <Link href={constants.LINKED_IN_URL}>
-      <StyledLinkedInIcon />
+      <MagneticBox>
+        <StyledLinkedInIcon />
+      </MagneticBox>
     </Link>
     <Link href={constants.GITHUB_URL}>
-      <StyledGithubIcon />
+      <MagneticBox>
+        <StyledGithubIcon />
+      </MagneticBox>
     </Link>
   </Wrapper>
 );
