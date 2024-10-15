@@ -1,10 +1,9 @@
-import React, { PropsWithChildren, useRef, useState, MouseEvent } from "react";
-import LinkedInIcon from "../assets/linkedIn.svg";
-import GithubIcon from "../assets/github.svg";
+import React from "react";
+import LinkedInIcon from "../assets/icons/linkedIn.svg";
+import GithubIcon from "../assets/icons/github.svg";
 import styled, { css } from "styled-components";
 import constants from "../constants/constants.json";
 import Link from "./Link";
-import { motion } from "framer-motion";
 import MagneticBox from "./MagneticBox";
 
 const iconStyles = css`
