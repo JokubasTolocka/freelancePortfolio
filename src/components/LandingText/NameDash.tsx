@@ -4,8 +4,8 @@ import styled, { useTheme } from "styled-components";
 
 const StyledSVG = styled(motion.svg)`
   position: absolute;
-  right: 190px;
-  top: 38px;
+  right: 160px;
+  top: 36px;
   overflow: visible;
 `;
 

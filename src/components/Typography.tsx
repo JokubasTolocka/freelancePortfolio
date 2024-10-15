@@ -22,7 +22,7 @@ export enum FontSize {
   Heading4 = "24px",
   Heading5 = "20px",
   Heading6 = "18px",
-  Subtitle = "32px",
+  Subtitle = "28px",
   BodyLg = "24px",
   BodyMd = "20px",
   BodySm = "18px",
@@ -37,6 +37,7 @@ const Text = styled.span<{ $variant: Variant; $isBody: boolean }>`
   font-family: ${(props) => (props.$isBody ? "Lora" : "Dela Gothic One")};
   color: ${(props) => props.theme.black};
   font-size: ${(props) => FontSize[props.$variant]};
+  line-height: ${(props) => (props.$isBody ? "140%" : "auto")};
 `;
 
 const Typography = ({

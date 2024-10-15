@@ -4,8 +4,8 @@ import styled, { useTheme } from "styled-components";
 
 const StyledStarSVG = styled(motion.svg)`
   position: absolute;
-  right: -5px;
-  top: 34px;
+  right: -10px;
+  top: 30px;
 `;
 
 const Star = () => {

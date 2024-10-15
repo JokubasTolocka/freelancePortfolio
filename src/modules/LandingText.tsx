@@ -16,7 +16,6 @@ const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: 4px;
 `;
 
 const LandingText = () => (

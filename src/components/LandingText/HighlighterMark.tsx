@@ -4,15 +4,15 @@ import styled from "styled-components";
 
 const Wrapper = styled(motion.div)`
   position: absolute;
-  right: 122px;
-  top: 95px;
+  right: 110px;
+  top: 83px;
   overflow: visible;
 `;
 
 const Mark = styled(motion.div)`
   background-color: rgba(246, 106, 176, 0.3);
-  height: 37px;
-  width: 196px;
+  height: 35px;
+  width: 166px;
   transform-origin: 0;
 `;
 
