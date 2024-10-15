@@ -1,8 +1,8 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
-import Header from "../components/Header/Header";
+import Header from "../components/Header";
 import styled from "styled-components";
-import { HEADER_CONTENT_HEIGHT } from "../components/Header/Content";
+import { HEADER_CONTENT_HEIGHT } from "../components/Header";
 import Heyo from "../components/Heyo";
 import LandingText from "../modules/LandingText";
 
