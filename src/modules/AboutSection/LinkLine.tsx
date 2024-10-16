@@ -65,7 +65,7 @@ const LinkLine = () => {
         .
       </Typography>
       <IconWrapper ref={waveRef}>
-        <StyledWaveIcon />
+        <StyledWaveIcon ref={waveRef} />
       </IconWrapper>
     </Wrapper>
   );
