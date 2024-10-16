@@ -1,3 +1,5 @@
+export type ComplimentaryColors = "blue" | "green" | "yellow" | "red";
+
 export const theme = {
   colors: {
     white: "#FAFAFA",
