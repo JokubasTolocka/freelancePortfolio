@@ -31,6 +31,7 @@ export enum FontSize {
 type Props = {
   variant?: Variant;
   isBody?: boolean;
+  className?: string;
 };
 
 const Text = styled.span<{ $variant: Variant; $isBody: boolean }>`
@@ -44,9 +45,10 @@ const Typography = ({
   variant = "Heading1",
   children,
   isBody = false,
+  className,
 }: PropsWithChildren<Props>) => {
   return (
-    <Text $variant={variant} $isBody={isBody}>
+    <Text $variant={variant} $isBody={isBody} className={className}>
       {children}
     </Text>
   );

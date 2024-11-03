@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   position: relative;
+  transform: translateY(-60px);
 `;
 
 const Content = styled.div`

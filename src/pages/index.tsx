@@ -6,7 +6,8 @@ import { HEADER_CONTENT_HEIGHT } from "../components/Header";
 import Heyo from "../components/Heyo";
 import LandingText from "../modules/LandingText";
 import AboutSection from "../modules/AboutSection/AboutSection";
-import Container from "../components/Container";
+import WorkSection from "../modules/WorkSection/WorkSection";
+import SectionWrapper from "../components/SectionWrapper";
 
 const LandingContainer = styled.div`
   display: flex;
@@ -18,16 +19,6 @@ const LandingContainer = styled.div`
   border-bottom: ${({ theme }) => `1px solid ${theme.colors.black}`};
 `;
 
-const AboutContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  min-height: 675px;
-  border-bottom: ${({ theme }) => `1px solid ${theme.colors.black}`};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
 const IndexPage: React.FC<PageProps> = () => (
   <>
     <Header />
@@ -35,11 +26,22 @@ const IndexPage: React.FC<PageProps> = () => (
       <Heyo />
       <LandingText />
     </LandingContainer>
-    <AboutContainer>
-      <Container>
-        <AboutSection />
-      </Container>
-    </AboutContainer>
+    <SectionWrapper
+      titles={["About"]}
+      squiggleColors={["green"]}
+      isVerticallyCentered
+    >
+      <AboutSection />
+    </SectionWrapper>
+    <SectionWrapper titles={["Work"]} squiggleColors={["blue"]}>
+      <WorkSection />
+    </SectionWrapper>
+    <SectionWrapper
+      titles={["Experience", "Certifications"]}
+      squiggleColors={["yellow", "green"]}
+    >
+      {/* <WorkSection /> */}
+    </SectionWrapper>
   </>
 );
 

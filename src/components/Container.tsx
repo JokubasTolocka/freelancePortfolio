@@ -4,8 +4,8 @@ import styled from "styled-components";
 const BoundingBox = styled.div<{ $isHeader?: boolean }>`
   max-width: ${(props) => (props.$isHeader ? "1280px" : "1088px")};
   width: 100%;
-  height: 100%;
   margin: 0 auto;
+  height: 100%;
 `;
 
 type Props = {
