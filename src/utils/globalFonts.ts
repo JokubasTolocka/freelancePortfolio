@@ -1,17 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-import "@fontsource/dela-gothic-one";
-import "@fontsource/lora";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/600.css";
 
 const GlobalFonts = createGlobalStyle`
   @font-face {
-    font-family: "Dela Gothic One";
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "Lora";
+    font-family: "Poppins";
     font-weight: normal;
     font-style: normal;
   }

@@ -1,28 +1,33 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import Typography from "./Typography";
-import Squiggle from "./Squiggle";
-import { ComplimentaryColors } from "../utils/theme";
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 16px;
+  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
+  padding: 64px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const StyledSquiggle = styled(Squiggle)`
-  width: 70px;
-  height: 70px;
+const LeftWrapper = styled.div`
+  display: flex;
+  gap: 32px;
 `;
 
 type Props = {
   title: string;
-  squiggleColor: ComplimentaryColors;
+  icon?: any;
+  rightElement?: ReactNode;
 };
 
-const SectionTitle = ({ title, squiggleColor }: Props) => (
+const SectionTitle = ({ title, icon, rightElement }: Props) => (
   <Wrapper>
-    <Typography>{title}</Typography>
-    <StyledSquiggle color={squiggleColor} />
+    <LeftWrapper>
+      {icon}
+      <Typography>{title}</Typography>
+    </LeftWrapper>
+    {rightElement}
   </Wrapper>
 );
 

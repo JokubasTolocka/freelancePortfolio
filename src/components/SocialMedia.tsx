@@ -23,7 +23,7 @@ const StyledGithubIcon = styled(GithubIcon)`
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 32px;
 `;
 
 const SocialMedia = () => (

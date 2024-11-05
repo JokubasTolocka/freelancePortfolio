@@ -2,27 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import Typography from "../../components/Typography";
 import LinkLine from "./LinkLine";
-import Images from "./Images";
 import TextEnterAnimation from "../../components/TextEnterAnimation";
+import PortraitImage from "./PortraitImage";
 
 const Wrapper = styled.div`
-  display: flex;
-  height: 100%;
-  align-content: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
 `;
 
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  gap: 24px;
-  flex: 1;
+  gap: 32px;
+  margin: 64px;
+  height: fit-content;
 `;
 
 const AboutSection = () => (
   <Wrapper>
+    <PortraitImage />
     <TextWrapper>
+      <TextEnterAnimation>
+        <Typography variant="Heading2">Jokūbas Toločka</Typography>
+      </TextEnterAnimation>
       <TextEnterAnimation>
         <Typography variant="BodyMd" isBody>
           My bold, colorful and organic designs draw from my background in
@@ -42,7 +45,6 @@ const AboutSection = () => (
         <LinkLine />
       </TextEnterAnimation>
     </TextWrapper>
-    <Images />
   </Wrapper>
 );
 

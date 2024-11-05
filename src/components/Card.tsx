@@ -6,19 +6,30 @@ import TextEnterAnimation from "./TextEnterAnimation";
 
 const Wrapper = styled(motion.a)`
   width: 100%;
-  aspect-ratio: 1/1;
-  display: flex;
-  flex-direction: column;
+  height: 295px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   overflow: hidden;
-  gap: 8px;
   color: ${({ theme }) => theme.colors.black};
   text-decoration: none;
+  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 32px;
+  justify-content: center;
+  gap: 16px;
+`;
+
+const SubtitleWrapper = styled.div`
+  max-width: 460px;
 `;
 
 const ImageWrapper = styled.div`
   height: 100%;
-  border: ${({ theme }) => `1px solid ${theme.colors.black}`};
-  margin-bottom: 16px;
+  border-right: ${({ theme }) => `4px solid ${theme.colors.black}`};
   overflow: hidden;
 `;
 
@@ -68,14 +79,18 @@ const Card = ({ title, subtitle, imageSrc, linkTo }: Props) => {
       <ImageWrapper>
         <Image src={imageSrc} ref={imageRef} variants={animationVariants} />
       </ImageWrapper>
-      <TextEnterAnimation>
-        <Typography variant="Heading3">{title}</Typography>
-      </TextEnterAnimation>
-      <TextEnterAnimation>
-        <Typography variant="BodySm" isBody>
-          {subtitle}
-        </Typography>
-      </TextEnterAnimation>
+      <ContentWrapper>
+        <TextEnterAnimation>
+          <Typography variant="Heading2">{title}</Typography>
+        </TextEnterAnimation>
+        <SubtitleWrapper>
+          <TextEnterAnimation>
+            <Typography variant="BodySm" isBody>
+              {subtitle}
+            </Typography>
+          </TextEnterAnimation>
+        </SubtitleWrapper>
+      </ContentWrapper>
     </Wrapper>
   );
 };

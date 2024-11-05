@@ -3,11 +3,11 @@ import type { HeadFC, PageProps } from "gatsby";
 import Header from "../components/Header";
 import styled from "styled-components";
 import { HEADER_CONTENT_HEIGHT } from "../components/Header";
-import Heyo from "../components/Heyo";
-import LandingText from "../modules/LandingText";
+import SectionTitle from "../components/SectionTitle";
 import AboutSection from "../modules/AboutSection/AboutSection";
+import BrowseAllWorkButton from "../modules/WorkSection/BrowseAllWorkButton";
 import WorkSection from "../modules/WorkSection/WorkSection";
-import SectionWrapper from "../components/SectionWrapper";
+import ExperienceAndCoursesSection from "../modules/ExperienceAndCoursesSection/ExperienceAndCoursesSection";
 
 const LandingContainer = styled.div`
   display: flex;
@@ -16,32 +16,19 @@ const LandingContainer = styled.div`
   align-items: center;
   width: 100%;
   height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
-  border-bottom: ${({ theme }) => `1px solid ${theme.colors.black}`};
+  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
 `;
 
 const IndexPage: React.FC<PageProps> = () => (
   <>
     <Header />
-    <LandingContainer>
-      <Heyo />
-      <LandingText />
-    </LandingContainer>
-    <SectionWrapper
-      titles={["About"]}
-      squiggleColors={["green"]}
-      isVerticallyCentered
-    >
-      <AboutSection />
-    </SectionWrapper>
-    <SectionWrapper titles={["Work"]} squiggleColors={["blue"]}>
-      <WorkSection />
-    </SectionWrapper>
-    <SectionWrapper
-      titles={["Experience", "Certifications"]}
-      squiggleColors={["yellow", "green"]}
-    >
-      {/* <WorkSection /> */}
-    </SectionWrapper>
+    <LandingContainer />
+    <SectionTitle title="About" />
+    <AboutSection />
+    <SectionTitle title="Work" rightElement={<BrowseAllWorkButton />} />
+    <WorkSection />
+    <ExperienceAndCoursesSection />
+    <LandingContainer />
   </>
 );
 

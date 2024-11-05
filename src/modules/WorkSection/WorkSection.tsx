@@ -1,18 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import PotentialProject from "./CTACard";
 import Card from "../../components/Card";
 import muralImg from "../../assets/images/mural.jpg";
 
-const WorksWrapper = styled.div`
-  margin-top: 48px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 64px;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const WorkSection = () => (
-  <WorksWrapper>
+  <Wrapper>
     <Card
       title="Murals worldwide"
       subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
@@ -25,8 +22,7 @@ const WorkSection = () => (
       imageSrc={muralImg}
       linkTo="/murals"
     />
-    <PotentialProject />
-  </WorksWrapper>
+  </Wrapper>
 );
 
 export default WorkSection;

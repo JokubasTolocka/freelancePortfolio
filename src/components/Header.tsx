@@ -1,47 +1,56 @@
 import React from "react";
 import styled from "styled-components";
-import Container from "./Container";
 import Typography from "./Typography";
-import constants from "../constants/constants.json";
-import Squiggle from "./Squiggle";
 import SocialMedia from "./SocialMedia";
+import FlipText from "./FlipTextAnimation";
 
-export const HEADER_CONTENT_HEIGHT = 72;
+export const HEADER_CONTENT_HEIGHT = 88;
 
 const Wrapper = styled.div`
   width: 100%;
-  position: relative;
-  border-bottom: ${({ theme }) => `1px solid ${theme.colors.black}`};
-`;
-
-const ContentWrapper = styled.div`
+  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   height: ${HEADER_CONTENT_HEIGHT}px;
-  padding: 0 32px;
+  padding: 0 64px;
+  gap: 32px;
   width: 100%;
 `;
 
-const RightContainer = styled.div`
-  display: flex;
-  gap: 24px;
-  align-items: center;
+const LinkHover = styled.div`
+  padding: 2px 12px;
+  border-radius: 100px;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-sizing: content-box;
+  transition: background-color 0.2s ease-in;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f9e1a7;
+  }
 `;
 
-const Header = () => (
-  <Wrapper>
-    <Container isHeader>
-      <ContentWrapper>
-        <Typography variant="Heading4">Let's do it.</Typography>
-        <RightContainer>
-          <Typography variant="Heading4">{constants.EMAIL}</Typography>
-          <Squiggle />
-          <SocialMedia />
-        </RightContainer>
-      </ContentWrapper>
-    </Container>
-  </Wrapper>
-);
+const Header = () => {
+  const navItems = [
+    { title: "About" },
+    { title: "Services" },
+    { title: "Work" },
+    { title: "Contact" },
+  ];
+
+  return (
+    <Wrapper>
+      {navItems.map(({ title }) => (
+        <LinkHover key={title}>
+          <FlipText>
+            <Typography variant="Heading5">{title}</Typography>
+          </FlipText>
+        </LinkHover>
+      ))}
+      <SocialMedia />
+    </Wrapper>
+  );
+};
 
 export default Header;

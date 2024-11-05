@@ -16,6 +16,17 @@ const GlobalStyle = createGlobalStyle`
   #___gatsby {
     width: 100%;
     height: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    border-left: ${({ theme }) => `4px solid ${theme.colors.black}`};
+    border-right: ${({ theme }) => `4px solid ${theme.colors.black}`};
+  }
+  
+  @media only screen and (max-width: 1600px) {
+    #___gatsby {
+        border-left: none;
+        border-right: none;
+    }
   }
 `;
 

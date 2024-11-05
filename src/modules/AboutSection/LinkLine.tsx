@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  width: fit-content;
 `;
 
 const IconWrapper = styled.div`

@@ -12,7 +12,8 @@ type Variant =
   | "Subtitle"
   | "BodyLg"
   | "BodyMd"
-  | "BodySm";
+  | "BodySm"
+  | "BodyXs";
 
 export enum FontSize {
   Header = "130px",
@@ -26,6 +27,7 @@ export enum FontSize {
   BodyLg = "24px",
   BodyMd = "20px",
   BodySm = "18px",
+  BodyXs = "16px",
 }
 
 type Props = {
@@ -35,10 +37,10 @@ type Props = {
 };
 
 const Text = styled.span<{ $variant: Variant; $isBody: boolean }>`
-  font-family: ${(props) => (props.$isBody ? "Lora" : "Dela Gothic One")};
+  font-family: "Poppins";
   color: ${(props) => props.theme.black};
   font-size: ${(props) => FontSize[props.$variant]};
-  line-height: ${(props) => (props.$isBody ? "140%" : "auto")};
+  font-weight: ${(props) => (props.$isBody ? "400" : "600")};
 `;
 
 const Typography = ({
