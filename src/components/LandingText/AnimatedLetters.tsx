@@ -5,15 +5,18 @@ import styled from "styled-components";
 const banner = {
   animate: {
     transition: {
-      staggerChildren: 0.03,
+      staggerChildren: 0.06,
       delayChildren: 3,
     },
   },
 };
 
 const letterAni = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0 } },
+  initial: { y: 100 },
+  animate: {
+    y: 0,
+    transition: { duration: 0.2, ease: "easeOut" },
+  },
 };
 
 type Props = {
@@ -23,7 +26,7 @@ type Props = {
 
 const WhiteSpace = styled.span`
   display: inline-block;
-  width: 10px;
+  width: 26px;
 `;
 
 const Letter = styled(motion.span)`
@@ -31,13 +34,20 @@ const Letter = styled(motion.span)`
   display: inline-block;
 `;
 
-const INITIAL_ANIMATION_DELAY = 3;
+const Wrapper = styled(motion.span)`
+  overflow: hidden;
+  display: flex;
+  height: 120px;
+  width: fit-content;
+`;
+
+const INITIAL_ANIMATION_DELAY = 0;
 
 const getAnimationDelay = (seconds: number) =>
   INITIAL_ANIMATION_DELAY + seconds;
 
 const AnimatedLetters = ({ title, delayChildren = 0 }: Props) => (
-  <motion.span
+  <Wrapper
     variants={{
       ...banner,
       animate: {
@@ -55,6 +65,6 @@ const AnimatedLetters = ({ title, delayChildren = 0 }: Props) => (
         {letter === " " ? <WhiteSpace /> : letter}
       </Letter>
     ))}
-  </motion.span>
+  </Wrapper>
 );
 export default AnimatedLetters;

@@ -9,21 +9,12 @@ import BrowseAllWorkButton from "../modules/WorkSection/BrowseAllWorkButton";
 import WorkSection from "../modules/WorkSection/WorkSection";
 import ExperienceAndCoursesSection from "../modules/ExperienceAndCoursesSection/ExperienceAndCoursesSection";
 import ServicesSection from "../modules/ServicesSection/ServicesSection";
-
-const LandingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
-  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
-`;
+import LandingSection from "../modules/LandingSection/LandingSection";
 
 const IndexPage: React.FC<PageProps> = () => (
   <>
     <Header />
-    <LandingContainer />
+    <LandingSection />
     <SectionTitle title="About" />
     <AboutSection />
     <SectionTitle title="Services" />
@@ -31,7 +22,6 @@ const IndexPage: React.FC<PageProps> = () => (
     <SectionTitle title="Work" rightElement={<BrowseAllWorkButton />} />
     <WorkSection />
     <ExperienceAndCoursesSection />
-    <LandingContainer />
   </>
 );
 

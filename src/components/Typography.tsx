@@ -16,7 +16,7 @@ type Variant =
   | "BodyXs";
 
 export enum FontSize {
-  Header = "130px",
+  Header = "90px",
   Heading1 = "48px",
   Heading2 = "36px",
   Heading3 = "28px",
