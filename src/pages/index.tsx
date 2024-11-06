@@ -8,6 +8,7 @@ import AboutSection from "../modules/AboutSection/AboutSection";
 import BrowseAllWorkButton from "../modules/WorkSection/BrowseAllWorkButton";
 import WorkSection from "../modules/WorkSection/WorkSection";
 import ExperienceAndCoursesSection from "../modules/ExperienceAndCoursesSection/ExperienceAndCoursesSection";
+import ServicesSection from "../modules/ServicesSection/ServicesSection";
 
 const LandingContainer = styled.div`
   display: flex;
@@ -25,6 +26,8 @@ const IndexPage: React.FC<PageProps> = () => (
     <LandingContainer />
     <SectionTitle title="About" />
     <AboutSection />
+    <SectionTitle title="Services" />
+    <ServicesSection />
     <SectionTitle title="Work" rightElement={<BrowseAllWorkButton />} />
     <WorkSection />
     <ExperienceAndCoursesSection />
