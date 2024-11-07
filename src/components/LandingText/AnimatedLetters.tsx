@@ -39,6 +39,7 @@ const Wrapper = styled(motion.span)`
   display: flex;
   height: 120px;
   width: fit-content;
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
 const INITIAL_ANIMATION_DELAY = 0;
@@ -48,20 +49,20 @@ const getAnimationDelay = (seconds: number) =>
 
 const AnimatedLetters = ({ title, delayChildren = 0 }: Props) => (
   <Wrapper
-    variants={{
-      ...banner,
-      animate: {
-        transition: {
-          ...banner.animate.transition,
-          delayChildren: getAnimationDelay(delayChildren),
-        },
-      },
-    }}
-    initial="initial"
-    animate="animate"
+  // variants={{
+  //   ...banner,
+  //   animate: {
+  //     transition: {
+  //       ...banner.animate.transition,
+  //       delayChildren: getAnimationDelay(delayChildren),
+  //     },
+  //   },
+  // }}
+  // initial="initial"
+  // animate="animate"
   >
     {[...title].map((letter, index) => (
-      <Letter key={index} variants={letterAni}>
+      <Letter key={index} variants={letterAni} className="letter">
         {letter === " " ? <WhiteSpace /> : letter}
       </Letter>
     ))}

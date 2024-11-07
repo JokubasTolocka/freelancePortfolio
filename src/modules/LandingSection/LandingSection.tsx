@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { HEADER_CONTENT_HEIGHT } from "../../components/Header";
 import Typography from "../../components/Typography";
 import AnimatedLetters from "../../components/LandingText/AnimatedLetters";
+import MatterCanvas from "./MatterCanvas";
 
 const Wrapper = styled.div`
   border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
+  position: relative;
+  height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
+  /* background-color: rgba('1') */
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 32px 64px 64px 64px;
-  height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
+  margin: 0 64px 64px 64px;
+  z-index: 2;
+  position: relative;
+  padding-top: 32px;
 `;
 
 const LandingHeaderTypography = styled(Typography)`
@@ -21,8 +27,11 @@ const LandingHeaderTypography = styled(Typography)`
 `;
 
 const LandingSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <Wrapper>
+    <Wrapper ref={containerRef}>
+      <MatterCanvas containerRef={containerRef} />
       <Content>
         <LandingHeaderTypography variant="Header">
           <AnimatedLetters title="I'm Jacob," />

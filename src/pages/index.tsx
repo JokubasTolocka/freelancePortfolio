@@ -1,8 +1,6 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
 import Header from "../components/Header";
-import styled from "styled-components";
-import { HEADER_CONTENT_HEIGHT } from "../components/Header";
 import SectionTitle from "../components/SectionTitle";
 import AboutSection from "../modules/AboutSection/AboutSection";
 import BrowseAllWorkButton from "../modules/WorkSection/BrowseAllWorkButton";

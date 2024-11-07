@@ -46,6 +46,7 @@ const ServicesSection = () => {
     <Wrapper>
       {SERVICES.map(({ title, description }, key) => (
         <ServicesCard
+          key={key}
           title={title}
           description={description}
           elementIndex={key + 1}
