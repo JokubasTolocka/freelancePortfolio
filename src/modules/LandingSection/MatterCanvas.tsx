@@ -67,11 +67,10 @@ type Props = {
 };
 
 const MatterCanvas = ({ containerRef }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
+  // const rectangles = useRef<(Rectangle | undefined)[]>([]);
   const rectangles = useRef<Rectangle[]>([]);
   const engine = useRef(Engine.create());
-
-  const scene = useRef<HTMLDivElement>(null);
 
   const [, setAnim] = useState(0);
 
@@ -80,90 +79,124 @@ const MatterCanvas = ({ containerRef }: Props) => {
 
     Runner.run(runner, engine.current);
 
-    const width = ref.current?.clientWidth ?? 0;
-    const height = ref.current?.clientHeight ?? 0;
+    const width = canvasRef.current?.clientWidth ?? 0;
+    const height = canvasRef.current?.clientHeight ?? 0;
 
-    const ground = Bodies.rectangle(width / 2, height, width, 100, {
-      isStatic: true,
-    });
-    const ceiling = Bodies.rectangle(width / 2, 0, width, 100, {
-      isStatic: true,
-    });
-    const wallL = Bodies.rectangle(0, height / 2, 100, height, {
-      isStatic: true,
-    });
-    const wallR = Bodies.rectangle(width, height / 2, 100, height, {
-      isStatic: true,
-    });
+    const wallThickness = 50;
+
+    const halfWall = wallThickness / 2;
+
+    const ground = Bodies.rectangle(
+      width / 2,
+      height + halfWall,
+      width,
+      wallThickness,
+      {
+        isStatic: true,
+      }
+    );
+    const ceiling = Bodies.rectangle(
+      width / 2,
+      0 - halfWall,
+      width,
+      wallThickness,
+      {
+        isStatic: true,
+      }
+    );
+    const wallL = Bodies.rectangle(
+      0 - halfWall,
+      height / 2,
+      wallThickness,
+      height,
+      {
+        isStatic: true,
+      }
+    );
+    const wallR = Bodies.rectangle(
+      width + halfWall,
+      height / 2,
+      wallThickness,
+      height,
+      {
+        isStatic: true,
+      }
+    );
 
     Composite.add(engine.current.world, [ground, ceiling, wallL, wallR]);
   }, []);
 
   useEffect(() => {
-    if (!scene.current) return;
+    // const cw = document.body.clientWidth;
+    // const ch = document.body.clientHeight;
 
-    const cw = document.body.clientWidth;
-    const ch = document.body.clientHeight;
+    // const render = Render.create({
+    //   element: scene.current,
+    //   engine: engine.current,
+    //   options: {
+    //     width: cw,
+    //     height: ch,
+    //     wireframes: false,
+    //     background: "transparent",
+    //   },
+    // });
 
-    const render = Render.create({
-      element: scene.current,
-      engine: engine.current,
-      options: {
-        width: cw,
-        height: ch,
-        wireframes: false,
-        background: "transparent",
-      },
-    });
+    // const width = ref.current?.clientWidth ?? 0;
+    // const height = ref.current?.clientHeight ?? 0;
 
-    const width = ref.current?.clientWidth ?? 0;
-    const height = ref.current?.clientHeight ?? 0;
+    // const wallStyle = {
+    //   render: {
+    //     fillStyle: "#3918de8f",
+    //   },
+    // };
 
-    const wallStyle = {
-      render: {
-        fillStyle: "#3918de8f",
-      },
-    };
+    // const ground = Bodies.rectangle(width / 2, height, width, 0, {
+    //   isStatic: true,
+    //   ...wallStyle,
+    // });
+    // const ceiling = Bodies.rectangle(width / 2, 0, width, 0, {
+    //   isStatic: true,
+    //   ...wallStyle,
+    // });
+    // const wallL = Bodies.rectangle(0, height, 0, height, {
+    //   isStatic: true,
+    //   ...wallStyle,
+    // });
+    // const wallR = Bodies.rectangle(width, height / 2, 0, height, {
+    //   isStatic: true,
+    //   ...wallStyle,
+    // });
 
-    const ground = Bodies.rectangle(width / 2, height, width, 0, {
-      isStatic: true,
-      ...wallStyle,
-    });
-    const ceiling = Bodies.rectangle(width / 2, 0, width, 0, {
-      isStatic: true,
-      ...wallStyle,
-    });
-    const wallL = Bodies.rectangle(0, height, 0, height, {
-      isStatic: true,
-      ...wallStyle,
-    });
-    const wallR = Bodies.rectangle(width, height / 2, 0, height, {
-      isStatic: true,
-      ...wallStyle,
-    });
+    // Composite.add(engine.current.world, [ground, ceiling, wallL, wallR]);
 
-    Composite.add(engine.current.world, [ground, ceiling, wallL, wallR]);
-
-    Runner.run(engine.current);
-    Render.run(render);
+    // Runner.run(engine.current);
+    // Render.run(render);
 
     const addLetterRectangles = () => {
-      if (!ref.current) return;
+      if (!canvasRef.current) return;
       const letterContainers = document.getElementsByClassName("letter");
-      const containerY = ref.current.getBoundingClientRect().top;
-      const containerX = ref.current.getBoundingClientRect().left;
-
-      console.log({ containerX, containerY });
+      const containerY = canvasRef.current.getBoundingClientRect().top;
+      const containerX = canvasRef.current.getBoundingClientRect().left;
 
       for (let i = 0; i < letterContainers.length; i++) {
         const letterContainer = letterContainers[i];
+
+        // if (letterContainer.textContent?.trim() === "") {
+        //   rectangles.current[i] = undefined;
+        // }
 
         const width = letterContainer.getBoundingClientRect().width;
         const height = letterContainer.getBoundingClientRect().height;
         const x = letterContainer.getBoundingClientRect().x - containerX;
         const y = letterContainer.getBoundingClientRect().y - containerY;
 
-        console.log(letterContainer.textContent, { width, height, x, y });
+        console.log({
+          content: letterContainer.textContent,
+          width,
+          height,
+          x,
+          y,
+        });
 
         rectangles.current[i] = {
           x,
@@ -173,18 +206,37 @@ const MatterCanvas = ({ containerRef }: Props) => {
           angleRad: 0,
         };
 
-        const rectangle = Bodies.rectangle(x, y, width, height, {
-          mass: 10,
-          restitution: 0.9,
-          friction: 0.005,
-          isStatic: true,
-          render: {
-            fillStyle: "rgba(190, 228, 16, 0.2);",
-            strokeStyle: "#05ff01",
-            lineWidth: 4,
-          },
-        });
+        const rectangle = Bodies.rectangle(
+          x + width / 2,
+          y + height / 2,
+          width,
+          height,
+          {
+            mass: 10,
+            restitution: 0.9,
+            friction: 0.005,
+            // isStatic: true,
+            render: {
+              fillStyle: "rgba(190, 228, 16, 0.2);",
+              strokeStyle: "#05ff01",
+              lineWidth: 4,
+            },
+          }
+        );
 
+        // const testBody = Bodies.circle(x, y, 10, {
+        //   mass: 10,
+        //   restitution: 0.9,
+        //   friction: 0.005,
+        //   isStatic: true,
+        //   render: {
+        //     fillStyle: "rgba(190, 228, 16, 0.2);",
+        //     strokeStyle: "#05ff01",
+        //     lineWidth: 4,
+        //   },
+        // });
+
+        // Composite.add(engine.current.world, testBody);
         Composite.add(engine.current.world, rectangle);
         // break;
       }
@@ -192,15 +244,15 @@ const MatterCanvas = ({ containerRef }: Props) => {
     // addLetterRectangles();
     setTimeout(addLetterRectangles, 500);
 
-    return () => {
-      Render.stop(render);
-      World.clear(engine.current.world, false);
-      Engine.clear(engine.current);
-      render.canvas.remove();
-      //   render.canvas = null
-      //   render.context = null
-      render.textures = {};
-    };
+    // return () => {
+    //   Render.stop(render);
+    //   World.clear(engine.current.world, false);
+    //   Engine.clear(engine.current);
+    //   render.canvas.remove();
+    //   //   render.canvas = null
+    //   //   render.context = null
+    //   render.textures = {};
+    // };
   }, []);
 
   useEffect(function triggerAnimation() {
@@ -210,6 +262,8 @@ const MatterCanvas = ({ containerRef }: Props) => {
       let i = 0;
       for (const rectangle of Composite.allBodies(engine.current.world)) {
         if (rectangle.isStatic) continue;
+        // if (rectangle.isStatic || rectangles.current[i] === undefined) continue;
+        console.log(rectangles.current[i]);
 
         rectangles.current[i].x = rectangle.position.x;
         rectangles.current[i].y = rectangle.position.y;
@@ -232,24 +286,28 @@ const MatterCanvas = ({ containerRef }: Props) => {
 
   return (
     <>
-      <Scene ref={scene} />
-      <Canvas ref={ref}>
-        {rectangles.current.map((rectangle, key) => (
-          <Rectangle
-            key={key}
-            style={{
-              // top: rectangle.y - rectangle.height / 2,
-              // left: rectangle.x - rectangle.width / 2,
-              top: rectangle.y,
-              left: rectangle.x,
-              width: rectangle.width,
-              height: rectangle.height,
-              // rotate: `${rectangle.angleRad}rad`,
-            }}
-          >
-            <Letter variant="Header">{textArray[key]}</Letter>
-          </Rectangle>
-        ))}
+      <Canvas ref={canvasRef}>
+        {rectangles.current.map((rectangle, key) => {
+          // if (!rectangle || textArray[key] === " ") return null;
+          if (!rectangle) return null;
+
+          return (
+            <Rectangle
+              key={key}
+              style={{
+                top: rectangle.y - rectangle.height / 2,
+                left: rectangle.x - rectangle.width / 2,
+                // top: rectangle.y,
+                // left: rectangle.x,
+                width: rectangle.width,
+                height: rectangle.height,
+                rotate: `${rectangle.angleRad}rad`,
+              }}
+            >
+              <Letter variant="Header">{textArray[key]}</Letter>
+            </Rectangle>
+          );
+        })}
       </Canvas>
     </>
   );
