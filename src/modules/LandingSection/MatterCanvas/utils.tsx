@@ -152,75 +152,60 @@ export const showCanvasShapes = (
   Render.run(render);
 };
 
-export const getAdjustedPosition = (
-  symbol: string
-): { x: number; y: number } => {
-  switch (symbol) {
-    case "m":
-    case "n":
-    case "r":
-    case "h":
-    case "l":
-    case "I":
-    case "W":
-    case "V":
-    case "Y":
-    case "S":
-    case "G":
-    case "Z":
-      return { x: 0, y: -10 };
-    case "C":
-    case "D":
-    case "M":
-    case "O":
-    case "K":
-      return { x: 0, y: -8 };
-    case "t":
-    case "B":
-    case "E":
-      return { x: 0, y: -5 };
-    case "e":
-    case "u":
-      return { x: 0, y: 8 };
-    case "T":
-    case "f":
-      return { x: 0, y: -25 };
-    case "'":
-      return { x: 0, y: -38 };
-    case ".":
-    case ",":
-      return { x: 0, y: 20 };
-    case "!":
-    case "?":
-      return { x: 0, y: -20 };
-    case "g":
-      return { x: 0, y: 25 };
-    case "k":
-    case "c":
-      return { x: 0, y: -2 };
-    case "Q":
-      return { x: 10, y: 13 };
-    case "d":
-      return { x: 8, y: -4 };
-    case "q":
-      return { x: 8, y: 5 };
-    case "a":
-      return { x: 5, y: 0 };
-    case "H":
-      return { x: 2, y: -10 };
-    case "y":
-      return { x: -2, y: 10 };
-    case "F":
-      return { x: -2, y: -10 };
-    case "J":
-      return { x: -2, y: 8 };
-    case "P":
-      return { x: -5, y: -8 };
-    case "b":
-      return { x: -10, y: -2 };
-    case "p":
-      return { x: -10, y: 8 };
-    default:
-      return { x: 0, y: 0 };
-  }
+export const getAdjustedPosition = (): {
+  [key: string]: { x: number; y: number };
+} => {
+  const positions: { [key: string]: { x: number; y: number } } = {
+    m: { x: 0, y: -10 },
+    n: { x: 0, y: -10 },
+    r: { x: 0, y: -10 },
+    h: { x: 0, y: -10 },
+    l: { x: 0, y: -10 },
+    I: { x: 0, y: -10 },
+    W: { x: 0, y: -10 },
+    V: { x: 0, y: -10 },
+    Y: { x: 0, y: -10 },
+    S: { x: 0, y: -10 },
+    G: { x: 0, y: -10 },
+    Z: { x: 0, y: -10 },
+    C: { x: 0, y: -8 },
+    D: { x: 0, y: -8 },
+    M: { x: 0, y: -8 },
+    O: { x: 0, y: -8 },
+    K: { x: 0, y: -8 },
+    t: { x: 0, y: -5 },
+    B: { x: 0, y: -5 },
+    E: { x: 0, y: -5 },
+    e: { x: 0, y: 8 },
+    u: { x: 0, y: 8 },
+    T: { x: 0, y: -25 },
+    f: { x: 0, y: -25 },
+    "'": { x: 0, y: -38 },
+    ".": { x: 0, y: 20 },
+    ",": { x: 0, y: 20 },
+    "!": { x: 0, y: -20 },
+    "?": { x: 0, y: -20 },
+    g: { x: 0, y: 25 },
+    k: { x: 0, y: -2 },
+    c: { x: 0, y: -2 },
+    Q: { x: 10, y: 13 },
+    d: { x: 8, y: -4 },
+    q: { x: 8, y: 5 },
+    a: { x: 5, y: 0 },
+    H: { x: 2, y: -10 },
+    y: { x: -2, y: 10 },
+    F: { x: -2, y: -10 },
+    J: { x: -2, y: 8 },
+    P: { x: -5, y: -8 },
+    b: { x: -10, y: -2 },
+    p: { x: -10, y: 8 },
+  };
+
+  // Return a Proxy to handle missing keys with a default value of { x: 0, y: 0 }
+  return new Proxy(positions, {
+    get(target, prop: string) {
+      // Return the corresponding value if the key exists, otherwise return the default value
+      return prop in target ? target[prop] : { x: 0, y: 0 };
+    },
+  });
 };

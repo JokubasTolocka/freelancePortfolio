@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Bodies, Composite, Engine, Render, Runner, Vertices } from "matter-js";
+import { Bodies, Composite, Engine, Vertices } from "matter-js";
 import styled from "styled-components";
 import Typography from "../../../components/Typography";
 
@@ -16,6 +16,7 @@ import opentype, { Font } from "opentype.js";
 window.decomp = require("poly-decomp");
 
 interface Rectangle {
+  letter: string;
   x: number;
   y: number;
   width: number;
@@ -41,9 +42,8 @@ const Letter = styled(Typography)`
   font-weight: 500;
 `;
 
-const text = `I'mJacob,awebcreatorcraftinguserexperiencesthroughdesignanddevelopment`;
-
-const textArray = text.split("");
+// matterJS letter bodies are slightly off the letters in the DOM. We adjust matterJS positions
+const adjustedLetterPositions = getAdjustedPosition();
 
 const MatterCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -81,58 +81,53 @@ const MatterCanvas = () => {
           for (let i = 0; i < letterContainers.length; i++) {
             const letterContainer = letterContainers[i];
 
+            const { textContent } = letterContainer;
+
             // Don't add spaces
-            if (
-              letterContainer.textContent?.trim() === "" ||
-              !letterContainer.textContent
-            )
-              continue;
+            if (textContent?.trim() === "" || !textContent) continue;
 
             const width = letterContainer.getBoundingClientRect().width;
             const height = letterContainer.getBoundingClientRect().height;
             const x = letterContainer.getBoundingClientRect().x - containerX;
             const y = letterContainer.getBoundingClientRect().y - containerY;
 
-            const letterPath = loadedFont.getPath(
-              letterContainer.textContent,
-              0,
-              0,
-              90
-            );
+            const letterPath = loadedFont.getPath(textContent, 0, 0, 90);
 
             const dottedLetters = ["i", "j"];
 
             // Get vertices string from path data;
             const verticesString = pathDataToString(
               letterPath,
-              dottedLetters.includes(letterContainer.textContent)
+              dottedLetters.includes(textContent)
             );
             // Make makerjs Vertices array from vertices string
             const letterVertices = Vertices.fromPath(verticesString);
 
             // Some letters get rendered a little bit off their supposed centre, this will handle it
-            const { x: adjustedX, y: adjustedY } = getAdjustedPosition(
-              letterContainer.textContent
-            );
+            const { x: adjustedX, y: adjustedY } =
+              adjustedLetterPositions[textContent];
 
-            console.log({
-              letter: letterContainer.textContent,
-              letterPath,
-              letterVertices,
-              verticesString,
-            });
+            // console.log({
+            //   letter: letterContainer.textContent,
+            //   letterPath,
+            //   letterVertices,
+            //   verticesString,
+            // });
 
             // Letters that throw errors are j,x,X,L,N
             // I am not using them in my heading so will ignore this for now
             try {
-              const letter = Bodies.fromVertices(
+              const letterBody = Bodies.fromVertices(
                 x + width / 2 + adjustedX,
                 y + height / 2 + 15 + adjustedY,
                 [letterVertices],
                 {
                   mass: 1,
-                  restitution: 0,
+                  restitution: 1,
                   friction: 0.005,
+                  // mass: 1,
+                  // restitution: 0,
+                  // friction: 0.005,
                   // isStatic: true,
                   render: {
                     fillStyle: "rgba(190, 228, 16, 0.2);",
@@ -141,7 +136,16 @@ const MatterCanvas = () => {
                   },
                 }
               );
-              Composite.add(engine.current.world, letter);
+
+              // console.log({
+              //   letter: textContent,
+              //   bounds: letterBody.bounds,
+              //   position: letterBody.position,
+              //   width,
+              //   height,
+              // });
+
+              Composite.add(engine.current.world, letterBody);
             } catch (e) {
               console.log(e);
             }
@@ -150,6 +154,7 @@ const MatterCanvas = () => {
             //   left: rectangle.x - rectangle.width / 2,
 
             rectangles.current.push({
+              letter: textContent,
               x: x,
               y: y,
               width,
@@ -184,8 +189,11 @@ const MatterCanvas = () => {
         // if (rectangle.isStatic || rectangles.current[i] === undefined) continue;
         // console.log(rectangles.current[i]);
 
-        rectangles.current[i].x = rectangle.position.x;
-        rectangles.current[i].y = rectangle.position.y;
+        const { x: adjustedX, y: adjustedY } =
+          adjustedLetterPositions[rectangles.current[i].letter];
+
+        rectangles.current[i].x = rectangle.position.x - adjustedX;
+        rectangles.current[i].y = rectangle.position.y - adjustedY;
         rectangles.current[i].angleRad = rectangle.angle;
 
         i += 1;
@@ -206,26 +214,31 @@ const MatterCanvas = () => {
   return (
     <Canvas ref={canvasRef}>
       {rectangles.current.map((rectangle, key) => {
-        if (!rectangle || textArray[key] === "") return null;
-
-        const { x: adjustedX, y: adjustedY } = getAdjustedPosition(
-          textArray[key]
-        );
+        if (!rectangle) return null;
 
         return (
           <Rectangle
             key={key}
             style={{
-              top: rectangle.y - rectangle.height / 2 - 15 - adjustedY,
-              left: rectangle.x - rectangle.width / 2 - adjustedX,
-              // top: rectangle.y,
-              // left: rectangle.x,
+              // top: rectangle.y - rectangle.height / 2,
+              // left: rectangle.x - rectangle.width / 2,
+              top: rectangle.y - rectangle.height / 2 - 15,
+              left: rectangle.x - rectangle.width / 2,
               width: rectangle.width,
               height: rectangle.height,
+              // height: rectangle.height - 45,
               rotate: `${rectangle.angleRad}rad`,
+              // 100px works for perfectly positioning letter g
+              // transformOrigin: `center 100px`,
+              // transformOrigin: `center center`,
+              transformOrigin: "50% 100%",
+              // transformOrigin: `${rectangle.width / 2 + adjustedX}px ${
+              //   rectangle.height / 2 + adjustedY
+              // }px`,
             }}
           >
-            <Letter variant="Header">{textArray[key]}</Letter>
+            <Rectangle style={{ width: 10, height: 10 }} />
+            <Letter variant="Header">{rectangle.letter}</Letter>
           </Rectangle>
         );
       })}
