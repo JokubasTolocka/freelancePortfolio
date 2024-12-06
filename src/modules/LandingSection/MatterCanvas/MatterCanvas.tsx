@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Bodies, Composite, Engine, Vertices } from "matter-js";
+import { Bodies, Body, Composite, Engine, Vertices, World } from "matter-js";
 import styled from "styled-components";
 import Typography from "../../../components/Typography";
 
@@ -22,6 +22,7 @@ interface Rectangle {
   width: number;
   height: number;
   angleRad: number;
+  tranformOrigin: { x: number; y: number };
 }
 
 const Canvas = styled.div`
@@ -29,12 +30,12 @@ const Canvas = styled.div`
   height: 100%;
   position: absolute;
   z-index: 3;
-  background: rgba(57, 150, 68, 0.5);
+  /* background: rgba(57, 150, 68, 0.5); */
   overflow: hidden;
 `;
 
 const Rectangle = styled.div`
-  background-color: rgba(217, 84, 12, 0.2);
+  /* background-color: rgba(217, 84, 12, 0.2); */
   position: absolute;
 `;
 
@@ -54,15 +55,22 @@ const MatterCanvas = () => {
 
   useEffect(() => {
     createBoundingBox(canvasRef, engine);
+
+    return () => {
+      World.clear(engine.current.world, false);
+      Engine.clear(engine.current);
+    };
   }, []);
 
   useEffect(() => {
-    showCanvasShapes(canvasRef, engine);
+    // showCanvasShapes(canvasRef, engine);
 
-    engine.current.gravity.y = 0.2;
+    // Adjust world gravity
+    // engine.current.gravity.y = 0.2;
 
     const addLetterRectangles = async () => {
       if (!canvasRef.current) return;
+
       const letterContainers = document.getElementsByClassName("letter");
 
       const containerY = canvasRef.current.getBoundingClientRect().top;
@@ -107,13 +115,6 @@ const MatterCanvas = () => {
             const { x: adjustedX, y: adjustedY } =
               adjustedLetterPositions[textContent];
 
-            // console.log({
-            //   letter: letterContainer.textContent,
-            //   letterPath,
-            //   letterVertices,
-            //   verticesString,
-            // });
-
             // Letters that throw errors are j,x,X,L,N
             // I am not using them in my heading so will ignore this for now
             try {
@@ -134,55 +135,37 @@ const MatterCanvas = () => {
                 }
               );
 
-              // I need to get centre of mass for transform origin
-
-              console.log({
+              rectangles.current.push({
                 letter: textContent,
-                bounds: letterBody.bounds,
-                position: letterBody.position,
+                x,
+                y,
                 width,
                 height,
-                htmlXmin: x,
-                htmlXmax: x + width,
-                htmlYmin: y,
-                htmlYmax: y + height,
+                angleRad: 0,
+                // I need to get centre of mass for transform origin
+                tranformOrigin: {
+                  x: width - (x + width - letterBody.position.x),
+                  y: height - (y + height - letterBody.position.y),
+                },
               });
 
               Composite.add(engine.current.world, letterBody);
             } catch (e) {
               console.log(e);
             }
-
-            rectangles.current.push({
-              letter: textContent,
-              x,
-              y,
-              width,
-              height,
-              angleRad: 0,
-            });
           }
         }
       });
     };
+
     // addLetterRectangles();
     setTimeout(addLetterRectangles, 500);
-
-    // return () => {
-    //   Render.stop(render);
-    //   World.clear(engine.current.world, false);
-    //   Engine.clear(engine.current);
-    //   render.canvas.remove();
-    //   //   render.canvas = null
-    //   //   render.context = null
-    //   render.textures = {};
-    // };
   }, []);
 
   useEffect(function triggerAnimation() {
     let unsubscribe: number;
 
-    function animate() {
+    const animate = () => {
       let i = 0;
       for (const rectangle of Composite.allBodies(engine.current.world)) {
         if (rectangle.isStatic) continue;
@@ -204,7 +187,7 @@ const MatterCanvas = () => {
       setAnim((x) => x + 1);
 
       unsubscribe = requestAnimationFrame(animate);
-    }
+    };
 
     unsubscribe = requestAnimationFrame(animate);
 
@@ -218,25 +201,20 @@ const MatterCanvas = () => {
       {rectangles.current.map((rectangle, key) => {
         if (!rectangle) return null;
 
+        const { x, y, width, height, angleRad, tranformOrigin } = rectangle;
+
         return (
           <Rectangle
             key={key}
             style={{
-              top: rectangle.y,
-              left: rectangle.x,
-              width: rectangle.width,
-              height: rectangle.height,
-              rotate: `${rectangle.angleRad}rad`,
-              // 100px works for perfectly positioning letter g
-              // transformOrigin: `center 100px`,
-              // transformOrigin: `center center`,
-              // transformOrigin: "50% 100%",
-              // transformOrigin: `${rectangle.width / 2 + adjustedX}px ${
-              //   rectangle.height / 2 + adjustedY
-              // }px`,
+              top: y,
+              left: x,
+              width,
+              height,
+              rotate: `${angleRad}rad`,
+              transformOrigin: `${tranformOrigin.x}px ${tranformOrigin.y}px`,
             }}
           >
-            {/* <Rectangle style={{ width: 10, height: 10 }} /> */}
             <Letter variant="Header">{rectangle.letter}</Letter>
           </Rectangle>
         );
