@@ -103,7 +103,7 @@ const MatterCanvas = () => {
             // Make makerjs Vertices array from vertices string
             const letterVertices = Vertices.fromPath(verticesString);
 
-            // Some letters get rendered a little bit off their supposed centre, this will handle it
+            // Some letters get rendered a bit off their supposed centre, this will handle it
             const { x: adjustedX, y: adjustedY } =
               adjustedLetterPositions[textContent];
 
@@ -125,9 +125,6 @@ const MatterCanvas = () => {
                   mass: 1,
                   restitution: 1,
                   friction: 0.005,
-                  // mass: 1,
-                  // restitution: 0,
-                  // friction: 0.005,
                   // isStatic: true,
                   render: {
                     fillStyle: "rgba(190, 228, 16, 0.2);",
@@ -137,26 +134,29 @@ const MatterCanvas = () => {
                 }
               );
 
-              // console.log({
-              //   letter: textContent,
-              //   bounds: letterBody.bounds,
-              //   position: letterBody.position,
-              //   width,
-              //   height,
-              // });
+              // I need to get centre of mass for transform origin
+
+              console.log({
+                letter: textContent,
+                bounds: letterBody.bounds,
+                position: letterBody.position,
+                width,
+                height,
+                htmlXmin: x,
+                htmlXmax: x + width,
+                htmlYmin: y,
+                htmlYmax: y + height,
+              });
 
               Composite.add(engine.current.world, letterBody);
             } catch (e) {
               console.log(e);
             }
 
-            // rectangle.y - rectangle.height / 2 - 15,
-            //   left: rectangle.x - rectangle.width / 2,
-
             rectangles.current.push({
               letter: textContent,
-              x: x,
-              y: y,
+              x,
+              y,
               width,
               height,
               angleRad: 0,
@@ -186,14 +186,16 @@ const MatterCanvas = () => {
       let i = 0;
       for (const rectangle of Composite.allBodies(engine.current.world)) {
         if (rectangle.isStatic) continue;
-        // if (rectangle.isStatic || rectangles.current[i] === undefined) continue;
-        // console.log(rectangles.current[i]);
 
         const { x: adjustedX, y: adjustedY } =
           adjustedLetterPositions[rectangles.current[i].letter];
 
-        rectangles.current[i].x = rectangle.position.x - adjustedX;
-        rectangles.current[i].y = rectangle.position.y - adjustedY;
+        const currentRect = rectangles.current[i];
+
+        rectangles.current[i].x =
+          rectangle.position.x - currentRect.width / 2 - adjustedX;
+        rectangles.current[i].y =
+          rectangle.position.y - currentRect.height / 2 - 15 - adjustedY;
         rectangles.current[i].angleRad = rectangle.angle;
 
         i += 1;
@@ -220,24 +222,21 @@ const MatterCanvas = () => {
           <Rectangle
             key={key}
             style={{
-              // top: rectangle.y - rectangle.height / 2,
-              // left: rectangle.x - rectangle.width / 2,
-              top: rectangle.y - rectangle.height / 2 - 15,
-              left: rectangle.x - rectangle.width / 2,
+              top: rectangle.y,
+              left: rectangle.x,
               width: rectangle.width,
               height: rectangle.height,
-              // height: rectangle.height - 45,
               rotate: `${rectangle.angleRad}rad`,
               // 100px works for perfectly positioning letter g
               // transformOrigin: `center 100px`,
               // transformOrigin: `center center`,
-              transformOrigin: "50% 100%",
+              // transformOrigin: "50% 100%",
               // transformOrigin: `${rectangle.width / 2 + adjustedX}px ${
               //   rectangle.height / 2 + adjustedY
               // }px`,
             }}
           >
-            <Rectangle style={{ width: 10, height: 10 }} />
+            {/* <Rectangle style={{ width: 10, height: 10 }} /> */}
             <Letter variant="Header">{rectangle.letter}</Letter>
           </Rectangle>
         );
