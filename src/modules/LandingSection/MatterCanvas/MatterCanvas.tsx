@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Bodies, Body, Composite, Engine, Vertices, World } from "matter-js";
+import { Bodies, Composite, Engine, Vertices, World } from "matter-js";
 import styled from "styled-components";
 import Typography from "../../../components/Typography";
 
@@ -7,7 +7,6 @@ import {
   createBoundingBox,
   getAdjustedPosition,
   pathDataToString,
-  showCanvasShapes,
 } from "./utils";
 import opentype, { Font } from "opentype.js";
 
@@ -43,6 +42,8 @@ const Letter = styled(Typography)`
   font-weight: 500;
 `;
 
+const DOTTER_LETTERS_ARR = ["i", "j"];
+
 // matterJS letter bodies are slightly off the letters in the DOM. We adjust matterJS positions
 const adjustedLetterPositions = getAdjustedPosition();
 
@@ -68,7 +69,7 @@ const MatterCanvas = () => {
     // Adjust world gravity
     // engine.current.gravity.y = 0.2;
 
-    const addLetterRectangles = async () => {
+    const addLetterRectangles = () => {
       if (!canvasRef.current) return;
 
       const letterContainers = document.getElementsByClassName("letter");
@@ -78,37 +79,35 @@ const MatterCanvas = () => {
 
       let loadedFont: Font;
 
-      await opentype.load("./fonts/Poppins-Medium.ttf", function (err, font) {
-        if (err || !font) alert("Could not load font: " + err);
+      opentype.load("./fonts/Poppins-Medium.ttf", (err, font) => {
+        if (err || !font) console.log("Could not load font: " + err);
         else {
           loadedFont = font;
 
           // MATTERJS EXPLOSION
           // https://github.com/liabru/matter-js/blob/master/examples/timescale.js
 
-          for (let i = 0; i < letterContainers.length; i++) {
-            const letterContainer = letterContainers[i];
-
+          Array.from(letterContainers).forEach((letterContainer: Element) => {
             const { textContent } = letterContainer;
 
             // Don't add spaces
-            if (textContent?.trim() === "" || !textContent) continue;
+            if (!textContent?.trim()) return;
 
-            const width = letterContainer.getBoundingClientRect().width;
-            const height = letterContainer.getBoundingClientRect().height;
-            const x = letterContainer.getBoundingClientRect().x - containerX;
-            const y = letterContainer.getBoundingClientRect().y - containerY;
+            const boundingClientRect = letterContainer.getBoundingClientRect();
+
+            const { width, height } = boundingClientRect;
+            const x = boundingClientRect.x - containerX;
+            const y = boundingClientRect.y - containerY;
 
             const letterPath = loadedFont.getPath(textContent, 0, 0, 90);
-
-            const dottedLetters = ["i", "j"];
 
             // Get vertices string from path data;
             const verticesString = pathDataToString(
               letterPath,
-              dottedLetters.includes(textContent)
+              DOTTER_LETTERS_ARR.includes(textContent)
             );
             // Make makerjs Vertices array from vertices string
+            // @ts-ignore
             const letterVertices = Vertices.fromPath(verticesString);
 
             // Some letters get rendered a bit off their supposed centre, this will handle it
@@ -135,6 +134,8 @@ const MatterCanvas = () => {
                 }
               );
 
+              Composite.add(engine.current.world, letterBody);
+
               rectangles.current.push({
                 letter: textContent,
                 x,
@@ -142,18 +143,16 @@ const MatterCanvas = () => {
                 width,
                 height,
                 angleRad: 0,
-                // I need to get centre of mass for transform origin
+                // Get centre of mass for transform origin
                 tranformOrigin: {
                   x: width - (x + width - letterBody.position.x),
                   y: height - (y + height - letterBody.position.y),
                 },
               });
-
-              Composite.add(engine.current.world, letterBody);
-            } catch (e) {
-              console.log(e);
+            } catch (error) {
+              console.error("Error processing letter body:", error);
             }
-          }
+          });
         }
       });
     };
@@ -162,45 +161,42 @@ const MatterCanvas = () => {
     setTimeout(addLetterRectangles, 500);
   }, []);
 
-  useEffect(function triggerAnimation() {
-    let unsubscribe: number;
+  useEffect(() => {
+    let animationFrameId: number;
 
     const animate = () => {
       let i = 0;
-      for (const rectangle of Composite.allBodies(engine.current.world)) {
-        if (rectangle.isStatic) continue;
+      Composite.allBodies(engine.current.world).forEach((body) => {
+        if (body.isStatic) return;
+
+        const rect = rectangles.current[i];
 
         const { x: adjustedX, y: adjustedY } =
-          adjustedLetterPositions[rectangles.current[i].letter];
+          adjustedLetterPositions[rect.letter];
 
-        const currentRect = rectangles.current[i];
-
-        rectangles.current[i].x =
-          rectangle.position.x - currentRect.width / 2 - adjustedX;
-        rectangles.current[i].y =
-          rectangle.position.y - currentRect.height / 2 - 15 - adjustedY;
-        rectangles.current[i].angleRad = rectangle.angle;
+        rect.x = body.position.x - rect.width / 2 - adjustedX;
+        rect.y = body.position.y - rect.height / 2 - 15 - adjustedY;
+        rect.angleRad = body.angle;
 
         i += 1;
-      }
+      });
 
+      // This is needed for component render update
       setAnim((x) => x + 1);
 
-      unsubscribe = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    unsubscribe = requestAnimationFrame(animate);
+    animate();
 
     return () => {
-      cancelAnimationFrame(unsubscribe);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
     <Canvas ref={canvasRef}>
       {rectangles.current.map((rectangle, key) => {
-        if (!rectangle) return null;
-
         const { x, y, width, height, angleRad, tranformOrigin } = rectangle;
 
         return (
