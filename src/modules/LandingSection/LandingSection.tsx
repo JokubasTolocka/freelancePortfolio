@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styled, { useTheme } from "styled-components";
 import { HEADER_CONTENT_HEIGHT } from "../../components/Header";
 import Typography from "../../components/Typography";
-import AnimatedLetters from "../../components/LandingText/AnimatedLetters";
+import AnimatedLetters from "../../components/AnimatedLetters";
 import MatterCanvas from "./MatterCanvas/MatterCanvas";
 import { useAnimate } from "framer-motion";
 
@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
   position: relative;
   height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
-  /* background-color: rgba('1') */
 `;
 
 const Content = styled.div`

@@ -41,19 +41,17 @@ const Wrapper = styled.div`
   grid-template-rows: 1fr 1fr;
 `;
 
-const ServicesSection = () => {
-  return (
-    <Wrapper>
-      {SERVICES.map(({ title, description }, key) => (
-        <ServicesCard
-          key={key}
-          title={title}
-          description={description}
-          elementIndex={key + 1}
-        />
-      ))}
-    </Wrapper>
-  );
-};
+const ServicesSection = () => (
+  <Wrapper>
+    {SERVICES.map(({ title, description }, key) => (
+      <ServicesCard
+        key={key}
+        title={title}
+        description={description}
+        elementIndex={key + 1}
+      />
+    ))}
+  </Wrapper>
+);
 
 export default ServicesSection;

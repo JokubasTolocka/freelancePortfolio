@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 import Typography from "./Typography";
-import { motion } from "framer-motion";
 import FlipText from "./FlipTextAnimation";
 
 const StyledButton = styled.button`

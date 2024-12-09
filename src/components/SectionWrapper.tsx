@@ -33,18 +33,13 @@ type Props = {
 const SectionWrapper = ({
   children,
   titles,
-  squiggleColors,
   isVerticallyCentered,
 }: PropsWithChildren<Props>) => (
   <Wrapper $isVerticallyCentered={isVerticallyCentered}>
     <Container>
       <TitleWrapper>
         {titles.map((title, index) => (
-          <SectionTitle
-            title={title}
-            squiggleColor={squiggleColors[index]}
-            key={title}
-          />
+          <SectionTitle title={title} key={title + index} />
         ))}
       </TitleWrapper>
       {children}
