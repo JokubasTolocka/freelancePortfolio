@@ -1,20 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Bodies, Composite, Engine, Vertices, World } from "matter-js";
+import { Composite, Engine, World } from "matter-js";
 import styled from "styled-components";
 import Typography from "../../../components/Typography";
 
+import { getAdjustedPosition } from "./utils";
+import { FALL_ANIMATION_DELAY_SECONDS } from "../LandingSection";
 import {
+  addMouseDragHandling,
   createBoundingBox,
-  getAdjustedPosition,
-  pathDataToString,
-} from "./utils";
-import opentype, { Font } from "opentype.js";
+  handleExplosion,
+} from "./matterJsUtils";
+import { addLetterShapes } from "./addLetterShapes";
 
 // For polygons with angles more than 180 degrees like L or E
 // @ts-ignore
 window.decomp = require("poly-decomp");
 
-interface Rectangle {
+export interface Rectangle {
   letter: string;
   x: number;
   y: number;
@@ -36,129 +38,42 @@ const Canvas = styled.div`
 const Rectangle = styled.div`
   /* background-color: rgba(217, 84, 12, 0.2); */
   position: absolute;
+  user-select: none;
 `;
 
 const Letter = styled(Typography)`
   font-weight: 500;
 `;
 
-const DOTTER_LETTERS_ARR = ["i", "j"];
-
 // matterJS letter bodies are slightly off the letters in the DOM. We adjust matterJS positions
-const adjustedLetterPositions = getAdjustedPosition();
+const ADJUSTED_LETTER_POSITIONS = getAdjustedPosition();
 
 const MatterCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
-  const rectangles = useRef<Rectangle[]>([]);
-  const engine = useRef(Engine.create());
+  const engineRef = useRef(Engine.create());
+  const rectanglesRef = useRef<Rectangle[]>([]);
 
   const [, setAnim] = useState(0);
 
   useEffect(() => {
-    createBoundingBox(canvasRef, engine);
+    createBoundingBox(canvasRef, engineRef);
+    addMouseDragHandling(canvasRef, engineRef);
 
+    // Adjust world gravity
+    // engineRef.current.gravity.y = 0.2;
     return () => {
-      World.clear(engine.current.world, false);
-      Engine.clear(engine.current);
+      World.clear(engineRef.current.world, false);
+      Engine.clear(engineRef.current);
     };
   }, []);
 
   useEffect(() => {
-    // showCanvasShapes(canvasRef, engine);
+    // showCanvasShapes(canvasRef, engineRef);
 
-    // Adjust world gravity
-    // engine.current.gravity.y = 0.2;
+    const handleAddLetterShapes = () =>
+      addLetterShapes(canvasRef, engineRef, rectanglesRef);
 
-    const addLetterRectangles = () => {
-      if (!canvasRef.current) return;
-
-      const letterContainers = document.getElementsByClassName("letter");
-
-      const containerY = canvasRef.current.getBoundingClientRect().top;
-      const containerX = canvasRef.current.getBoundingClientRect().left;
-
-      let loadedFont: Font;
-
-      opentype.load("./fonts/Poppins-Medium.ttf", (err, font) => {
-        if (err || !font) console.log("Could not load font: " + err);
-        else {
-          loadedFont = font;
-
-          // MATTERJS EXPLOSION
-          // https://github.com/liabru/matter-js/blob/master/examples/timescale.js
-
-          Array.from(letterContainers).forEach((letterContainer: Element) => {
-            const { textContent } = letterContainer;
-
-            // Don't add spaces
-            if (!textContent?.trim()) return;
-
-            const boundingClientRect = letterContainer.getBoundingClientRect();
-
-            const { width, height } = boundingClientRect;
-            const x = boundingClientRect.x - containerX;
-            const y = boundingClientRect.y - containerY;
-
-            const letterPath = loadedFont.getPath(textContent, 0, 0, 90);
-
-            // Get vertices string from path data;
-            const verticesString = pathDataToString(
-              letterPath,
-              DOTTER_LETTERS_ARR.includes(textContent)
-            );
-            // Make makerjs Vertices array from vertices string
-            // @ts-ignore
-            const letterVertices = Vertices.fromPath(verticesString);
-
-            // Some letters get rendered a bit off their supposed centre, this will handle it
-            const { x: adjustedX, y: adjustedY } =
-              adjustedLetterPositions[textContent];
-
-            // Letters that throw errors are j,x,X,L,N
-            // I am not using them in my heading so will ignore this for now
-            try {
-              const letterBody = Bodies.fromVertices(
-                x + width / 2 + adjustedX,
-                y + height / 2 + 15 + adjustedY,
-                [letterVertices],
-                {
-                  mass: 1,
-                  restitution: 1,
-                  friction: 0.005,
-                  // isStatic: true,
-                  render: {
-                    fillStyle: "rgba(190, 228, 16, 0.2);",
-                    strokeStyle: "#05ff01",
-                    lineWidth: 4,
-                  },
-                }
-              );
-
-              Composite.add(engine.current.world, letterBody);
-
-              rectangles.current.push({
-                letter: textContent,
-                x,
-                y,
-                width,
-                height,
-                angleRad: 0,
-                // Get centre of mass for transform origin
-                tranformOrigin: {
-                  x: width - (x + width - letterBody.position.x),
-                  y: height - (y + height - letterBody.position.y),
-                },
-              });
-            } catch (error) {
-              console.error("Error processing letter body:", error);
-            }
-          });
-        }
-      });
-    };
-
-    // addLetterRectangles();
-    setTimeout(addLetterRectangles, 500);
+    setTimeout(handleAddLetterShapes, FALL_ANIMATION_DELAY_SECONDS * 1000);
   }, []);
 
   useEffect(() => {
@@ -166,16 +81,16 @@ const MatterCanvas = () => {
 
     const animate = () => {
       let i = 0;
-      Composite.allBodies(engine.current.world).forEach((body) => {
+      Composite.allBodies(engineRef.current.world).forEach((body) => {
         if (body.isStatic) return;
 
-        const rect = rectangles.current[i];
+        const rect = rectanglesRef.current[i];
 
         const { x: adjustedX, y: adjustedY } =
-          adjustedLetterPositions[rect.letter];
+          ADJUSTED_LETTER_POSITIONS[rect.letter];
 
         rect.x = body.position.x - rect.width / 2 - adjustedX;
-        rect.y = body.position.y - rect.height / 2 - 15 - adjustedY;
+        rect.y = body.position.y - rect.height / 2 - adjustedY;
         rect.angleRad = body.angle;
 
         i += 1;
@@ -194,9 +109,36 @@ const MatterCanvas = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const boundingClientRect = canvasRef.current.getBoundingClientRect();
+    const { width, height } = boundingClientRect;
+
+    setTimeout(
+      () =>
+        handleExplosion(
+          {
+            // position explosion at the centre of the screen
+            layerX: width / 2,
+            layerY: height / 2,
+          } as MouseEvent,
+          engineRef
+        ),
+      FALL_ANIMATION_DELAY_SECONDS * 1000 + 50
+    );
+
+    // Handle explosion on click
+    // canvasRef.current.addEventListener("click", handleExplosion);
+
+    // return () => {
+    //   canvasRef.current?.removeEventListener("click", handleExplosion);
+    // };
+  }, []);
+
   return (
     <Canvas ref={canvasRef}>
-      {rectangles.current.map((rectangle, key) => {
+      {rectanglesRef.current.map((rectangle, key) => {
         const { x, y, width, height, angleRad, tranformOrigin } = rectangle;
 
         return (

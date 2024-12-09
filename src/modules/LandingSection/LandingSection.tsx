@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
-import styled from "styled-components";
+import React, { useEffect, useRef } from "react";
+import styled, { useTheme } from "styled-components";
 import { HEADER_CONTENT_HEIGHT } from "../../components/Header";
 import Typography from "../../components/Typography";
 import AnimatedLetters from "../../components/LandingText/AnimatedLetters";
 import MatterCanvas from "./MatterCanvas/MatterCanvas";
+import { useAnimate } from "framer-motion";
 
 const Wrapper = styled.div`
   border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
@@ -19,6 +20,7 @@ const Content = styled.div`
   z-index: 2;
   position: relative;
   padding-top: 32px;
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 const LandingHeaderTypography = styled(Typography)`
@@ -26,21 +28,35 @@ const LandingHeaderTypography = styled(Typography)`
   width: fit-content;
 `;
 
+export const FALL_ANIMATION_DELAY_SECONDS = 1.6;
+
 const LandingSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [_, animate] = useAnimate();
+  const theme = useTheme();
+
+  useEffect(() => {
+    if (contentRef.current)
+      animate(
+        contentRef.current,
+        { color: theme.colors.gray },
+        { delay: FALL_ANIMATION_DELAY_SECONDS }
+      );
+  }, []);
 
   return (
     <Wrapper ref={containerRef}>
       <MatterCanvas />
-      <Content>
+      <Content ref={contentRef}>
         <LandingHeaderTypography variant="Header">
           <AnimatedLetters title="I'm Jacob," />
-          <AnimatedLetters title="a web creator crafting" delayChildren={0.6} />
-          {/* <AnimatedLetters
+          <AnimatedLetters title="a web creator crafting" delayChildren={0.3} />
+          <AnimatedLetters
             title="user experiences through"
-            delayChildren={1.4}
+            delayChildren={0.6}
           />
-          <AnimatedLetters title="design and development" delayChildren={2} /> */}
+          <AnimatedLetters title="design and development" delayChildren={0.9} />
         </LandingHeaderTypography>
       </Content>
     </Wrapper>
