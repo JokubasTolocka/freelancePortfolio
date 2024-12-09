@@ -3,7 +3,7 @@ import { Composite, Engine, World } from "matter-js";
 import styled from "styled-components";
 import Typography from "../../../components/Typography";
 
-import { getAdjustedPosition } from "./utils";
+import { ADJUSTED_LETTER_POSITIONS } from "./utils";
 import { FALL_ANIMATION_DELAY_SECONDS } from "../LandingSection";
 import {
   addMouseDragHandling,
@@ -31,22 +31,17 @@ const Canvas = styled.div`
   height: 100%;
   position: absolute;
   z-index: 3;
-  /* background: rgba(57, 150, 68, 0.5); */
   overflow: hidden;
 `;
 
 const Rectangle = styled.div`
   /* background-color: rgba(217, 84, 12, 0.2); */
   position: absolute;
-  user-select: none;
 `;
 
 const Letter = styled(Typography)`
   font-weight: 500;
 `;
-
-// matterJS letter bodies are slightly off the letters in the DOM. We adjust matterJS positions
-const ADJUSTED_LETTER_POSITIONS = getAdjustedPosition();
 
 const MatterCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -68,8 +63,6 @@ const MatterCanvas = () => {
   }, []);
 
   useEffect(() => {
-    // showCanvasShapes(canvasRef, engineRef);
-
     const handleAddLetterShapes = () =>
       addLetterShapes(canvasRef, engineRef, rectanglesRef);
 

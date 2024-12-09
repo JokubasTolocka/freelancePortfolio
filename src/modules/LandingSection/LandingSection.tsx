@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { HEADER_CONTENT_HEIGHT } from "../../components/Header";
 import Typography from "../../components/Typography";
@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
   position: relative;
   height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
+  user-select: none;
 `;
 
 const Content = styled.div`
@@ -27,13 +28,12 @@ const LandingHeaderTypography = styled(Typography)`
   width: fit-content;
 `;
 
-export const FALL_ANIMATION_DELAY_SECONDS = 1.6;
+export const FALL_ANIMATION_DELAY_SECONDS = 1.5;
 
 const LandingSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
   const contentRef = useRef<HTMLDivElement>(null);
   const [_, animate] = useAnimate();
-  const theme = useTheme();
 
   useEffect(() => {
     if (contentRef.current)
@@ -45,7 +45,7 @@ const LandingSection = () => {
   }, []);
 
   return (
-    <Wrapper ref={containerRef}>
+    <Wrapper>
       <MatterCanvas />
       <Content ref={contentRef}>
         <LandingHeaderTypography variant="Header">

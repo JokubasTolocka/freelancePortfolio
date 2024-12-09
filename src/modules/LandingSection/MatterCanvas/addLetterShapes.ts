@@ -1,11 +1,10 @@
 import { Bodies, Composite, Engine, Vertices } from "matter-js";
 import opentype, { Font } from "opentype.js";
 import { MutableRefObject, RefObject } from "react";
-import { getAdjustedPosition, pathDataToString } from "./utils";
+import { ADJUSTED_LETTER_POSITIONS, pathDataToString } from "./utils";
 import { Rectangle } from "./MatterCanvas";
 
 const DOTTER_LETTERS_ARR = ["i", "j"];
-const ADJUSTED_LETTER_POSITIONS = getAdjustedPosition();
 
 export const addLetterShapes = (
   canvasRef: RefObject<HTMLDivElement>,

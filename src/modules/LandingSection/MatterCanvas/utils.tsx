@@ -44,7 +44,7 @@ export const pathDataToString = (
   return result.join(" ");
 };
 
-export const getAdjustedPosition = (): {
+const getAdjustedPosition = (): {
   [key: string]: { x: number; y: number };
 } => {
   const positions: { [key: string]: { x: number; y: number } } = {
@@ -101,3 +101,6 @@ export const getAdjustedPosition = (): {
     },
   });
 };
+
+// matterJS letter bodies are slightly off the letters in the DOM. We adjust matterJS positions
+export const ADJUSTED_LETTER_POSITIONS = getAdjustedPosition();

@@ -5,7 +5,6 @@ import {
   Engine,
   Mouse,
   MouseConstraint,
-  Render,
   Runner,
   World,
 } from "matter-js";
@@ -15,6 +14,8 @@ export const createBoundingBox = (
   canvasRef: RefObject<HTMLDivElement>,
   engineRef: MutableRefObject<Engine>
 ) => {
+  if (!canvasRef.current) return;
+
   const runner = Runner.create();
 
   Runner.run(runner, engineRef.current);
@@ -63,6 +64,20 @@ export const createBoundingBox = (
     }
   );
 
+  // -------SHOW SHAPES --------
+  // const render = Render.create({
+  //   element: canvasRef.current,
+  //   engine: engineRef.current,
+  //   options: {
+  //     width,
+  //     height,
+  //     wireframes: false,
+  //     background: "transparent",
+  //   },
+  // });
+
+  // Render.run(render);
+
   Composite.add(engineRef.current.world, [ground, ceiling, wallL, wallR]);
 };
 
@@ -72,69 +87,30 @@ export const addMouseDragHandling = (
 ) => {
   if (!canvasRef.current) return;
 
-  var mouse = Mouse.create(canvasRef.current),
-    mouseConstraint = MouseConstraint.create(engineRef.current, {
-      mouse: mouse,
-      constraint: {
-        stiffness: 0.2,
-        render: {
-          visible: false,
-        },
+  const mouse = Mouse.create(canvasRef.current);
+  const mouseConstraint = MouseConstraint.create(engineRef.current, {
+    mouse,
+    constraint: {
+      stiffness: 0.2,
+      render: {
+        visible: false,
       },
-    });
+    },
+  });
+
+  // This section ensures we can scroll through the canvas. On mobile, the touch
+  // @ts-ignore
+  mouse.element.removeEventListener("wheel", mouse.mousewheel);
+  // @ts-ignore
+  mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+  // @ts-ignore
+  mouse.element.removeEventListener("touchmove", mouse.mousemove);
+  // @ts-ignore
+  mouse.element.removeEventListener("touchstart", mouse.mousedown);
+  // @ts-ignore
+  mouse.element.removeEventListener("touchend", mouse.mouseup);
 
   World.add(engineRef.current.world, mouseConstraint);
-};
-
-export const showCanvasShapes = (
-  canvasRef: RefObject<HTMLDivElement>,
-  engineRef: MutableRefObject<Engine>
-) => {
-  if (!canvasRef.current) return;
-  const cw = document.body.clientWidth;
-  const ch = document.body.clientHeight;
-
-  const render = Render.create({
-    element: canvasRef.current,
-    engine: engineRef.current,
-    options: {
-      width: cw,
-      height: ch,
-      wireframes: false,
-      background: "transparent",
-    },
-  });
-
-  const width = canvasRef.current?.clientWidth ?? 0;
-  const height = canvasRef.current?.clientHeight ?? 0;
-
-  const wallStyle = {
-    render: {
-      fillStyle: "#3918de8f",
-    },
-  };
-
-  const ground = Bodies.rectangle(width / 2, height, width, 0, {
-    isStatic: true,
-    ...wallStyle,
-  });
-  const ceiling = Bodies.rectangle(width / 2, 0, width, 0, {
-    isStatic: true,
-    ...wallStyle,
-  });
-  const wallL = Bodies.rectangle(0, height, 0, height, {
-    isStatic: true,
-    ...wallStyle,
-  });
-  const wallR = Bodies.rectangle(width, height / 2, 0, height, {
-    isStatic: true,
-    ...wallStyle,
-  });
-
-  Composite.add(engineRef.current.world, [ground, ceiling, wallL, wallR]);
-
-  Runner.run(engineRef.current);
-  Render.run(render);
 };
 
 export const handleExplosion = (
