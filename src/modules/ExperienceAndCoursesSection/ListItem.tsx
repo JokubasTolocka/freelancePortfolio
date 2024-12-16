@@ -1,12 +1,15 @@
-import React, { Dispatch, RefObject, useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Typography from "../../components/Typography";
 import styled from "styled-components";
 import { motion, useAnimate } from "framer-motion";
+import { theme } from "../../utils/theme";
 
 const Wrapper = styled(motion.div)`
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
+  position: relative;
+  background-color: ${({ theme }) => theme.colors.white};
+  /* padding: 32px 32px 0 32px; */
 `;
 
 const RightContent = styled.div`
@@ -19,73 +22,84 @@ const DurationText = styled(Typography)`
   color: ${({ theme }) => theme.colors.gray};
 `;
 
+const DescriptionWrapper = styled.div`
+  position: absolute;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  top: 86px;
+  left: 0;
+  right: 0;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
+  /* border-right: ${({ theme }) => `4px solid ${theme.colors.black}`}; */
+  z-index: 1;
+`;
+
+const DescriptionContent = styled.div`
+  padding: 16px 32px 32px 32px;
+`;
+
 type Props = {
   employer: string;
   title: string;
   duration: string;
-  containerRef: RefObject<HTMLDivElement>;
-  id: number;
-  expandedItemId: number | null;
-  handleSetExpandedId: (id: number | null) => void;
 };
 
-const ListItem = ({
-  employer,
-  title,
-  duration,
-  containerRef,
-  id,
-  expandedItemId,
-  handleSetExpandedId,
-}: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
+const ListItem = ({ employer, title, duration }: Props) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const descriptionRef = useRef<HTMLDivElement>(null);
   const [_, animate] = useAnimate();
-  const [distanceFromTop, setDistanceFromTop] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
 
-  const onExpand = () => {
-    if (!ref.current) return;
+  const onHoverStart = () => {
+    console.log("start");
 
-    setIsExpanded(!isExpanded);
-    handleSetExpandedId(isExpanded ? null : id);
+    if (!descriptionRef.current || !wrapperRef.current) return;
+
     animate(
-      ref.current,
-      { y: isExpanded ? 0 : -distanceFromTop },
-      { duration: 0.3, ease: "easeInOut", delay: isExpanded ? 0 : 0.6 }
+      descriptionRef.current,
+      { height: 180 },
+      { duration: 0.3, ease: "easeInOut" }
+    );
+    animate(
+      descriptionRef.current,
+      { opacity: 100 },
+      { duration: 0.3, ease: "easeInOut" }
+    );
+    animate(
+      wrapperRef.current,
+      { backgroundColor: "#ecd07c" },
+      { duration: 0.3, ease: "easeInOut" }
     );
   };
 
-  const animateLeave = () => {
-    if (!ref.current) return;
+  const onHoverEnd = () => {
+    if (!descriptionRef.current || !wrapperRef.current) return;
 
     animate(
-      ref.current,
-      {
-        filter: expandedItemId ? "blur(2px)" : "blur(0)",
-        opacity: expandedItemId ? 0 : 100,
-      },
-      { duration: 0.3, ease: "easeInOut", delay: 0.1 * id }
+      descriptionRef.current,
+      { height: 0 },
+      { duration: 0.3, ease: "easeInOut" }
+    );
+    animate(
+      descriptionRef.current,
+      { opacity: 0 },
+      { duration: 0.3, ease: "easeInOut" }
+    );
+    animate(
+      wrapperRef.current,
+      { backgroundColor: theme.colors.white },
+      { duration: 0.3, ease: "easeInOut" }
     );
   };
-
-  useEffect(() => {
-    if (expandedItemId !== id) animateLeave();
-    if (isExpanded && !expandedItemId) onExpand();
-  }, [expandedItemId]);
-
-  useEffect(() => {
-    if (!ref.current || !containerRef.current) return;
-
-    const parentRect = containerRef.current.getBoundingClientRect();
-    const childRect = ref.current.getBoundingClientRect();
-
-    const calculatedDistance = childRect.top - parentRect.top;
-
-    setDistanceFromTop(calculatedDistance);
-  }, []);
 
   return (
-    <Wrapper key={employer} ref={ref} onClick={onExpand}>
+    <Wrapper
+      ref={wrapperRef}
+      key={employer}
+      onHoverStart={onHoverStart}
+      onHoverEnd={onHoverEnd}
+    >
       <Typography variant="Heading5">{title}</Typography>
       <RightContent>
         <Typography variant="Heading5">{employer}</Typography>
@@ -93,6 +107,14 @@ const ListItem = ({
           {duration}
         </DurationText>
       </RightContent>
+      <DescriptionWrapper ref={descriptionRef}>
+        <DescriptionContent>
+          <Typography variant="BodySm" isBody>
+            Hello this is a test to see if this thing even works lol and I am
+            currently coding so that it does, once again, please work
+          </Typography>
+        </DescriptionContent>
+      </DescriptionWrapper>
     </Wrapper>
   );
 };
