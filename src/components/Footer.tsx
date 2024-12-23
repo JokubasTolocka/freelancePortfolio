@@ -1,0 +1,14 @@
+import React from "react";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  width: 100%;
+  padding: 64px;
+  background-color: ${({ theme }) => theme.colors.black};
+`;
+
+const Footer = () => {
+  return <Wrapper></Wrapper>;
+};
+
+export default Footer;

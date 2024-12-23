@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import Typography from "./Typography";
+import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const LeftWrapper = styled.div`
 `;
 
 type Props = {
-  title: string;
+  title: SectionTitleEnum;
   icon?: any;
   rightElement?: ReactNode;
 };
