@@ -1,6 +1,7 @@
 import React, {
   PropsWithChildren,
   ReactNode,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -10,7 +11,7 @@ import SectionTitle from "./SectionTitle";
 import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 import { useHeaderTitleContext } from "../contexts/HeaderTitleContext/useHeaderTitleContext";
 
-const Wrapper = styled.div<{ $isVerticallyCentered?: boolean }>`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -27,12 +28,13 @@ const SectionWrapper = ({
 }: PropsWithChildren<Props>) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { titleValue, setHeaderTitle } = useHeaderTitleContext();
-  const [distanceTopFromTop, distanceBottomFromTop] = useMemo(() => {
+
+  const getDistances = useCallback(() => {
     if (!wrapperRef.current) return [0, 0];
 
     const elementTop = wrapperRef.current?.getBoundingClientRect().top;
     const elementBottom = wrapperRef.current?.getBoundingClientRect().bottom;
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollTop = window.scrollY;
 
     return [elementTop + scrollTop, elementBottom + scrollTop];
   }, []);
@@ -41,6 +43,7 @@ const SectionWrapper = ({
     if (!wrapperRef.current) return;
 
     const distanceViewportTopToTop = window.scrollY;
+    const [distanceTopFromTop, distanceBottomFromTop] = getDistances();
 
     // If element has reached the top of the viewport
     if (
