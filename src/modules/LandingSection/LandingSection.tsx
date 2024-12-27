@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { useTheme } from "styled-components";
-import { HEADER_CONTENT_HEIGHT } from "../../components/Header";
+import { HEADER_CONTENT_HEIGHT } from "../../components/Header/Header";
 import Typography from "../../components/Typography";
 import AnimatedLetters from "../../components/AnimatedLetters";
 import MatterCanvas from "./MatterCanvas/MatterCanvas";
@@ -19,7 +19,7 @@ const Content = styled.div`
   margin: 0 64px 64px 64px;
   z-index: 2;
   position: relative;
-  padding-top: 32px;
+  padding-top: 64px;
   color: ${({ theme }) => theme.colors.black};
 `;
 
@@ -28,34 +28,42 @@ const LandingHeaderTypography = styled(Typography)`
   width: fit-content;
 `;
 
-export const FALL_ANIMATION_DELAY_SECONDS = 1.5;
+export const FALL_ANIMATION_DELAY_SECONDS = 1.1;
 
 const LandingSection = () => {
   const theme = useTheme();
-  const contentRef = useRef<HTMLDivElement>(null);
+  const typographyRef = useRef<HTMLDivElement>(null);
   const [_, animate] = useAnimate();
 
   useEffect(() => {
-    if (contentRef.current)
+    if (typographyRef.current)
       animate(
-        contentRef.current,
+        typographyRef.current,
         { color: theme.colors.gray },
         { delay: FALL_ANIMATION_DELAY_SECONDS }
       );
   }, []);
 
+  const INITIAL_DELAY = 0.15;
+
   return (
     <Wrapper>
       <MatterCanvas />
-      <Content ref={contentRef}>
-        <LandingHeaderTypography variant="Header">
-          <AnimatedLetters title="I'm Jacob," />
-          <AnimatedLetters title="a web creator crafting" delayChildren={0.3} />
+      <Content>
+        <LandingHeaderTypography variant="Header" passedRef={typographyRef}>
+          <AnimatedLetters title="I'm Jacob" />
+          <AnimatedLetters
+            title="a web creator crafting"
+            delayChildren={INITIAL_DELAY}
+          />
           <AnimatedLetters
             title="user experiences through"
-            delayChildren={0.6}
+            delayChildren={INITIAL_DELAY * 2}
           />
-          <AnimatedLetters title="design and development" delayChildren={0.9} />
+          <AnimatedLetters
+            title="design and code"
+            delayChildren={INITIAL_DELAY * 3}
+          />
         </LandingHeaderTypography>
       </Content>
     </Wrapper>

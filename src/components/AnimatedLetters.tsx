@@ -6,7 +6,6 @@ const banner = {
   animate: {
     transition: {
       staggerChildren: 0.02,
-      delayChildren: 3,
     },
   },
 };
@@ -15,7 +14,7 @@ const letterAni = {
   initial: { y: 100 },
   animate: {
     y: 0,
-    transition: { duration: 0.3, ease: "easeOut" },
+    transition: { duration: 0.35, ease: "easeInOut" },
   },
 };
 

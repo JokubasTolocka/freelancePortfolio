@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Composite, Engine, World } from "matter-js";
+import { Composite, Engine, Sleeping, World } from "matter-js";
 import styled from "styled-components";
 import Typography from "../../../components/Typography";
 
@@ -11,6 +11,7 @@ import {
   handleExplosion,
 } from "./matterJsUtils";
 import { addLetterShapes } from "./addLetterShapes";
+import { useInView } from "framer-motion";
 
 // For polygons with angles more than 180 degrees like L or E
 // @ts-ignore
@@ -35,7 +36,6 @@ const Canvas = styled.div`
 `;
 
 const Rectangle = styled.div`
-  /* background-color: rgba(217, 84, 12, 0.2); */
   position: absolute;
 `;
 
@@ -47,6 +47,7 @@ const MatterCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef(Engine.create());
   const rectanglesRef = useRef<Rectangle[]>([]);
+  const isCanvasInView = useInView(canvasRef);
 
   const [, setAnim] = useState(0);
 
@@ -75,7 +76,7 @@ const MatterCanvas = () => {
     const animate = () => {
       let i = 0;
       Composite.allBodies(engineRef.current.world).forEach((body) => {
-        if (body.isStatic) return;
+        if (body.isStatic || body.isSleeping) return;
 
         const rect = rectanglesRef.current[i];
 
@@ -107,17 +108,14 @@ const MatterCanvas = () => {
 
     const boundingClientRect = canvasRef.current.getBoundingClientRect();
     const { width, height } = boundingClientRect;
+    // position explosion at the centre of the screen
+    const centerPosition = {
+      xPos: width / 2,
+      yPos: height / 2,
+    };
 
     setTimeout(
-      () =>
-        handleExplosion(
-          {
-            // position explosion at the centre of the screen
-            layerX: width / 2,
-            layerY: height / 2,
-          } as MouseEvent,
-          engineRef
-        ),
+      () => handleExplosion(centerPosition, engineRef),
       FALL_ANIMATION_DELAY_SECONDS * 1000 + 50
     );
 
@@ -128,6 +126,16 @@ const MatterCanvas = () => {
     //   canvasRef.current?.removeEventListener("click", handleExplosion);
     // };
   }, []);
+
+  const toggleBodiesSleeping = (shouldSleep: boolean) => {
+    Composite.allBodies(engineRef.current.world).forEach((body) => {
+      if (!body.isStatic) Sleeping.set(body, shouldSleep);
+    });
+  };
+
+  useEffect(() => {
+    toggleBodiesSleeping(!isCanvasInView);
+  }, [isCanvasInView]);
 
   return (
     <Canvas ref={canvasRef}>
