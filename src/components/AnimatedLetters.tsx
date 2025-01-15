@@ -5,22 +5,37 @@ import styled from "styled-components";
 const banner = {
   animate: {
     transition: {
-      staggerChildren: 0.02,
+      staggerChildren: 0.03,
     },
   },
 };
 
 const letterAni = {
-  initial: { y: 100 },
-  animate: {
-    y: 0,
-    transition: { duration: 0.35, ease: "easeInOut" },
+  // initial: { y: 100 },
+  // animate: {
+  //   y: 0,
+  //   transition: { duration: 0.35, ease: "easeInOut" },
+  // },
+  initial: {
+    scaleY: 0,
+    // filter: "blur(50px)",
+    // opacity: 0,
+    // skewY: "-130deg",
   },
-};
-
-type Props = {
-  title: string;
-  delayChildren?: number;
+  animate: {
+    scaleY: 1,
+    // filter: "blur(0px)",
+    // opacity: 100,
+    // skewY: "0",
+    transition: {
+      // duration: 3,
+      duration: 1,
+      type: "spring",
+      // stiffness: 100,
+      // damping: 9,
+      // mass: 0.05,
+    },
+  },
 };
 
 const WhiteSpace = styled.span`
@@ -28,22 +43,15 @@ const WhiteSpace = styled.span`
   width: 26px;
 `;
 
-const Letter = styled(motion.span)`
-  transform: auto;
-  display: inline-block;
-`;
-
-const Wrapper = styled(motion.span)`
-  overflow: hidden;
-  display: flex;
-  height: 130px;
-  width: fit-content;
-`;
-
 const INITIAL_ANIMATION_DELAY = 0;
 
 const getAnimationDelay = (seconds: number) =>
   INITIAL_ANIMATION_DELAY + seconds;
+
+type Props = {
+  title: string;
+  delayChildren?: number;
+};
 
 const AnimatedLetters = ({ title, delayChildren = 0 }: Props) => (
   <Wrapper
@@ -67,3 +75,18 @@ const AnimatedLetters = ({ title, delayChildren = 0 }: Props) => (
   </Wrapper>
 );
 export default AnimatedLetters;
+
+const Letter = styled(motion.span)`
+  transform: auto;
+  display: inline-block;
+  transform-origin: center 100px;
+  /* transform: skewY(-5deg); */
+`;
+
+const Wrapper = styled(motion.span)`
+  /* overflow: hidden; */
+  display: flex;
+  height: 130px;
+  width: fit-content;
+  /* transform: rotate3d(1, 1, 1, 45deg); */
+`;
