@@ -10,6 +10,7 @@ export const theme = {
   colors: {
     white: "#ECECEC",
     primary: "#9BCEFF",
+    success: "#72D25F",
     black: {
       dark: "#0A0A0A",
       mid: "#121312",

@@ -1,23 +1,20 @@
-import React, { PropsWithChildren, useRef, useState } from "react";
-import useMousePos from "../hooks/useMousePos";
-import styled from "styled-components";
-import { motion } from "framer-motion";
+import React, { MouseEvent, PropsWithChildren, useRef, useState } from "react";
+import styled, { useTheme } from "styled-components";
+import { motion, useAnimate } from "framer-motion";
 import CopyIcon from "../assets/icons/copy.svg";
+import constants from "../constants/constants.json";
 
 const CIRCLE_SIZE = 100;
 
 const Circle = styled(motion.div)`
-  background-color: ${({ theme }) => theme.colors.black.dark};
-  position: absolute;
-  border-radius: ${CIRCLE_SIZE}px;
+  pointer-events: none;
   width: ${CIRCLE_SIZE}px;
   height: ${CIRCLE_SIZE}px;
-  aspect-ratio: 1;
-  z-index: 10;
+  border-radius: ${CIRCLE_SIZE}px;
+  background-color: ${({ theme }) => theme.colors.black.dark};
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 `;
 
 const StyledCopyIcon = styled(CopyIcon)`
@@ -27,38 +24,58 @@ const StyledCopyIcon = styled(CopyIcon)`
 `;
 
 const CopyOverlayContainer = ({ children }: PropsWithChildren) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
-  const mousePos = useMousePos();
+  const circleRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePosition] = useState({ x: 0, y: 0 });
+  const [_, animate] = useAnimate();
+  const theme = useTheme();
 
-  const setHovering = () => setIsHovering(true);
-  const clearHovering = () => setIsHovering(false);
+  const setHovering = (e: MouseEvent<HTMLDivElement>) => {
+    if (circleRef.current)
+      animate(circleRef.current, { scale: 1 }, { duration: 0.1 });
+    setMousePosition({ x: e.pageX, y: e.pageY });
+  };
 
-  // console.log({ isHovering, mousePos });
+  const clearHovering = (e: MouseEvent<HTMLDivElement>) => {
+    if (circleRef.current)
+      animate(
+        circleRef.current,
+        {
+          scale: 0,
+          backgroundColor: theme.colors.black.dark,
+        },
+        { duration: 0.1 }
+      );
+    setMousePosition({ x: e.pageX, y: e.pageY });
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(constants.EMAIL).then(() => {
+      if (circleRef.current)
+        animate(
+          circleRef.current,
+          { backgroundColor: theme.colors.success },
+          { duration: 0.2 }
+        );
+    });
+  };
 
   return (
     <motion.div
-      ref={containerRef}
-      onMouseEnter={setHovering}
+      onMouseMove={setHovering}
       onMouseLeave={clearHovering}
-      initial="initial"
-      whileHover="whileHover"
+      onClick={handleCopy}
     >
-      {isHovering && (
-        <Circle
-          style={{
-            top: mousePos.y - CIRCLE_SIZE / 2,
-            left: mousePos.x - CIRCLE_SIZE / 2,
-          }}
-          transition={{ duration: 0.2 }}
-          //   variants={{
-          //     initial: { width: 0 },
-          //     whileHover: { width: CIRCLE_SIZE },
-          //   }}
-        >
-          <StyledCopyIcon />
-        </Circle>
-      )}
+      <Circle
+        ref={circleRef}
+        style={{
+          position: "absolute",
+          top: mousePos.y - CIRCLE_SIZE / 2,
+          left: mousePos.x - CIRCLE_SIZE / 2,
+          transformOrigin: `${CIRCLE_SIZE / 2}px ${CIRCLE_SIZE / 2}px`,
+        }}
+      >
+        <StyledCopyIcon />
+      </Circle>
       {children}
     </motion.div>
   );

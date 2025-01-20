@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Typography, { Heading } from "./Typography";
 import SocialMedia from "./SocialMedia";
 import CopyOverlayContainer from "./CopyOverlayContainer";
+import constants from "../constants/constants.json";
 
 const FOOTER_ITEMS = [
   { title: "Work" },
@@ -25,7 +26,9 @@ const Footer = () => {
           </Typography>
         </PersonalInfoWrapper>
         <CopyOverlayContainer>
-          <Typography variant={Heading.H1}>jokubas.tj@gmail.com</Typography>
+          <PointerTypography variant={Heading.H1}>
+            {constants.EMAIL}
+          </PointerTypography>
         </CopyOverlayContainer>
       </TopContent>
       <BottomContent>
@@ -86,5 +89,9 @@ const BottomLinks = styled.div`
 `;
 
 const Link = styled.a`
+  cursor: pointer;
+`;
+
+const PointerTypography = styled(Typography)`
   cursor: pointer;
 `;
