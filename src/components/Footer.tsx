@@ -1,9 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Typography, { Heading } from "./Typography";
-import SocialMedia from "./SocialMedia";
 import CopyOverlayContainer from "./CopyOverlayContainer";
 import constants from "../constants/constants.json";
+import LinkedInIcon from "../assets/icons/linkedIn.svg";
+import GithubIcon from "../assets/icons/github.svg";
 
 const FOOTER_ITEMS = [
   { title: "Work" },
@@ -12,40 +13,53 @@ const FOOTER_ITEMS = [
   { title: "Contact" },
 ];
 
-const Footer = () => {
-  return (
-    <Wrapper>
-      <TopContent>
-        <PersonalInfoWrapper>
-          <PersonalInfoNameWrapper>
-            <Typography variant={Heading.H4}>Jokūbas Toločka</Typography>
-            <SocialMedia isContrast={true} />
-          </PersonalInfoNameWrapper>
-          <Typography variant={Heading.H5}>
-            Freelance Designer / Frontend Developer
-          </Typography>
-        </PersonalInfoWrapper>
-        <CopyOverlayContainer>
-          <PointerTypography variant={Heading.H1}>
-            {constants.EMAIL}
-          </PointerTypography>
-        </CopyOverlayContainer>
-      </TopContent>
-      <BottomContent>
+const Footer = () => (
+  <Wrapper>
+    <TopContent>
+      <PersonalInfoWrapper>
+        <PersonalInfoNameWrapper>
+          <Typography variant={Heading.H4}>Jokūbas Toločka</Typography>
+          <SocialMediaWrapper>
+            <LinkText
+              href={constants.LINKED_IN_URL}
+              target="_blank"
+              rel="noopener"
+            >
+              <StyledLinkedInIcon />
+            </LinkText>
+            <LinkText
+              href={constants.GITHUB_URL}
+              target="_blank"
+              rel="noopener"
+            >
+              <StyledGithubIcon />
+            </LinkText>
+          </SocialMediaWrapper>
+        </PersonalInfoNameWrapper>
         <Typography variant={Heading.H5}>
-          Website Designed + Developed by Me
+          Freelance Designer / Frontend Developer
         </Typography>
-        <Typography variant={Heading.H5}>
-          <BottomLinks>
-            {FOOTER_ITEMS.map(({ title }) => (
-              <Link>{title}</Link>
-            ))}
-          </BottomLinks>
-        </Typography>
-      </BottomContent>
-    </Wrapper>
-  );
-};
+      </PersonalInfoWrapper>
+      <CopyOverlayContainer>
+        <PointerTypography variant={Heading.H1}>
+          {constants.EMAIL}
+        </PointerTypography>
+      </CopyOverlayContainer>
+    </TopContent>
+    <BottomContent>
+      <Typography variant={Heading.H5}>
+        Website Designed + Developed by Me
+      </Typography>
+      <Typography variant={Heading.H5}>
+        <BottomLinks>
+          {FOOTER_ITEMS.map(({ title }) => (
+            <LinkText>{title}</LinkText>
+          ))}
+        </BottomLinks>
+      </Typography>
+    </BottomContent>
+  </Wrapper>
+);
 
 export default Footer;
 
@@ -88,10 +102,39 @@ const BottomLinks = styled.div`
   gap: 40px;
 `;
 
-const Link = styled.a`
+const LinkText = styled.a`
   cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => `${theme.colors.primary} !important`};
+  }
 `;
 
 const PointerTypography = styled(Typography)`
   cursor: pointer;
+`;
+
+const SocialMediaWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const iconStyles = css`
+  fill: ${({ theme }) => theme.colors.black.dark};
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  stroke: none !important;
+
+  &:hover {
+    fill: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const StyledLinkedInIcon = styled(LinkedInIcon)`
+  ${iconStyles}
+`;
+
+const StyledGithubIcon = styled(GithubIcon)`
+  ${iconStyles}
 `;

@@ -43,7 +43,7 @@ const CopyOverlayContainer = ({ children }: PropsWithChildren) => {
           scale: 0,
           backgroundColor: theme.colors.black.dark,
         },
-        { duration: 0.1 }
+        { duration: 0.15 }
       );
     setMousePosition({ x: e.pageX, y: e.pageY });
   };

@@ -20,7 +20,7 @@ const Link = ({ children, href, isStatic }: PropsWithChildren<Props>) => {
   };
 
   return (
-    <StyledA href={href} target="_blank" {...animationProps}>
+    <StyledA href={href} target="_blank" rel="noopener" {...animationProps}>
       {children}
     </StyledA>
   );
