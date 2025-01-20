@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Composite, Engine, Sleeping, World } from "matter-js";
 import styled from "styled-components";
-import Typography from "../../../components/Typography";
-
+import Typography, { Heading } from "../../../components/Typography";
 import { ADJUSTED_LETTER_POSITIONS } from "./utils";
 import { FALL_ANIMATION_DELAY_SECONDS } from "../LandingSection";
 import {
@@ -40,7 +39,7 @@ const Rectangle = styled.div`
 `;
 
 const Letter = styled(Typography)`
-  font-weight: 500;
+  font-weight: 400;
 `;
 
 const MatterCanvas = () => {
@@ -56,7 +55,8 @@ const MatterCanvas = () => {
     addMouseDragHandling(canvasRef, engineRef);
 
     // Adjust world gravity
-    // engineRef.current.gravity.y = 0.2;
+    engineRef.current.gravity.y = 0;
+    engineRef.current.gravity.x = 1;
     return () => {
       World.clear(engineRef.current.world, false);
       Engine.clear(engineRef.current);
@@ -67,7 +67,7 @@ const MatterCanvas = () => {
     const handleAddLetterShapes = () =>
       addLetterShapes(canvasRef, engineRef, rectanglesRef);
 
-    setTimeout(handleAddLetterShapes, FALL_ANIMATION_DELAY_SECONDS * 1000);
+    // setTimeout(handleAddLetterShapes, FALL_ANIMATION_DELAY_SECONDS * 1000);
   }, []);
 
   useEffect(() => {
@@ -110,14 +110,14 @@ const MatterCanvas = () => {
     const { width, height } = boundingClientRect;
     // position explosion at the centre of the screen
     const centerPosition = {
-      xPos: width / 2,
+      xPos: 0,
       yPos: height / 2,
     };
 
-    setTimeout(
-      () => handleExplosion(centerPosition, engineRef),
-      FALL_ANIMATION_DELAY_SECONDS * 1000 + 50
-    );
+    // setTimeout(
+    //   () => handleExplosion(centerPosition, engineRef),
+    //   FALL_ANIMATION_DELAY_SECONDS * 1000 + 50
+    // );
 
     // Handle explosion on click
     // canvasRef.current.addEventListener("click", handleExplosion);
@@ -139,10 +139,8 @@ const MatterCanvas = () => {
 
   return (
     <Canvas ref={canvasRef}>
-      {rectanglesRef.current.map((rectangle, key) => {
-        const { x, y, width, height, angleRad, tranformOrigin } = rectangle;
-
-        return (
+      {rectanglesRef.current.map(
+        ({ x, y, width, height, angleRad, tranformOrigin, letter }, key) => (
           <Rectangle
             key={key}
             style={{
@@ -154,10 +152,10 @@ const MatterCanvas = () => {
               transformOrigin: `${tranformOrigin.x}px ${tranformOrigin.y}px`,
             }}
           >
-            <Letter variant="Header">{rectangle.letter}</Letter>
+            <Letter variant={Heading.H1}>{letter}</Letter>
           </Rectangle>
-        );
-      })}
+        )
+      )}
     </Canvas>
   );
 };

@@ -6,18 +6,18 @@ type ContextType = {
 };
 
 export enum SectionTitleEnum {
-  EmptyTitle = "",
+  Landing = "Landing",
+  Work = "Recent Work",
+  Experience = "Experience",
+  Education = "Education",
   About = "About",
-  Services = "Services",
-  Work = "Work",
-  Contact = "Contact",
 }
 
 export const HeaderTitleContext = createContext<ContextType | null>(null);
 
 const HeaderTitleContextProvider = ({ children }: PropsWithChildren) => {
   const [titleValue, setTitleValue] = useState<SectionTitleEnum>(
-    SectionTitleEnum.EmptyTitle
+    SectionTitleEnum.Landing
   );
 
   const setHeaderTitle = (value: SectionTitleEnum) => setTitleValue(value);

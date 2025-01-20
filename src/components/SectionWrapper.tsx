@@ -19,12 +19,14 @@ const Wrapper = styled.div`
 type Props = {
   title?: SectionTitleEnum;
   titleRightElement?: ReactNode;
+  shouldShowTitle?: boolean;
 };
 
 const SectionWrapper = ({
   children,
   title,
   titleRightElement,
+  shouldShowTitle = true,
 }: PropsWithChildren<Props>) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { titleValue, setHeaderTitle } = useHeaderTitleContext();
@@ -51,7 +53,7 @@ const SectionWrapper = ({
       distanceViewportTopToTop < distanceBottomFromTop &&
       title !== titleValue
     )
-      setHeaderTitle(title ?? SectionTitleEnum.EmptyTitle);
+      setHeaderTitle(title ?? SectionTitleEnum.Landing);
   };
 
   useEffect(() => {
@@ -64,7 +66,9 @@ const SectionWrapper = ({
 
   return (
     <Wrapper ref={wrapperRef}>
-      {title && <SectionTitle title={title} rightElement={titleRightElement} />}
+      {title && shouldShowTitle && (
+        <SectionTitle title={title} rightElement={titleRightElement} />
+      )}
       {children}
     </Wrapper>
   );

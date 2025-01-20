@@ -18,8 +18,8 @@ export const addLetterShapes = (
   const { top: containerY, left: containerX } =
     canvasRef.current.getBoundingClientRect();
 
-  opentype.load("./fonts/Poppins-Medium.ttf", (err, loadedFont) => {
-    if (err || !loadedFont) console.log("Could not load font: " + err);
+  opentype.load("./fonts/InterLightMatterJS.ttf", (err, loadedFont) => {
+    if (err || !loadedFont) console.error("Could not load font: " + err);
     else
       Array.from(letterContainers).forEach((letterContainer: Element) => {
         const { textContent } = letterContainer;
@@ -33,12 +33,13 @@ export const addLetterShapes = (
         const x = boundX - containerX;
         const y = boundY - containerY;
 
-        const letterPath = loadedFont.getPath(textContent, 0, 0, 90);
+        const letterPath = loadedFont.getPath(textContent, 0, 0, 83);
 
         // Get vertices string from path data;
         const stringOfPoints = pathDataToString(
-          letterPath,
-          DOTTER_LETTERS_ARR.includes(textContent)
+          letterPath
+          // This is for handling letters with dots like j,i
+          // DOTTER_LETTERS_ARR.includes(textContent)
         );
         // Make makerjs Vertices array from vertices string
         // @ts-ignore

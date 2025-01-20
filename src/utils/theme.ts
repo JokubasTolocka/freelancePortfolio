@@ -1,16 +1,27 @@
-export type ComplimentaryColors = "blue" | "green" | "yellow" | "red";
+export type ComplimentaryColors =
+  | "green"
+  | "lightGreen"
+  | "yellow"
+  | "lightYellow"
+  | "purple"
+  | "lightPurple";
 
 export const theme = {
   colors: {
-    white: "#FAFAFA",
-    black: "#000000",
-    darkGray: "#616161",
-    gray: "#B4B4B4",
+    white: "#ECECEC",
+    primary: "#9BCEFF",
+    black: {
+      dark: "#0A0A0A",
+      mid: "#121312",
+      light: "#18181A",
+    },
     complimentary: {
-      blue: "#3557FD",
-      green: "#64CA34",
-      yellow: "#F1D629",
-      red: "#F12346",
+      green: "#22AC50",
+      lightGreen: "#C1EE8A",
+      yellow: "#D27F2C",
+      lightYellow: "#F9E1A7",
+      purple: "#B92376",
+      lightPurple: "#FF9BD2",
     },
   },
 };

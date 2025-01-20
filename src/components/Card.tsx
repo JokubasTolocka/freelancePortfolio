@@ -1,26 +1,156 @@
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import Typography from "./Typography";
-import { motion, useAnimate, useInView } from "framer-motion";
-import TextEnterAnimation from "./TextEnterAnimation";
+import styled, { useTheme } from "styled-components";
+import Typography, { Body, Heading } from "./Typography";
+import { motion, useAnimate, useInView, Variants } from "framer-motion";
+import ArrowRight from "../assets/icons/arrowRight.svg";
+
+type Props = {
+  title: string;
+  subtitle: string;
+  imageSrc: string;
+  linkTo: string;
+  tags?: string[];
+};
+
+const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
+  const theme = useTheme();
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const rotationRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(wrapperRef, { amount: 0.3 });
+  const [_, animate] = useAnimate();
+
+  useEffect(() => {
+    if (wrapperRef.current && rotationRef.current) {
+      animate(wrapperRef.current, { opacity: 0 }, { duration: 0.3 });
+      animate(rotationRef.current, { rotateX: 30 }, { duration: 0.3 });
+
+      const duration = 1;
+      if (isInView) {
+        animate(wrapperRef.current, { opacity: 100 }, { duration });
+        animate(rotationRef.current, { rotateX: 0 }, { duration });
+      }
+    }
+  }, [isInView]);
+
+  const animationTransition = {
+    transition: {
+      duration: 0.3,
+    },
+  };
+
+  const bgColorVariants: Variants = {
+    initial: {
+      backgroundColor: theme.colors.black.light,
+      ...animationTransition,
+    },
+    whileHover: {
+      backgroundColor: theme.colors.black.mid,
+      ...animationTransition,
+    },
+  };
+
+  const arrowVariants = {
+    initial: {
+      opacity: 0,
+      x: -16,
+      ...animationTransition,
+    },
+    whileHover: {
+      opacity: 100,
+      x: 0,
+      ...animationTransition,
+    },
+  };
+
+  return (
+    <PerspectiveWrapper>
+      <RotationWrapper ref={rotationRef}>
+        <AnimationWrapper ref={wrapperRef}>
+          <Wrapper
+            href={linkTo}
+            initial="initial"
+            whileHover="whileHover"
+            variants={bgColorVariants}
+          >
+            <ImageWrapper>
+              <Image src={imageSrc} />
+            </ImageWrapper>
+            <ContentWrapper>
+              <LeftContent>
+                <Typography variant={Heading.H3}>{title}</Typography>
+                <SubtitleWrapper>
+                  <Typography variant={Body.LG}>{subtitle}</Typography>
+                </SubtitleWrapper>
+                {tags?.length && (
+                  <TagWrapper>
+                    {tags.map((title, index) => (
+                      <Tag key={`${title}-${index}`}>
+                        <Typography variant={Heading.H6}>{title}</Typography>
+                      </Tag>
+                    ))}
+                  </TagWrapper>
+                )}
+              </LeftContent>
+              <motion.div variants={arrowVariants}>
+                <StyledArrow />
+              </motion.div>
+            </ContentWrapper>
+          </Wrapper>
+        </AnimationWrapper>
+      </RotationWrapper>
+    </PerspectiveWrapper>
+  );
+};
+
+export default Card;
+
+// https://www.studiogusto.com/studio
+
+export const CARD_HEIGHT = 300;
+
+const TagWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const Tag = styled.div`
+  border: ${({ theme }) => `1px solid ${theme.colors.white}`};
+  padding: 5px 15px;
+  border-radius: 50px;
+`;
+
+const AnimationWrapper = styled(motion.div)`
+  background-color: transparent;
+  transform-origin: bottom center;
+`;
+
+const PerspectiveWrapper = styled(motion.div)`
+  perspective: 600px;
+`;
+
+const RotationWrapper = styled(motion.div)`
+  transform-origin: bottom center;
+`;
 
 const Wrapper = styled(motion.a)`
   width: 100%;
-  height: 295px;
+  height: ${CARD_HEIGHT}px;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  gap: 40px;
   overflow: hidden;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
-  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
+  border-radius: 20px;
+  padding: 20px;
+  transform-origin: bottom center;
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled(motion.div)`
   display: flex;
-  flex-direction: column;
-  margin-left: 32px;
-  justify-content: center;
-  gap: 16px;
+  margin-right: 64px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const SubtitleWrapper = styled.div`
@@ -29,70 +159,26 @@ const SubtitleWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   height: 100%;
-  border-right: ${({ theme }) => `4px solid ${theme.colors.black}`};
   overflow: hidden;
+  border-radius: 10px;
 `;
 
 const Image = styled(motion.img)`
   object-fit: cover;
   height: 100%;
   width: 100%;
-  transform: scale(1.3);
-  transition: transform 0.2s ease;
   overflow: hidden;
 `;
 
-type Props = {
-  title: string;
-  subtitle: string;
-  imageSrc: string;
-  linkTo: string;
-};
+const LeftContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
 
-const Card = ({ title, subtitle, imageSrc, linkTo }: Props) => {
-  const [_, animate] = useAnimate();
-  const imageRef = useRef<HTMLImageElement>(null);
-  const isImageInView = useInView(imageRef, { amount: 0.5 });
-
-  const animateImage = () =>
-    imageRef.current && animate(imageRef.current, { scale: 1.05 });
-
-  useEffect(() => {
-    if (isImageInView) animateImage();
-  }, [isImageInView]);
-
-  const animationVariants = {
-    initialInView: { scale: 1.05 },
-    initial: { scale: 1.3 },
-    whileHover: { scale: 1 },
-  };
-
-  const initialAnimation = isImageInView ? "initialInView" : "initial";
-
-  return (
-    <Wrapper
-      href={linkTo}
-      initial={initialAnimation}
-      whileHover="whileHover"
-      animate={initialAnimation}
-    >
-      <ImageWrapper>
-        <Image src={imageSrc} ref={imageRef} variants={animationVariants} />
-      </ImageWrapper>
-      <ContentWrapper>
-        <TextEnterAnimation>
-          <Typography variant="Heading2">{title}</Typography>
-        </TextEnterAnimation>
-        <SubtitleWrapper>
-          <TextEnterAnimation>
-            <Typography variant="BodySm" isBody>
-              {subtitle}
-            </Typography>
-          </TextEnterAnimation>
-        </SubtitleWrapper>
-      </ContentWrapper>
-    </Wrapper>
-  );
-};
-
-export default Card;
+const StyledArrow = styled(ArrowRight)`
+  height: 48px;
+  width: 48px;
+  fill: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
+`;

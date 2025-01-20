@@ -1,33 +1,23 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import Typography from "./Typography";
+import Typography, { Heading } from "./Typography";
 import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 
 const Wrapper = styled.div`
   display: flex;
-  border-bottom: ${({ theme }) => `4px solid ${theme.colors.black}`};
-  padding: 64px;
+  padding: 100px 40px 30px 40px;
   justify-content: space-between;
-  align-items: center;
-`;
-
-const LeftWrapper = styled.div`
-  display: flex;
-  gap: 32px;
+  align-items: flex-end;
 `;
 
 type Props = {
   title: SectionTitleEnum;
-  icon?: any;
   rightElement?: ReactNode;
 };
 
-const SectionTitle = ({ title, icon, rightElement }: Props) => (
+const SectionTitle = ({ title, rightElement }: Props) => (
   <Wrapper>
-    <LeftWrapper>
-      {icon}
-      <Typography>{title}</Typography>
-    </LeftWrapper>
+    <Typography variant={Heading.H4}>{title}</Typography>
     {rightElement}
   </Wrapper>
 );

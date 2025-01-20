@@ -12,7 +12,8 @@ import { MutableRefObject, RefObject } from "react";
 
 export const createBoundingBox = (
   canvasRef: RefObject<HTMLDivElement>,
-  engineRef: MutableRefObject<Engine>
+  engineRef: MutableRefObject<Engine>,
+  additionalHeight = 0
 ) => {
   if (!canvasRef.current) return;
 
@@ -38,7 +39,7 @@ export const createBoundingBox = (
   );
   const ceiling = Bodies.rectangle(
     width / 2,
-    0 - halfWall,
+    0 - halfWall - additionalHeight,
     width,
     wallThickness,
     {
@@ -49,7 +50,7 @@ export const createBoundingBox = (
     0 - halfWall,
     height / 2,
     wallThickness,
-    height,
+    height + additionalHeight,
     {
       isStatic: true,
     }
@@ -58,7 +59,7 @@ export const createBoundingBox = (
     width + halfWall,
     height / 2,
     wallThickness,
-    height,
+    height + additionalHeight,
     {
       isStatic: true,
     }
@@ -114,20 +115,18 @@ export const addMouseDragHandling = (
 };
 
 export const handleExplosion = (
-  event: MouseEvent,
+  { xPos, yPos }: { xPos: number; yPos: number },
   engineRef: MutableRefObject<Engine>
 ) => {
-  const { layerX: mouseX, layerY: mouseY } = event;
-
   const minSpeed = 0;
   const maxSpeed = 10000;
-  const speedFactor = 5;
+  const power = 5;
 
   Composite.allBodies(engineRef.current.world).forEach((body) => {
     if (!body.isStatic) {
       // Calculate the directional vector pointing from the mouse to the body
-      const directionX = body.position.x - mouseX;
-      const directionY = body.position.y - mouseY;
+      const directionX = body.position.x - xPos;
+      const directionY = body.position.y - yPos;
 
       // Calculate the magnitude (distance) of the vector
       const distance = Math.sqrt(
@@ -142,10 +141,10 @@ export const handleExplosion = (
       const normalizedDirectionY = directionY / distance;
 
       // Calculate the inverse speed based on distance, scaling it so that the closer the body is to the mouse, the faster it moves
-      let speed = speedFactor / distance;
+      let speed = power / 120;
 
       // Cap the speed between minSpeed and maxSpeed
-      speed = Math.max(minSpeed, Math.min(speed, maxSpeed));
+      // speed = Math.max(minSpeed, Math.min(speed, maxSpeed));
 
       // const speed = minSpeed + distance * speedFactor;
 

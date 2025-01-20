@@ -1,4 +1,8 @@
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme";
+
+export const BORDER_STYLE = `1px solid ${theme.colors.black}`;
+// export const BORDER_STYLE = `4px solid ${theme.colors.black}`;
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -6,7 +10,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     width: 100%;
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.black.dark};
+    color: ${({ theme }) => theme.colors.white};
   }
 
   * {
@@ -18,15 +23,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     max-width: 1600px;
     margin: 0 auto;
-    border-left: ${({ theme }) => `4px solid ${theme.colors.black}`};
-    border-right: ${({ theme }) => `4px solid ${theme.colors.black}`};
-  }
-  
-  @media only screen and (max-width: 1600px) {
-    #___gatsby {
-        border-left: none;
-        border-right: none;
-    }
   }
 `;
 

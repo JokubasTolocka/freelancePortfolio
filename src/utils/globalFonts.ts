@@ -1,15 +1,20 @@
 import { createGlobalStyle } from "styled-components";
 
-import "@fontsource/poppins/400.css";
-import "@fontsource/poppins/500.css";
-import "@fontsource/poppins/600.css";
-
 const GlobalFonts = createGlobalStyle`
   @font-face {
-    font-family: "Poppins";
-    font-weight: normal;
-    font-style: normal;
-  }
+    font-family: 'PP Neue Montreal';
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+  src: url(/fonts/ppneuemontreal-medium.otf) format("otf");
+}
+  @font-face {
+  font-family: 'PP Neue Montreal';
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+   src: url(/fonts/ppneuemontreal-book.otf) format("otf");
+}
 `;
 
 export default GlobalFonts;

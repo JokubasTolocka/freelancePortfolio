@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import styled, { useTheme } from "styled-components";
 import { HEADER_CONTENT_HEIGHT } from "../../components/Header/Header";
-import Typography, { Heading } from "../../components/Typography";
+import Typography, { Body, Heading } from "../../components/Typography";
 import AnimatedLetters from "../../components/AnimatedLetters";
 import MatterCanvas from "./MatterCanvas/MatterCanvas";
 import { motion, useAnimate } from "framer-motion";
 import { BORDER_STYLE } from "../../utils/globalStyles";
+import AnimatedLine from "./AnimatedLine";
 
-const LANDING_FONT_WEIGHT = 400;
 export const FALL_ANIMATION_DELAY_SECONDS = 1.4;
 
 const LandingSection = () => {
@@ -29,22 +29,28 @@ const LandingSection = () => {
 
   return (
     <Wrapper>
+      <AnimatedLine />
       <MatterCanvas />
       <Content>
-        <LandingHeaderTypography variant={Heading.H1} passedRef={typographyRef}>
-          <AnimatedLetters title="I'm Jacob" />
-          <AnimatedLetters
-            title="a web creator crafting"
-            delayChildren={INITIAL_DELAY}
-          />
-          <AnimatedLetters
-            title="user experiences through"
-            delayChildren={INITIAL_DELAY * 2}
-          />
-          <AnimatedLetters
-            title="design and code"
-            delayChildren={INITIAL_DELAY * 3}
-          />
+        <LandingHeaderTypography
+          variant={Body.Heading}
+          passedRef={typographyRef}
+        >
+          {/* <AnimatedLetters>I'm Jacob</AnimatedLetters> */}
+          <AnimatedLetters>
+            I'm <Typography variant={Heading.H1}>Jacob,</Typography>
+          </AnimatedLetters>
+          <AnimatedLetters delayChildren={INITIAL_DELAY}>
+            a <Typography variant={Heading.H1}>web creator</Typography> crafting
+          </AnimatedLetters>
+          <AnimatedLetters delayChildren={INITIAL_DELAY * 2}>
+            <Typography variant={Heading.H1}>user experiences</Typography>{" "}
+            through
+          </AnimatedLetters>
+          <AnimatedLetters delayChildren={INITIAL_DELAY * 3}>
+            <Typography variant={Heading.H1}>design</Typography> and{" "}
+            <Typography variant={Heading.H1}>code</Typography>
+          </AnimatedLetters>
         </LandingHeaderTypography>
         <InfoTextWrapper
           initial="initial"
@@ -62,7 +68,7 @@ const LandingSection = () => {
             },
           }}
         >
-          <Typography variant={Heading.H5} isBody>
+          <Typography variant={Heading.H5}>
             Find work examples below.
           </Typography>
         </InfoTextWrapper>
@@ -94,8 +100,9 @@ const Content = styled.div`
 `;
 
 const LandingHeaderTypography = styled(Typography)`
-  font-weight: ${LANDING_FONT_WEIGHT};
   width: fit-content;
+  /* display: flex;
+  flex-direction: column; */
 `;
 
 const InfoTextWrapper = styled(motion.div)`

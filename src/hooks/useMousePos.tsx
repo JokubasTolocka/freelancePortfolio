@@ -4,7 +4,7 @@ const useMousePos = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const updateMousePos = (e: MouseEvent) =>
-    setMousePos({ x: e.clientX, y: e.clientY });
+    setMousePos({ x: e.pageX, y: e.pageY });
 
   useEffect(() => {
     window.addEventListener("mousemove", updateMousePos);

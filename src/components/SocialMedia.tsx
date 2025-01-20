@@ -6,36 +6,41 @@ import constants from "../constants/constants.json";
 import Link from "./Link";
 import MagneticBox from "./MagneticBox";
 
-const iconStyles = css`
-  fill: ${({ theme }) => theme.colors.black};
+const iconStyles = (isContrast?: boolean) => css`
+  fill: ${({ theme }) =>
+    isContrast ? theme.colors.black.dark : theme.colors.white};
   width: 30px;
   height: 30px;
-  margin: 6px;
+  margin: 3px;
   stroke: none !important;
 `;
 
-const StyledLinkedInIcon = styled(LinkedInIcon)`
-  ${iconStyles}
+const StyledLinkedInIcon = styled(LinkedInIcon)<{ $isContrast?: boolean }>`
+  ${({ $isContrast }) => iconStyles($isContrast)}
 `;
-const StyledGithubIcon = styled(GithubIcon)`
-  ${iconStyles}
+const StyledGithubIcon = styled(GithubIcon)<{ $isContrast?: boolean }>`
+  ${({ $isContrast }) => iconStyles($isContrast)}
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 32px;
+  gap: 20px;
 `;
 
-const SocialMedia = () => (
+interface Props {
+  isContrast?: boolean;
+}
+
+const SocialMedia = ({ isContrast }: Props) => (
   <Wrapper>
     <Link href={constants.LINKED_IN_URL}>
       <MagneticBox>
-        <StyledLinkedInIcon />
+        <StyledLinkedInIcon $isContrast={isContrast} />
       </MagneticBox>
     </Link>
     <Link href={constants.GITHUB_URL}>
       <MagneticBox>
-        <StyledGithubIcon />
+        <StyledGithubIcon $isContrast={isContrast} />
       </MagneticBox>
     </Link>
   </Wrapper>

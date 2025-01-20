@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Typography from "../../components/Typography";
+import Typography, { Body } from "../../components/Typography";
 import constants from "../../constants/constants.json";
 import styled from "styled-components";
 import WaveIcon from "../../assets/icons/wave.svg";
@@ -24,7 +24,7 @@ const StyledWaveIcon = styled(WaveIcon)`
 `;
 
 const StyledATag = styled(motion.a)`
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const LinkLine = () => {
@@ -53,7 +53,7 @@ const LinkLine = () => {
 
   return (
     <Wrapper ref={scope} onMouseEnter={handleAnimate}>
-      <Typography variant="BodyMd" isBody>
+      <Typography variant={Body.LG}>
         Say hi via{WHITESPACE}
         <StyledATag target="_blank" href={`mailto:${constants.EMAIL}`}>
           email
@@ -66,7 +66,7 @@ const LinkLine = () => {
         .
       </Typography>
       <IconWrapper ref={waveRef}>
-        <StyledWaveIcon ref={waveRef} />
+        <StyledWaveIcon />
       </IconWrapper>
     </Wrapper>
   );

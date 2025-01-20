@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import Typography from "../Typography";
+import Typography, { Heading } from "../Typography";
 import { useHeaderTitleContext } from "../../contexts/HeaderTitleContext/useHeaderTitleContext";
 import styled from "styled-components";
 import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 import { motion, useAnimate } from "framer-motion";
+import ExplodeSwitch from "./ExplodeSwitch";
 
-const TITLE_HEIGHT = 30;
+const TITLE_HEIGHT = 26;
 
 const Wrapper = styled.div`
   overflow: hidden;
+  overflow-x: visible;
   height: ${TITLE_HEIGHT}px;
 `;
 
@@ -37,9 +39,15 @@ const HeaderSectionTitle = () => {
   return (
     <Wrapper>
       <TitleContainer ref={titleContainerRef}>
-        {Object.values(SectionTitleEnum).map((value) => (
-          <StyledTypography variant="Heading5">{value}</StyledTypography>
-        ))}
+        {Object.values(SectionTitleEnum).map((value) => {
+          if (value === SectionTitleEnum.Landing) return <ExplodeSwitch />;
+
+          return (
+            <StyledTypography variant={Heading.H5} key={value}>
+              {value}
+            </StyledTypography>
+          );
+        })}
       </TitleContainer>
     </Wrapper>
   );
