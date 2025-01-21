@@ -12,10 +12,10 @@ import HeaderTitleContextProvider, {
 import SectionWrapper from "../components/SectionWrapper";
 import ExperienceSection from "../modules/ExperienceSection/ExperienceSection";
 import EducationSection from "../modules/EducationSection/EducationSection";
+import Layout from "../components/Layout";
 
 const IndexPage: React.FC<PageProps> = () => (
-  <HeaderTitleContextProvider>
-    <Header />
+  <Layout>
     <SectionWrapper>
       <LandingSection />
     </SectionWrapper>
@@ -34,8 +34,7 @@ const IndexPage: React.FC<PageProps> = () => (
     <SectionWrapper title={SectionTitleEnum.About}>
       <AboutSection />
     </SectionWrapper>
-    <Footer />
-  </HeaderTitleContextProvider>
+  </Layout>
 );
 
 export default IndexPage;
