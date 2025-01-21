@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import Typography, { Body, Heading } from "./Typography";
 import { motion, useAnimate, useInView, Variants } from "framer-motion";
 import ArrowRight from "../assets/icons/arrowRight.svg";
+import ChipList from "./ChipList";
 
 type Props = {
   title: string;
@@ -18,9 +19,10 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
   const rotationRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(wrapperRef, { amount: 0.3 });
   const [_, animate] = useAnimate();
+  const [isAnimationFinished, setIsAnimationFinished] = useState(false);
 
   useEffect(() => {
-    if (wrapperRef.current && rotationRef.current) {
+    if (wrapperRef.current && rotationRef.current && !isAnimationFinished) {
       animate(wrapperRef.current, { opacity: 0 }, { duration: 0.3 });
       animate(rotationRef.current, { rotateX: 30 }, { duration: 0.3 });
 
@@ -28,6 +30,7 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
       if (isInView) {
         animate(wrapperRef.current, { opacity: 100 }, { duration });
         animate(rotationRef.current, { rotateX: 0 }, { duration });
+        setIsAnimationFinished(true);
       }
     }
   }, [isInView]);
@@ -81,15 +84,7 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
                 <SubtitleWrapper>
                   <Typography variant={Body.LG}>{subtitle}</Typography>
                 </SubtitleWrapper>
-                {tags?.length && (
-                  <TagWrapper>
-                    {tags.map((title, index) => (
-                      <Tag key={`${title}-${index}`}>
-                        <Typography variant={Heading.H6}>{title}</Typography>
-                      </Tag>
-                    ))}
-                  </TagWrapper>
-                )}
+                {tags?.length && <ChipList items={tags} />}
               </LeftContent>
               <motion.div variants={arrowVariants}>
                 <StyledArrow />
@@ -107,17 +102,6 @@ export default Card;
 // https://www.studiogusto.com/studio
 
 export const CARD_HEIGHT = 300;
-
-const TagWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const Tag = styled.div`
-  border: ${({ theme }) => `1px solid ${theme.colors.white}`};
-  padding: 5px 15px;
-  border-radius: 50px;
-`;
 
 const AnimationWrapper = styled(motion.div)`
   background-color: transparent;
