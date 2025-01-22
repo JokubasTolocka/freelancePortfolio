@@ -5,7 +5,6 @@ import Typography, { Body, Heading } from "../../components/Typography";
 import AnimatedLetters from "../../components/AnimatedLetters";
 import MatterCanvas from "./MatterCanvas/MatterCanvas";
 import { motion, useAnimate } from "framer-motion";
-import { BORDER_STYLE } from "../../utils/globalStyles";
 import AnimatedLine from "./AnimatedLine";
 
 export const FALL_ANIMATION_DELAY_SECONDS = 1.4;
@@ -80,7 +79,6 @@ const LandingSection = () => {
 export default LandingSection;
 
 const Wrapper = styled.div`
-  border-bottom: ${BORDER_STYLE};
   position: relative;
   height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
   user-select: none;

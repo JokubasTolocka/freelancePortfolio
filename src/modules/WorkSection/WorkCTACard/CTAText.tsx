@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import Typography from "../../../components/Typography";
+import Typography, { Heading } from "../../../components/Typography";
 import { motion, useAnimate, useInView } from "framer-motion";
 import Button from "../../../components/Button";
-import { BORDER_STYLE } from "../../../utils/globalStyles";
 
 const BUTTON_DELAY = 0.8;
 
@@ -37,7 +36,7 @@ const CTAText = () => {
     <Wrapper ref={wrapperRef}>
       <TitleWrapper>
         <TitleText ref={titleRef}>
-          <Typography variant="Heading2">Like what you’re seeing?</Typography>
+          <Typography variant={Heading.H2}>Like what you’re seeing?</Typography>
         </TitleText>
       </TitleWrapper>
       <ButtonWrapper ref={buttonRef}>
@@ -61,7 +60,6 @@ const Wrapper = styled.div`
 
 const TitleWrapper = styled.div`
   padding: 16px 48px;
-  border: ${BORDER_STYLE};
   background-color: ${({ theme }) => `rgba(255, 255, 255, 0.8)`};
   /* background-color: ${({ theme }) => theme.colors.background}; */
   border-radius: 100px;
