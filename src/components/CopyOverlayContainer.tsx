@@ -1,4 +1,10 @@
-import React, { MouseEvent, PropsWithChildren, useRef, useState } from "react";
+import React, {
+  MouseEvent,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled, { useTheme } from "styled-components";
 import { motion, useAnimate } from "framer-motion";
 import CopyIcon from "../assets/icons/copy.svg";
@@ -56,6 +62,10 @@ const CopyOverlayContainer = ({ children }: PropsWithChildren) => {
         );
     });
   };
+
+  useEffect(() => {
+    clearHovering();
+  }, []);
 
   const updateMousePosition = (e: MouseEvent<HTMLDivElement>) =>
     setMousePosition({ x: e.pageX, y: e.pageY });
