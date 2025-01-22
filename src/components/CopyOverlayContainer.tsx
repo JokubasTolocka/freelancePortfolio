@@ -25,17 +25,16 @@ const StyledCopyIcon = styled(CopyIcon)`
 
 const CopyOverlayContainer = ({ children }: PropsWithChildren) => {
   const circleRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePosition] = useState({ x: 0, y: -100 });
   const [_, animate] = useAnimate();
   const theme = useTheme();
 
-  const setHovering = (e: MouseEvent<HTMLDivElement>) => {
+  const setHovering = () => {
     if (circleRef.current)
       animate(circleRef.current, { scale: 1 }, { duration: 0.1 });
-    setMousePosition({ x: e.pageX, y: e.pageY });
   };
 
-  const clearHovering = (e: MouseEvent<HTMLDivElement>) => {
+  const clearHovering = () => {
     if (circleRef.current)
       animate(
         circleRef.current,
@@ -45,7 +44,6 @@ const CopyOverlayContainer = ({ children }: PropsWithChildren) => {
         },
         { duration: 0.15 }
       );
-    setMousePosition({ x: e.pageX, y: e.pageY });
   };
 
   const handleCopy = () => {
@@ -59,9 +57,13 @@ const CopyOverlayContainer = ({ children }: PropsWithChildren) => {
     });
   };
 
+  const updateMousePosition = (e: MouseEvent<HTMLDivElement>) =>
+    setMousePosition({ x: e.pageX, y: e.pageY });
+
   return (
     <motion.div
-      onMouseMove={setHovering}
+      onMouseEnter={setHovering}
+      onMouseMove={updateMousePosition}
       onMouseLeave={clearHovering}
       onClick={handleCopy}
     >
