@@ -1,24 +1,44 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import portraitImage from "../../assets/images/aboutImage.jpg";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import portraitImage from "../../assets/images/portraitImage.jpg";
+import portraitVideo from "../../assets/images/portraitVideo.mp4";
 import styled from "styled-components";
 
-const Image = styled(motion.img)`
-  display: block;
-  object-fit: contain;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  align-content: start;
+  border-radius: 10px;
+  overflow: hidden;
+  height: fit-content;
+`;
+
+const Image = styled.img`
   width: 100%;
 `;
 
 const PortraitImage = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll({
-    target: containerRef,
-  });
+  const [isHovering, setIsHovering] = useState(false);
 
-  const bottom = useTransform(scrollY, [0, 1500], [50, -100]);
+  const setHovering = () => setIsHovering(true);
+  const clearHovering = () => setIsHovering(false);
 
   return (
-    <Image src={portraitImage} alt="portraitPhoto" style={{ bottom: bottom }} />
+    <Wrapper onMouseEnter={setHovering} onMouseLeave={clearHovering}>
+      {isHovering && (
+        <video
+          width="100%"
+          controls={false}
+          muted
+          autoPlay
+          onEnded={clearHovering}
+        >
+          <source src={portraitVideo} type="video/mp4" />
+        </video>
+      )}
+      <Image src={portraitImage} alt="portraitPhoto" />
+    </Wrapper>
   );
 };
 

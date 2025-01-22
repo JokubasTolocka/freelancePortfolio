@@ -2,9 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Typography, { Body } from "../../components/Typography";
 import LinkLine from "./LinkLine";
-import TextEnterAnimation from "../../components/TextEnterSlideAnimation";
 import PortraitImage from "./PortraitImage";
-import { BORDER_STYLE } from "../../utils/globalStyles";
 import Button from "../../components/Button";
 
 const Wrapper = styled.div`
@@ -12,7 +10,7 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 40px;
   margin: 10px 40px 200px 40px;
-  border-bottom: ${BORDER_STYLE};
+  height: 420px;
 `;
 
 const TextWrapper = styled.div`
