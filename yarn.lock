@@ -8192,6 +8192,11 @@ latest-version@^7.0.0:
   dependencies:
     tslib "^2.4.0"
 
+lenis@^1.1.20:
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/lenis/-/lenis-1.1.20.tgz#24c35199539b3c0064f50b9d26f85355171194aa"
+  integrity sha512-UE64mlJEN4W8DWP2tfHzPzygk94Q2BhjzeG/YHWoyeMJ2Fd6XziBCNN+IvHwmB4GkmKIYxgr0+TvRYTSAMTMFA==
+
 lerc@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lerc/-/lerc-3.0.0.tgz#36f36fbd4ba46f0abf4833799fff2e7d6865f5cb"
