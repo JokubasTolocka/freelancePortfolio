@@ -16,7 +16,7 @@ const List = ({ listItems }: Props) => {
   return (
     <Wrapper>
       {listItems.map((item, key) => (
-        <ListItem item={item} />
+        <ListItem item={item} key={`${item.position}-${key}`} />
       ))}
     </Wrapper>
   );

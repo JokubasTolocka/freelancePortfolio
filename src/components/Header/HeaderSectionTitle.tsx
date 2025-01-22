@@ -40,7 +40,8 @@ const HeaderSectionTitle = () => {
     <Wrapper>
       <TitleContainer ref={titleContainerRef}>
         {Object.values(SectionTitleEnum).map((value) => {
-          if (value === SectionTitleEnum.Landing) return <ExplodeSwitch />;
+          if (value === SectionTitleEnum.Landing)
+            return <ExplodeSwitch key="explode" />;
 
           return (
             <StyledTypography variant={Heading.H5} key={value}>

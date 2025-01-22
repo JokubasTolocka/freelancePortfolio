@@ -55,7 +55,7 @@ const Footer = () => (
         <Typography variant={Heading.H5}>
           <BottomLinks>
             {FOOTER_ITEMS.map(({ title }) => (
-              <LinkText>{title}</LinkText>
+              <LinkText key={title}>{title}</LinkText>
             ))}
           </BottomLinks>
         </Typography>
