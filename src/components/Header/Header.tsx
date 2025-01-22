@@ -6,6 +6,8 @@ import FlipText from "../FlipTextAnimation";
 import HeaderSectionTitle from "./HeaderSectionTitle";
 import { motion, Variants } from "framer-motion";
 
+export const HEADER_CONTENT_HEIGHT = 65;
+
 const NAV_ITEMS = [
   { title: "Work" },
   { title: "Experience" },
@@ -54,11 +56,10 @@ const Header = () => {
 
 export default Header;
 
-export const HEADER_CONTENT_HEIGHT = 65;
-
 const Wrapper = styled.div`
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.black.dark};
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
   display: flex;
   justify-content: space-between;
   align-items: center;
