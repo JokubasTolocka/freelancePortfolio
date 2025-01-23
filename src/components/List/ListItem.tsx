@@ -1,48 +1,67 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { ListItemType } from "./List";
-import Typography, { Body } from "../Typography";
-import {
-  cubicBezier,
-  motion,
-  useInView,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import Typography, { Body, Heading } from "../Typography";
+import { cubicBezier, motion, useAnimate, useAnimation } from "framer-motion";
+import ListItemEnterWrapper from "./ListItemEnterWrapper";
 
 interface Props {
   item: ListItemType;
 }
 
 const ListItem = ({ item }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const _ = useInView(ref);
-  const { scrollY } = useScroll({ target: ref });
+  const overlayWrapperRef = useRef<HTMLDivElement>(null);
+  const [_, animate] = useAnimate();
+  const controls = useAnimation();
 
-  const distanceToTop =
-    window.scrollY +
-    (ref.current?.getBoundingClientRect().top ?? 0) -
-    window.innerHeight;
+  const animationProps = { ease: cubicBezier(0.16, 1, 0.3, 1), duration: 1 };
 
-  const x = useTransform(
-    scrollY,
-    [distanceToTop, distanceToTop + 400],
-    [800, 0],
-    { ease: cubicBezier(0.33, 1, 0.68, 1) }
-  );
+  const onMouseEnter = () =>
+    overlayWrapperRef.current &&
+    animate(overlayWrapperRef.current, { top: "0%" }, animationProps);
+
+  const onMouseLeave = () =>
+    overlayWrapperRef.current &&
+    animate(overlayWrapperRef.current, { top: "100%" }, animationProps);
+
+  const handleScrollText = () =>
+    controls.start({
+      x: "-50%",
+      transition: {
+        duration: 7,
+        ease: "linear",
+        repeat: Infinity,
+        repeatType: "loop",
+      },
+    });
+
+  useEffect(() => {
+    handleScrollText();
+  }, []);
+
+  const scrollText = ` / ${item.position} ${
+    item.place ? ` @ ${item.place}` : ""
+  } / ${item.time} / ${item.tags.join(" / ")}`;
 
   return (
-    <Wrapper ref={ref}>
-      <Content style={{ x }}>
+    <ListItemEnterWrapper>
+      <Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <OverlayWrapper ref={overlayWrapperRef}>
+          <ScrollWrapper animate={controls}>
+            <StyledScrollTypography variant={Heading.H5}>
+              {scrollText} {scrollText}
+            </StyledScrollTypography>
+          </ScrollWrapper>
+        </OverlayWrapper>
         <StyledTypography variant={Body.LG}>
           <div>
             {item.position}
-            {item.place ? ` @ ${item.position}` : ""}
+            {item.place ? ` @ ${item.place}` : ""}
           </div>
           <div>{item.time}</div>
         </StyledTypography>
-      </Content>
-    </Wrapper>
+      </Wrapper>
+    </ListItemEnterWrapper>
   );
 };
 
@@ -51,11 +70,35 @@ export default ListItem;
 const Wrapper = styled(motion.div)`
   padding: 20px 0px;
   overflow: hidden;
+  position: relative;
 `;
 
-const Content = styled(motion.div)``;
+const OverlayWrapper = styled(motion.div)`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  color: ${({ theme }) => theme.colors.black.dark};
+  background-color: ${({ theme }) => theme.colors.white};
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  justify-content: space-between;
+`;
+
+const StyledScrollTypography = styled(Typography)`
+  display: inline-block;
+  white-space: nowrap;
+`;
 
 const StyledTypography = styled(Typography)`
   display: flex;
+  overflow: hidden;
   justify-content: space-between;
+  white-space: nowrap;
+`;
+
+const ScrollWrapper = styled(motion.div)`
+  display: inline-block;
+  white-space: nowrap;
 `;

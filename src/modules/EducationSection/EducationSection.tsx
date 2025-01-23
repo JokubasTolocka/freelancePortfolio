@@ -8,26 +8,31 @@ const workData: ListItemType[] = [
     position: "Frontend Engineer",
     place: "FinBytes",
     time: "Oct 2024 - Present",
+    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
   },
   {
     position: "Frontend Engineer",
     place: "FinBytes",
     time: "Oct 2024 - Present",
+    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
   },
   {
     position: "Frontend Engineer",
     place: "FinBytes",
     time: "Oct 2024 - Present",
+    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
   },
   {
     position: "Frontend Engineer",
     place: "FinBytes",
     time: "Oct 2024 - Present",
+    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
   },
   {
     position: "Frontend Engineer",
     place: "FinBytes",
     time: "Oct 2024 - Present",
+    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
   },
 ];
 

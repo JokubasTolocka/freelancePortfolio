@@ -6,6 +6,7 @@ export type ListItemType = {
   position: string;
   place?: string;
   time: string;
+  tags: string[];
 };
 
 interface Props {
