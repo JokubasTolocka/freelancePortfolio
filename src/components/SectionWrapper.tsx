@@ -44,7 +44,7 @@ const SectionWrapper = ({
   const myScrollFunction = () => {
     if (!wrapperRef.current) return;
 
-    const distanceViewportTopToTop = window.scrollY;
+    const distanceViewportTopToTop = window.scrollY - 70;
     const [distanceTopFromTop, distanceBottomFromTop] = getDistances();
 
     // If element has reached the top of the viewport
