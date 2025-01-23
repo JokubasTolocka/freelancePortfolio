@@ -3,7 +3,6 @@ import { Composite, Engine, Sleeping, World } from "matter-js";
 import styled from "styled-components";
 import Typography, { Heading } from "../../../components/Typography";
 import { ADJUSTED_LETTER_POSITIONS } from "./utils";
-import { FALL_ANIMATION_DELAY_SECONDS } from "../LandingSection";
 import {
   addMouseDragHandling,
   createBoundingBox,
@@ -11,8 +10,9 @@ import {
 } from "./matterJsUtils";
 import { addLetterShapes } from "./addLetterShapes";
 import { useInView } from "framer-motion";
+import { useGlobalContext } from "../../../contexts/GlobalContext/useGlobalContext";
 
-// For polygons with angles more than 180 degrees like L or E
+// For polygons with angles more than 180 degrees
 // @ts-ignore
 window.decomp = require("poly-decomp");
 
@@ -36,13 +36,16 @@ const Canvas = styled.div`
 
 const Rectangle = styled.div`
   position: absolute;
+  z-index: 8;
 `;
 
 const Letter = styled(Typography)`
   font-weight: 400;
+  position: absolute;
 `;
 
 const MatterCanvas = () => {
+  const { shouldExplode } = useGlobalContext();
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef(Engine.create());
   const rectanglesRef = useRef<Rectangle[]>([]);
@@ -55,19 +58,12 @@ const MatterCanvas = () => {
     addMouseDragHandling(canvasRef, engineRef);
 
     // Adjust world gravity
-    engineRef.current.gravity.y = 0;
-    engineRef.current.gravity.x = 1;
+    // engineRef.current.gravity.y = 1;
+    // engineRef.current.gravity.x = 1;
     return () => {
       World.clear(engineRef.current.world, false);
       Engine.clear(engineRef.current);
     };
-  }, []);
-
-  useEffect(() => {
-    const handleAddLetterShapes = () =>
-      addLetterShapes(canvasRef, engineRef, rectanglesRef);
-
-    // setTimeout(handleAddLetterShapes, FALL_ANIMATION_DELAY_SECONDS * 1000);
   }, []);
 
   useEffect(() => {
@@ -103,6 +99,9 @@ const MatterCanvas = () => {
     };
   }, []);
 
+  const handleAddLetters = async () =>
+    await addLetterShapes(canvasRef, engineRef, rectanglesRef);
+
   useEffect(() => {
     if (!canvasRef.current) return;
 
@@ -114,10 +113,10 @@ const MatterCanvas = () => {
       yPos: height / 2,
     };
 
-    // setTimeout(
-    //   () => handleExplosion(centerPosition, engineRef),
-    //   FALL_ANIMATION_DELAY_SECONDS * 1000 + 50
-    // );
+    if (shouldExplode) {
+      handleAddLetters();
+      setTimeout(() => handleExplosion(centerPosition, engineRef), 50);
+    }
 
     // Handle explosion on click
     // canvasRef.current.addEventListener("click", handleExplosion);
@@ -125,7 +124,7 @@ const MatterCanvas = () => {
     // return () => {
     //   canvasRef.current?.removeEventListener("click", handleExplosion);
     // };
-  }, []);
+  }, [shouldExplode]);
 
   const toggleBodiesSleeping = (shouldSleep: boolean) => {
     Composite.allBodies(engineRef.current.world).forEach((body) => {

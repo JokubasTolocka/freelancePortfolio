@@ -6,7 +6,7 @@ import { Rectangle } from "./MatterCanvas";
 
 const DOTTER_LETTERS_ARR = ["i", "j"];
 
-export const addLetterShapes = (
+export const addLetterShapes = async (
   canvasRef: RefObject<HTMLDivElement>,
   engineRef: MutableRefObject<Engine>,
   rectanglesRef: MutableRefObject<Rectangle[]>
@@ -18,7 +18,7 @@ export const addLetterShapes = (
   const { top: containerY, left: containerX } =
     canvasRef.current.getBoundingClientRect();
 
-  opentype.load("./fonts/InterLightMatterJS.ttf", (err, loadedFont) => {
+  await opentype.load("./fonts/InterLightMatterJS.ttf", (err, loadedFont) => {
     if (err || !loadedFont) console.error("Could not load font: " + err);
     else
       Array.from(letterContainers).forEach((letterContainer: Element) => {

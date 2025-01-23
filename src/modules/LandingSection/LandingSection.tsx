@@ -6,23 +6,22 @@ import AnimatedLetters from "../../components/AnimatedLetters";
 import MatterCanvas from "./MatterCanvas/MatterCanvas";
 import { motion, useAnimate } from "framer-motion";
 import AnimatedLine from "./AnimatedLine";
+import { useGlobalContext } from "../../contexts/GlobalContext/useGlobalContext";
 
-export const FALL_ANIMATION_DELAY_SECONDS = 1.4;
+export const FALL_ANIMATION_DELAY_SECONDS = 1;
 
 const LandingSection = () => {
+  const { shouldExplode } = useGlobalContext();
+
   const theme = useTheme();
   const typographyRef = useRef<HTMLDivElement>(null);
   const [_, animate] = useAnimate();
 
   useEffect(() => {
-    if (typographyRef.current) {
-      // animate(
-      //   typographyRef.current,
-      //   { color: theme.colors.black.light },
-      //   { delay: FALL_ANIMATION_DELAY_SECONDS }
-      // );
+    if (typographyRef.current && shouldExplode) {
+      animate(typographyRef.current, { color: theme.colors.black.light });
     }
-  }, []);
+  }, [shouldExplode]);
 
   const INITIAL_DELAY = 0.15;
 
@@ -62,7 +61,7 @@ const LandingSection = () => {
               transition: {
                 ease: "easeOut",
                 duration: 0.5,
-                delay: FALL_ANIMATION_DELAY_SECONDS + 1,
+                delay: FALL_ANIMATION_DELAY_SECONDS,
               },
             },
           }}
@@ -82,6 +81,7 @@ const Wrapper = styled.div`
   position: relative;
   height: calc(100vh - ${HEADER_CONTENT_HEIGHT}px);
   user-select: none;
+  overflow: hidden;
 `;
 
 const Content = styled.div`
@@ -89,20 +89,25 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin: 0 40px 0 40px;
-  z-index: 2;
   position: relative;
   padding-top: 40px;
   padding-bottom: 80px;
   height: 100%;
   color: ${({ theme }) => theme.colors.black};
+  pointer-events: none;
 `;
 
 const LandingHeaderTypography = styled(Typography)`
   width: fit-content;
-  /* display: flex;
-  flex-direction: column; */
 `;
 
 const InfoTextWrapper = styled(motion.div)`
+  /* position: absolute;
+  z-index: 9999;
+  bottom: 80px; */
+  /* padding: 2px 12px; */
+  border-radius: 20px;
   background-color: ${({ theme }) => theme.colors.background};
+  /* -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px); */
 `;

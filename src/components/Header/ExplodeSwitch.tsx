@@ -1,16 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import Typography, { Heading } from "../Typography";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { DynamicAnimationOptions, motion, useAnimate } from "framer-motion";
+import { useGlobalContext } from "../../contexts/GlobalContext/useGlobalContext";
 
 const ExplodeSwitch = () => {
-  const [shouldExplode, setShouldExplode] = useState(false);
+  const { shouldExplode, setShouldExplode } = useGlobalContext();
   const [switchCircleRef, animateSwitch] = useAnimate();
+  const [switchWrapperRef, animateSwitchWrapper] = useAnimate();
+  const theme = useTheme();
 
   const animationProps: DynamicAnimationOptions = {
     duration: 0.2,
     ease: [0.65, 0, 0.35, 1],
   };
+
+  useEffect(() => {
+    if (shouldExplode)
+      animateSwitchWrapper(switchWrapperRef.current, {
+        backgroundColor: theme.colors.white,
+      });
+  }, [shouldExplode]);
 
   const toggleSwitch = () => {
     if (!shouldExplode) {
@@ -18,13 +28,13 @@ const ExplodeSwitch = () => {
     } else {
       animateSwitch(switchCircleRef.current, { x: 0 }, animationProps);
     }
-    setShouldExplode(!shouldExplode);
+    if (!shouldExplode) setShouldExplode(true);
   };
 
   return (
     <Wrapper onClick={toggleSwitch}>
       <Typography variant={Heading.H5}>Explode</Typography>
-      <SwitchWrapper>
+      <SwitchWrapper ref={switchWrapperRef}>
         <SwitchCircle ref={switchCircleRef} />
       </SwitchWrapper>
     </Wrapper>
