@@ -17,7 +17,7 @@ const lineVariants = {
 const animationProps = {
   initial: "hidden",
   animate: "visible",
-  transition: { duration: 3 },
+  transition: { duration: 4, ease: [0.33, 1, 0.68, 1] },
   strokeDasharray: "0 1",
   variants: lineVariants,
 };
@@ -28,7 +28,7 @@ const AnimatedLine = () => {
   const _ = useInView(ref);
   const { scrollY } = useScroll();
 
-  const top = useTransform(scrollY, [0, 650], [255, 245], {
+  const top = useTransform(scrollY, [0, 650], [255, 240], {
     ease: cubicBezier(0.33, 1, 0.68, 1),
   });
 

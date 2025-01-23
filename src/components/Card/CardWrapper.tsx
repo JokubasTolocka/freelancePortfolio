@@ -39,7 +39,7 @@ const CardWrapper = ({ children }: PropsWithChildren) => {
     (ref.current?.getBoundingClientRect().top ?? 0) -
     window.innerHeight;
 
-  const inputRange = [distanceToTop, distanceToTop + window.innerHeight - 200];
+  const inputRange = [distanceToTop, distanceToTop + window.innerHeight - 400];
 
   const rotateX = useTransform(scrollY, inputRange, [30, 0], {
     ease: cubicBezier(0.33, 1, 0.68, 1),

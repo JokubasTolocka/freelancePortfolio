@@ -28,7 +28,7 @@ const ListItem = ({ item }: Props) => {
     controls.start({
       x: "-50%",
       transition: {
-        duration: 7,
+        duration: 10,
         ease: "linear",
         repeat: Infinity,
         repeatType: "loop",

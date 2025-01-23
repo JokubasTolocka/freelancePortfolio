@@ -9,7 +9,7 @@ export type ComplimentaryColors =
 export const theme = {
   colors: {
     white: "#ECECEC",
-    primary: "#9BCEFF",
+    primary: "#508DE0",
     success: "#72D25F",
     black: {
       dark: "#0A0A0A",
