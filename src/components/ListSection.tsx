@@ -24,4 +24,6 @@ const Wrapper = styled.div`
   padding: 100px 40px 30px 40px;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  overflow: hidden;
 `;

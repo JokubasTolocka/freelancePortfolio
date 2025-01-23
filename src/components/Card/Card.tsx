@@ -38,11 +38,13 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
     initial: {
       opacity: 0,
       x: -16,
+      y: 16,
       ...animationTransition,
     },
     whileHover: {
       opacity: 100,
       x: 0,
+      y: 0,
       ...animationTransition,
     },
   };
@@ -91,13 +93,13 @@ const Wrapper = styled(motion.a)`
   color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
   border-radius: 20px;
-  padding: 20px;
+  padding: 20px 0;
   transform-origin: bottom center;
 `;
 
 const ContentWrapper = styled(motion.div)`
   display: flex;
-  margin-right: 64px;
+  margin-right: 84px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -110,6 +112,7 @@ const ImageWrapper = styled.div`
   height: 100%;
   overflow: hidden;
   border-radius: 10px;
+  margin-left: 20px;
 `;
 
 const Image = styled(motion.img)`
@@ -130,4 +133,5 @@ const StyledArrow = styled(ArrowRight)`
   width: 48px;
   fill: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.white};
+  transform: rotate(-45deg);
 `;
