@@ -11,11 +11,6 @@ import SectionTitle from "./SectionTitle";
 import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 import { useHeaderTitleContext } from "../contexts/HeaderTitleContext/useHeaderTitleContext";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 type Props = {
   title?: SectionTitleEnum;
   titleRightElement?: ReactNode;
@@ -65,7 +60,7 @@ const SectionWrapper = ({
   }, []);
 
   return (
-    <Wrapper ref={wrapperRef}>
+    <Wrapper ref={wrapperRef} id={title?.replace(/ /g, "")}>
       {title && shouldShowTitle && (
         <SectionTitle title={title} rightElement={titleRightElement} />
       )}
@@ -75,3 +70,8 @@ const SectionWrapper = ({
 };
 
 export default SectionWrapper;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

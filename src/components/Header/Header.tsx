@@ -1,32 +1,44 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
+import { motion, Variants } from "framer-motion";
+// @ts-ignore
+import { useLenis } from "lenis/react";
 import Typography, { Heading } from "../Typography";
 import SocialMedia from "../SocialMedia";
 import FlipText from "../FlipTextAnimation";
 import HeaderSectionTitle from "./HeaderSectionTitle";
-import { motion, Variants } from "framer-motion";
+import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 
 export const HEADER_CONTENT_HEIGHT = 65;
 
 const NAV_ITEMS = [
-  { title: "Work" },
-  { title: "Experience" },
-  { title: "About" },
+  { title: "Work", id: SectionTitleEnum.Work },
+  { title: "Experience", id: SectionTitleEnum.Experience },
+  { title: "About", id: SectionTitleEnum.About },
   { title: "Contact" },
 ];
 
 const Header = () => {
   const theme = useTheme();
+  const lenis = useLenis();
 
   const linkAnimationVariants: Variants = {
     initial: {
-      backgroundColor: theme.colors.black.dark,
-      color: theme.colors.while,
+      backgroundColor: "rgba(0,0,0,0)",
+      transition: {
+        duration: 0.2,
+      },
     },
     whileHover: {
-      backgroundColor: theme.colors.black.mid,
-      color: theme.colors.white,
+      backgroundColor: theme.colors.primary,
+      transition: {
+        duration: 0.2,
+      },
     },
+  };
+
+  const handleNavigate = (id?: SectionTitleEnum) => {
+    if (id) lenis?.scrollTo(`#${id.replace(/ /g, "")}`);
   };
 
   return (
@@ -35,13 +47,14 @@ const Header = () => {
         <HeaderSectionTitle />
       </HeaderTitleWrapper>
       <RightContent>
-        {NAV_ITEMS.map(({ title }) => (
+        {NAV_ITEMS.map(({ title, id }) => (
           <LinkHover
             key={title}
             as={motion.div}
             initial="initial"
             whileHover="whileHover"
             variants={linkAnimationVariants}
+            onClick={() => handleNavigate(id)}
           >
             <FlipText>
               <Typography variant={Heading.H5}>{title}</Typography>
