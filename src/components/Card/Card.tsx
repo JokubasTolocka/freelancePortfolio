@@ -64,7 +64,7 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
           <LeftContent>
             <Typography variant={Heading.H3}>{title}</Typography>
             <SubtitleWrapper>
-              <Typography variant={Body.LG}>{subtitle}</Typography>
+              <Typography variant={Body.MD}>{subtitle}</Typography>
             </SubtitleWrapper>
             {tags?.length && <ChipList items={tags} />}
           </LeftContent>
