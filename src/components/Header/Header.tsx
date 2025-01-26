@@ -3,7 +3,7 @@ import styled, { useTheme } from "styled-components";
 import { motion, Variants } from "framer-motion";
 // @ts-ignore
 import { useLenis } from "lenis/react";
-import Typography, { Heading } from "../Typography";
+import Typography, { Body, Heading } from "../Typography";
 import SocialMedia from "../SocialMedia";
 import FlipText from "../FlipTextAnimation";
 import HeaderSectionTitle from "./HeaderSectionTitle";
@@ -15,7 +15,6 @@ const NAV_ITEMS = [
   { title: "Work", id: SectionTitleEnum.Work },
   { title: "Experience", id: SectionTitleEnum.Experience },
   { title: "About", id: SectionTitleEnum.About },
-  { title: "Contact" },
 ];
 
 const Header = () => {
@@ -24,13 +23,30 @@ const Header = () => {
 
   const linkAnimationVariants: Variants = {
     initial: {
-      backgroundColor: "rgba(0,0,0,0)",
+      scaleX: 0,
       transition: {
         duration: 0.2,
       },
     },
     whileHover: {
-      backgroundColor: theme.colors.primary,
+      scaleX: 1,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
+  const contactButtonVariants: Variants = {
+    initial: {
+      backgroundColor: theme.colors.white,
+      color: theme.colors.black.dark,
+      transition: {
+        duration: 0.2,
+      },
+    },
+    whileHover: {
+      backgroundColor: theme.colors.black.dark,
+      color: theme.colors.white,
       transition: {
         duration: 0.2,
       },
@@ -53,14 +69,21 @@ const Header = () => {
             as={motion.div}
             initial="initial"
             whileHover="whileHover"
-            variants={linkAnimationVariants}
             onClick={() => handleNavigate(id)}
           >
             <FlipText>
-              <Typography variant={Heading.H5}>{title}</Typography>
+              <Typography variant={Body.MD}>{title}</Typography>
             </FlipText>
+            <Underline variants={linkAnimationVariants} />
           </LinkHover>
         ))}
+        <ContactButton
+          initial="initial"
+          whileHover="whileHover"
+          variants={contactButtonVariants}
+        >
+          <Typography variant={Body.MD}>Contact</Typography>
+        </ContactButton>
         <SocialMedia />
       </RightContent>
     </Wrapper>
@@ -85,10 +108,13 @@ const Wrapper = styled.div`
 `;
 
 const LinkHover = styled.div`
-  padding: 2px 12px;
+  padding: 0 12px;
   border-radius: 100px;
   box-sizing: content-box;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 const RightContent = styled.div`
@@ -99,4 +125,20 @@ const RightContent = styled.div`
 
 const HeaderTitleWrapper = styled.div`
   position: relative;
+`;
+
+const ContactButton = styled(motion.div)`
+  padding: 2px 12px;
+  border: ${({ theme }) => `1px solid ${theme.colors.white}`};
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 12px;
+`;
+
+const Underline = styled(motion.div)`
+  height: 1px;
+  width: 100%;
+  transform-origin: left;
+  margin-top: 3px;
+  background-color: ${({ theme }) => theme.colors.white};
 `;

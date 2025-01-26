@@ -4,7 +4,7 @@ import { useHeaderTitleContext } from "../../contexts/HeaderTitleContext/useHead
 import styled from "styled-components";
 import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 import { motion, useAnimate } from "framer-motion";
-import ExplodeSwitch from "./ExplodeSwitch";
+import LocalTime from "../LocalTime";
 
 const TITLE_HEIGHT = 26;
 
@@ -41,7 +41,7 @@ const HeaderSectionTitle = () => {
       <TitleContainer ref={titleContainerRef}>
         {Object.values(SectionTitleEnum).map((value) => {
           if (value === SectionTitleEnum.Landing)
-            return <ExplodeSwitch key="explode" />;
+            return <LocalTime key="localTime" />;
 
           return (
             <StyledTypography variant={Heading.H5} key={value}>
