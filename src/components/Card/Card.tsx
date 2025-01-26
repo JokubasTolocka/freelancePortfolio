@@ -25,11 +25,11 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
 
   const bgColorVariants: Variants = {
     initial: {
-      backgroundColor: theme.colors.black.light,
+      backgroundColor: theme.colors.black.mid,
       ...animationTransition,
     },
     whileHover: {
-      backgroundColor: theme.colors.black.mid,
+      backgroundColor: theme.colors.black.light,
       ...animationTransition,
     },
   };
