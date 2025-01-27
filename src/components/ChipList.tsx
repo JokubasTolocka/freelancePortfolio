@@ -12,12 +12,12 @@ const ChipList = ({ items }: Props) => (
   <TagWrapper>
     {items.slice(0, CHIP_AMOUNT).map((title, index) => (
       <Tag key={`${title}-${index}`}>
-        <Typography variant={Heading.H6}>{title}</Typography>
+        <Typography variant={Heading.H7}>{title}</Typography>
       </Tag>
     ))}
     {items.length > CHIP_AMOUNT && (
       <Tag>
-        <Typography variant={Heading.H6}>
+        <Typography variant={Heading.H7}>
           +{items.length - CHIP_AMOUNT}
         </Typography>
       </Tag>

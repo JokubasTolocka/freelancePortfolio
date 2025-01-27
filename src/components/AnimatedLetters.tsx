@@ -5,7 +5,7 @@ import styled from "styled-components";
 const banner = {
   // animate: {
   //   transition: {
-  //     // staggerChildren: 0.03,
+  //     staggerChildren: 0.03,
   //   },
   // },
 };
@@ -125,7 +125,8 @@ const Letter = styled(motion.span)<{ $fontWeight: number }>`
 const Wrapper = styled(motion.span)`
   overflow: hidden;
   display: flex;
-  height: 110px;
+  height: 95px;
+  margin-bottom: 10px;
   width: fit-content;
   /* transform: rotate3d(1, 1, 1, 45deg); */
 `;

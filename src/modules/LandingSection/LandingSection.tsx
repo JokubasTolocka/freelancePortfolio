@@ -28,13 +28,12 @@ const LandingSection = () => {
   return (
     <Wrapper>
       <AnimatedLine />
-      <MatterCanvas />
+      {/* <MatterCanvas /> */}
       <Content>
         <LandingHeaderTypography
           variant={Body.Heading}
           passedRef={typographyRef}
         >
-          {/* <AnimatedLetters>I'm Jacob</AnimatedLetters> */}
           <AnimatedLetters>
             I'm <Typography variant={Heading.H1}>Jacob,</Typography>
           </AnimatedLetters>
@@ -93,7 +92,6 @@ const Content = styled.div`
   padding-top: 40px;
   padding-bottom: 80px;
   height: 100%;
-  color: ${({ theme }) => theme.colors.black};
   pointer-events: none;
 `;
 

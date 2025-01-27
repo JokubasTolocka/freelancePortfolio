@@ -8,6 +8,7 @@ export enum Heading {
   H4 = "H4",
   H5 = "H5",
   H6 = "H6",
+  H7 = "H7",
 }
 
 export enum Body {
@@ -23,6 +24,7 @@ enum FontSize {
   H4 = "26px",
   H5 = "22px",
   H6 = "18px",
+  H7 = "16px",
   LG = "22px",
   MD = "18px",
   Heading = "83px",

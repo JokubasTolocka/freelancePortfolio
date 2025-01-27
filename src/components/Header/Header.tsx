@@ -109,6 +109,7 @@ const Wrapper = styled.div`
 
 const LinkHover = styled.div`
   padding: 0 12px;
+  padding-top: 2px;
   border-radius: 100px;
   box-sizing: content-box;
   cursor: pointer;
@@ -139,6 +140,6 @@ const Underline = styled(motion.div)`
   height: 1px;
   width: 100%;
   transform-origin: left;
-  margin-top: 3px;
+  margin-top: 2px;
   background-color: ${({ theme }) => theme.colors.white};
 `;
