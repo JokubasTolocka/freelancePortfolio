@@ -11,7 +11,7 @@ const workData: ListItemType[] = [
     tags: ["React", "Typescript", "Graphql", "Pupeteer"],
   },
   {
-    position: "Frontend Developer",
+    position: "Frontend Engineer",
     place: "FinBytes",
     time: "Oct 2024 - Present",
     tags: ["React", "Typescript", "Graphql", "Pupeteer"],
@@ -38,7 +38,11 @@ const workData: ListItemType[] = [
 
 const ExperienceSection = () => {
   return (
-    <ListSection title={SectionTitleEnum.Experience} listItems={workData} />
+    <ListSection
+      title={SectionTitleEnum.Experience}
+      listItems={workData}
+      hasLinkedInLink
+    />
   );
 };
 
