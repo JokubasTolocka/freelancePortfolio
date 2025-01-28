@@ -92,7 +92,7 @@ const Wrapper = styled(motion.a)`
   overflow: hidden;
   color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 20px 0;
   transform-origin: bottom center;
 `;
@@ -111,7 +111,7 @@ const SubtitleWrapper = styled.div`
 const ImageWrapper = styled.div`
   height: 100%;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 8px;
   margin-left: 20px;
 `;
 

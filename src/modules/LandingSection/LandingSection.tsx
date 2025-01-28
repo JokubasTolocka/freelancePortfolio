@@ -23,7 +23,7 @@ const LandingSection = () => {
     }
   }, [shouldExplode]);
 
-  const INITIAL_DELAY = 0.15;
+  const INITIAL_DELAY = 0.3;
 
   return (
     <Wrapper>
