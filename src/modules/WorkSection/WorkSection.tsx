@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Card from "../../components/Card";
 import muralImg from "../../assets/images/mural.jpg";
-import WorkCTACard from "./WorkCTACard/WorkCTACard";
 import BrowseAllWorkButton from "./BrowseAllWorkButton";
+import Card from "../../components/Card/Card";
 
 const WorkSection = () => (
   <Wrapper>
@@ -42,7 +41,7 @@ const WorkSection = () => (
       {/* <WorkCTACard /> */}
     </CardWrapper>
     <FooterWrapper>
-      <BrowseAllWorkButton title="Browse All Work" />
+      <BrowseAllWorkButton title="Browse all work" />
     </FooterWrapper>
   </Wrapper>
 );
@@ -58,7 +57,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 20px;
-  gap: 20px;
+  gap: 10px;
 `;
 
 const FooterWrapper = styled.div`

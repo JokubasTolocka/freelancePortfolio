@@ -20,6 +20,8 @@ const IconWrapper = styled(motion.div)`
 
 const StyledArrowRight = styled(ArrowRight)`
   fill: ${({ theme }) => theme.colors.white};
+  width: 36px;
+  height: 36px;
 `;
 
 interface Props {
@@ -28,7 +30,7 @@ interface Props {
 
 const BrowseAllWorkButton = ({ title }: Props) => (
   <Wrapper href="/" initial="initial" whileHover="hovered">
-    <Typography variant={Heading.H4}>{title ?? "Browse All"}</Typography>
+    <Typography variant={Heading.H4}>{title ?? "Browse all"}</Typography>
     <IconWrapper
       transition={{ duration: 0.2 }}
       variants={{
