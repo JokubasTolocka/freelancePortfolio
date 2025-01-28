@@ -2,7 +2,6 @@ import {
   cubicBezier,
   motion,
   useInView,
-  useMotionValueEvent,
   useScroll,
   useTransform,
 } from "framer-motion";
