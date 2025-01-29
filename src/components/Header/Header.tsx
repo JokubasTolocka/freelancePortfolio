@@ -74,7 +74,7 @@ const Header = () => {
             <FlipText>
               <Typography variant={Body.MD}>{title}</Typography>
             </FlipText>
-            <Underline variants={linkAnimationVariants} />
+            {/* <Underline variants={linkAnimationVariants} /> */}
           </LinkHover>
         ))}
         <ContactButton

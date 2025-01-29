@@ -1,10 +1,8 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Typography, { Heading } from "./Typography";
 import CopyOverlayContainer from "./CopyOverlayContainer";
 import constants from "../constants/constants.json";
-import LinkedInIcon from "../assets/icons/linkedIn.svg";
-import GithubIcon from "../assets/icons/github.svg";
 import { MAX_SITE_WIDTH } from "../utils/globalStyles";
 
 const FOOTER_ITEMS = [
@@ -12,6 +10,8 @@ const FOOTER_ITEMS = [
   { title: "Murals" },
   { title: "Experience" },
   { title: "Contact" },
+  { title: "LinkedIn" },
+  { title: "Github" },
 ];
 
 const Footer = () => (
@@ -20,27 +20,11 @@ const Footer = () => (
       <TopContent>
         <PersonalInfoWrapper>
           <PersonalInfoNameWrapper>
-            <Typography variant={Heading.H4}>Jokūbas Toločka</Typography>
-            <SocialMediaWrapper>
-              <LinkText
-                href={constants.LINKED_IN_URL}
-                target="_blank"
-                rel="noopener"
-              >
-                <StyledLinkedInIcon />
-              </LinkText>
-              <LinkText
-                href={constants.GITHUB_URL}
-                target="_blank"
-                rel="noopener"
-              >
-                <StyledGithubIcon />
-              </LinkText>
-            </SocialMediaWrapper>
+            <Typography variant={Heading.H3}>Jokūbas Toločka</Typography>
+            <Typography variant={Heading.H5}>
+              Freelance Designer / Frontend Developer
+            </Typography>
           </PersonalInfoNameWrapper>
-          <Typography variant={Heading.H5}>
-            Freelance Designer / Frontend Developer
-          </Typography>
         </PersonalInfoWrapper>
         <CopyOverlayContainer>
           <PointerTypography variant={Heading.H1}>
@@ -87,7 +71,7 @@ const TopContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 80px;
+  gap: 100px;
 `;
 
 const PersonalInfoWrapper = styled.div`
@@ -98,8 +82,8 @@ const PersonalInfoWrapper = styled.div`
 
 const PersonalInfoNameWrapper = styled.div`
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const BottomContent = styled.div`
@@ -122,29 +106,4 @@ const LinkText = styled.a`
 
 const PointerTypography = styled(Typography)`
   cursor: pointer;
-`;
-
-const SocialMediaWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const iconStyles = css`
-  fill: ${({ theme }) => theme.colors.black.dark};
-  width: 30px;
-  height: 30px;
-  margin: 3px;
-  stroke: none !important;
-
-  &:hover {
-    fill: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
-const StyledLinkedInIcon = styled(LinkedInIcon)`
-  ${iconStyles}
-`;
-
-const StyledGithubIcon = styled(GithubIcon)`
-  ${iconStyles}
 `;
