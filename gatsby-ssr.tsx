@@ -27,9 +27,7 @@ export const onRenderBody = ({ setHeadComponents }) => {
   setHeadComponents(HeadComponents);
 };
 
-export const wrapRootElement = ({ element, setHeadComponents }) => {
-  setHeadComponents([]);
-
+export const wrapRootElement = ({ element }) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
