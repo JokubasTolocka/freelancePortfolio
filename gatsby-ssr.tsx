@@ -23,9 +23,9 @@ const HeadComponents = [
   />,
 ];
 
-export const onRenderBody = ({ setHeadComponents }) => {
-  setHeadComponents(HeadComponents);
-};
+// export const onRenderBody = ({ setHeadComponents }) => {
+//   setHeadComponents(HeadComponents);
+// };
 
 export const wrapRootElement = ({ element }) => {
   return (
