@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { CARD_HEIGHT } from "../../../components/Card";
+import { CARD_HEIGHT } from "../../../components/Card/Card";
 import { useInView } from "framer-motion";
 import { Composite, Engine, World } from "matter-js";
 import {
@@ -10,7 +10,6 @@ import {
 import Typography, { Heading } from "../../../components/Typography";
 import { addTextBlocks, TextBlock } from "./utils";
 import CTAText from "./CTAText";
-import { BORDER_STYLE } from "../../../utils/globalStyles";
 
 const WorkCTACard = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -113,7 +112,6 @@ export default WorkCTACard;
 const Wrapper = styled.div`
   width: 100%;
   height: ${CARD_HEIGHT}px;
-  border-bottom: ${BORDER_STYLE};
   color: ${({ theme }) => theme.colors.black.dark};
   background-color: ${({ theme }) => theme.colors.background};
   display: flex;
