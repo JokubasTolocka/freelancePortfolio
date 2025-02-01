@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { CARD_HEIGHT } from "../../../components/Card/Card";
-import { useInView } from "framer-motion";
+import { useInView } from "motion/react";
 import { Composite, Engine, World } from "matter-js";
 import {
   addMouseDragHandling,

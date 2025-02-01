@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import styled from "styled-components";
 import Typography, { Heading } from "./Typography";
 import FlipText from "./FlipTextAnimation";

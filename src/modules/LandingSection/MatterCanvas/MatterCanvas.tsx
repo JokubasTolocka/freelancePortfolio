@@ -9,7 +9,7 @@ import {
   handleExplosion,
 } from "./matterJsUtils";
 import { addLetterShapes } from "./addLetterShapes";
-import { useInView } from "framer-motion";
+import { useInView } from "motion/react";
 import { useGlobalContext } from "../../../contexts/GlobalContext/useGlobalContext";
 
 // For polygons with angles more than 180 degrees

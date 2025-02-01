@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { ListItemType } from "./List";
 import Typography, { Body, Heading } from "../Typography";
-import { cubicBezier, motion, useAnimate, useAnimation } from "framer-motion";
+import { cubicBezier, motion, useAnimate, useAnimation } from "motion/react";
 import ListItemEnterWrapper from "./ListItemEnterWrapper";
 
 interface Props {

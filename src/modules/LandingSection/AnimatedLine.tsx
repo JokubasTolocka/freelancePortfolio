@@ -4,7 +4,7 @@ import {
   useInView,
   useScroll,
   useTransform,
-} from "framer-motion";
+} from "motion/react";
 import React, { useRef } from "react";
 import styled, { useTheme } from "styled-components";
 

@@ -4,7 +4,7 @@ import {
   useInView,
   useScroll,
   useTransform,
-} from "framer-motion";
+} from "motion/react";
 import React, { PropsWithChildren, useRef } from "react";
 
 const ListItemEnterWrapper = ({ children }: PropsWithChildren) => {

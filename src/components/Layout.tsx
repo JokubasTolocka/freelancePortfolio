@@ -5,18 +5,18 @@ import Footer from "./Footer";
 import Header from "./Header/Header";
 import HeaderTitleContextProvider from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 // @ts-ignore
-import { ReactLenis } from "lenis/react";
+// import { ReactLenis } from "lenis/react";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <HeaderTitleContextProvider>
-      <ReactLenis root>
-        <Wrapper>
-          <Header />
-          {children}
-        </Wrapper>
-        <Footer />
-      </ReactLenis>
+      {/* <ReactLenis root> */}
+      {/* <Wrapper>
+        <Header />
+        {children}
+      </Wrapper> */}
+      <Footer />
+      {/* </ReactLenis> */}
     </HeaderTitleContextProvider>
   );
 };

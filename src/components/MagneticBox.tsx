@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useRef, useState, MouseEvent } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const MagneticBox = ({ children }: PropsWithChildren) => {
   const containerRef = useRef<HTMLDivElement | null>(null);

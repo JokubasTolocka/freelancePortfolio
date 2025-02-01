@@ -1,4 +1,4 @@
-import { motion, Variants } from "framer-motion";
+import { motion, Variants } from "motion/react";
 import React, { PropsWithChildren, ReactNode } from "react";
 import styled from "styled-components";
 
@@ -10,7 +10,7 @@ const banner = {
   // },
 };
 
-const letterAni: Variants = {
+const letterAnimation: Variants = {
   initial: { y: 100 },
   animate: {
     y: 0,
@@ -101,7 +101,7 @@ const AnimatedLetters = ({ children, delayChildren = 0 }: Props) => {
           letter && (
             <Letter
               key={index}
-              variants={letterAni}
+              variants={letterAnimation}
               $fontWeight={letter.fontWeight}
               className="letter"
             >

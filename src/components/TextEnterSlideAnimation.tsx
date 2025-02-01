@@ -1,4 +1,4 @@
-import { useAnimate, useInView } from "framer-motion";
+import { useAnimate, useInView } from "motion/react";
 import React, { PropsWithChildren, useEffect, useRef } from "react";
 import styled from "styled-components";
 

@@ -3,12 +3,36 @@ import { theme } from "./src/utils/theme";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./src/utils/globalStyles";
 import GlobalFonts from "./src/utils/globalFonts";
-import GlobalContextProvider from "./src/contexts/GlobalContext/GlobalContextProvider";
 
-export const wrapRootElement = ({ element }) => (
-  <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <GlobalFonts />
-    <GlobalContextProvider>{element}</GlobalContextProvider>
-  </ThemeProvider>
-);
+// const HeadComponents = [
+//   <link
+//     rel="preload"
+//     href="/fonts/ppneuemontreal-medium.otf"
+//     as="font"
+//     type="font/otf"
+//     crossOrigin="anonymous"
+//     key="neueMontrealFont-medium"
+//   />,
+//   <link
+//     rel="preload"
+//     href="/fonts/ppneuemontreal-book.otf"
+//     as="font"
+//     type="font/otf"
+//     crossOrigin="anonymous"
+//     key="neueMontrealFont-book"
+//   />,
+// ];
+
+// export const onRenderBody = ({ setHeadComponents }) => {
+//   setHeadComponents(HeadComponents);
+// };
+
+export const wrapRootElement = ({ element }) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <GlobalFonts />
+      {element}
+    </ThemeProvider>
+  );
+};

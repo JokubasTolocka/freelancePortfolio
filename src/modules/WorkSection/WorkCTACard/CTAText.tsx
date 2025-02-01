@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Typography, { Heading } from "../../../components/Typography";
-import { motion, useAnimate, useInView } from "framer-motion";
+import { motion, useAnimate, useInView } from "motion/react";
 import Button from "../../../components/Button";
 
 const BUTTON_DELAY = 0.8;

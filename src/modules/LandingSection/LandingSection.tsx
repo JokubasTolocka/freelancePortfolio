@@ -4,7 +4,7 @@ import { HEADER_CONTENT_HEIGHT } from "../../components/Header/Header";
 import Typography, { Body, Heading } from "../../components/Typography";
 import AnimatedLetters from "../../components/AnimatedLetters";
 import MatterCanvas from "./MatterCanvas/MatterCanvas";
-import { motion, useAnimate } from "framer-motion";
+import { motion, useAnimate } from "motion/react";
 import AnimatedLine from "./AnimatedLine";
 import { useGlobalContext } from "../../contexts/GlobalContext/useGlobalContext";
 

@@ -5,7 +5,7 @@ import {
   useInView,
   useScroll,
   useTransform,
-} from "framer-motion";
+} from "motion/react";
 import React, { PropsWithChildren, useRef, useState } from "react";
 import styled from "styled-components";
 

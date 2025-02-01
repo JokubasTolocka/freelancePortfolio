@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants } from "motion/react";
 // @ts-ignore
-import { useLenis } from "lenis/react";
+// import { useLenis } from "lenis/react";
 import Typography, { Body, Heading } from "../Typography";
 import SocialMedia from "../SocialMedia";
 import FlipText from "../FlipTextAnimation";
@@ -19,7 +19,7 @@ const NAV_ITEMS = [
 
 const Header = () => {
   const theme = useTheme();
-  const lenis = useLenis();
+  // const lenis = useLenis();
 
   const linkAnimationVariants: Variants = {
     initial: {
@@ -54,7 +54,7 @@ const Header = () => {
   };
 
   const handleNavigate = (id?: SectionTitleEnum) => {
-    if (id) lenis?.scrollTo(`#${id.replace(/ /g, "")}`);
+    // if (id) lenis?.scrollTo(`#${id.replace(/ /g, "")}`);
   };
 
   return (

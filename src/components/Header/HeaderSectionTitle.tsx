@@ -3,7 +3,7 @@ import Typography, { Heading } from "../Typography";
 import { useHeaderTitleContext } from "../../contexts/HeaderTitleContext/useHeaderTitleContext";
 import styled from "styled-components";
 import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleContextProvider";
-import { motion, useAnimate } from "framer-motion";
+import { motion, useAnimate } from "motion/react";
 import LocalTime from "../LocalTime";
 
 const TITLE_HEIGHT = 26;

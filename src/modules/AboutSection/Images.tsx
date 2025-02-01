@@ -1,4 +1,4 @@
-import { easeIn, easeOut, useAnimate, useInView } from "framer-motion";
+import { easeIn, easeOut, useAnimate, useInView } from "motion/react";
 import React, { useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import Blossom from "../../assets/icons/blossom.svg";

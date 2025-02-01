@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import Typography, { Body, Heading } from "../Typography";
-import { motion, useAnimate, useInView, Variants } from "framer-motion";
+import { motion, useAnimate, useInView, Variants } from "motion/react";
 import ArrowRight from "../../assets/icons/arrowRight.svg";
 import ChipList from "../ChipList";
 import CardWrapper from "./CardWrapper";

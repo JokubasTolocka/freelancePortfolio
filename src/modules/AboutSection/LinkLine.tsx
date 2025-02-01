@@ -3,7 +3,7 @@ import Typography, { Body } from "../../components/Typography";
 import constants from "../../constants/constants.json";
 import styled from "styled-components";
 import WaveIcon from "../../assets/icons/wave.svg";
-import { motion, useAnimate } from "framer-motion";
+import { motion, useAnimate } from "motion/react";
 
 const WHITESPACE = " ";
 

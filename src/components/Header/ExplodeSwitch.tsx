@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Typography, { Heading } from "../Typography";
 import styled, { useTheme } from "styled-components";
-import { DynamicAnimationOptions, motion, useAnimate } from "framer-motion";
+import { DynamicAnimationOptions, motion, useAnimate } from "motion/react";
 import { useGlobalContext } from "../../contexts/GlobalContext/useGlobalContext";
 
 const ExplodeSwitch = () => {

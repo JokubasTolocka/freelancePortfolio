@@ -2,7 +2,7 @@ import React from "react";
 import Typography, { Heading } from "../../components/Typography";
 import styled from "styled-components";
 import ArrowRight from "../../assets/icons/arrowRight.svg";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const Wrapper = styled(motion.a)`
   text-decoration: none;

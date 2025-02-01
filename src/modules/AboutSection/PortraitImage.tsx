@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import portraitImage from "../../assets/images/portraitImage.jpg";
 import portraitVideo from "../../assets/images/portraitVideo.mp4";
 import styled from "styled-components";

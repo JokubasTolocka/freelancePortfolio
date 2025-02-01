@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import styled, { useTheme } from "styled-components";
-import { motion, useAnimate } from "framer-motion";
+import { motion, useAnimate } from "motion/react";
 import CopyIcon from "../assets/icons/copy.svg";
 import constants from "../constants/constants.json";
 
