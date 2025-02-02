@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import muralImg from "../../assets/images/mural.jpg";
+// import muralImg from "../../assets/images/mural.jpg";
 import BrowseAllWorkButton from "./BrowseAllWorkButton";
 import Card from "../../components/Card/Card";
 
@@ -10,7 +10,7 @@ const WorkSection = () => (
       <Card
         title="Murals worldwide"
         subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={muralImg}
+        imageSrc={"../images/mural.jpg"}
         tags={[
           "Branding",
           "Design",
@@ -23,19 +23,19 @@ const WorkSection = () => (
       <Card
         title="Murals worldwide"
         subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={muralImg}
+        imageSrc={"../images/mural.jpg"}
         linkTo="/murals"
       />
       <Card
         title="Murals worldwide"
         subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={muralImg}
+        imageSrc={"../images/mural.jpg"}
         linkTo="/murals"
       />
       <Card
         title="Murals worldwide"
         subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={muralImg}
+        imageSrc={"../images/mural.jpg"}
         linkTo="/murals"
       />
       {/* <WorkCTACard /> */}

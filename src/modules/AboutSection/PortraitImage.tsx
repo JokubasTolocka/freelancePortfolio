@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "motion/react";
-import portraitImage from "../../assets/images/portraitImage.jpg";
-import portraitVideo from "../../assets/images/portraitVideo.mp4";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -34,10 +31,10 @@ const PortraitImage = () => {
           autoPlay
           onEnded={clearHovering}
         >
-          <source src={portraitVideo} type="video/mp4" />
+          <source src="../images/portraitVideo.mp4" type="video/mp4" />
         </video>
       )}
-      <Image src={portraitImage} alt="portraitPhoto" />
+      <Image src="../images/portraitImage.jpg" alt="portraitPhoto" />
     </Wrapper>
   );
 };

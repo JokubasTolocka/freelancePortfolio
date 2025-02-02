@@ -1,6 +1,9 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
+  // flags: {
+  //   DEV_SSR: true,
+  // },
   siteMetadata: {
     title: `freelancePortfolio`,
     siteUrl: `https://www.yourdomain.tld`,
@@ -14,7 +17,9 @@ const config: GatsbyConfig = {
     "gatsby-plugin-styled-components",
     "gatsby-plugin-sitemap",
     "gatsby-plugin-mdx",
-    "gatsby-plugin-svgr",
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     {
       resolve: "gatsby-source-filesystem",
       options: {

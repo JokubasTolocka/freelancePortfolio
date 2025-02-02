@@ -5,6 +5,7 @@ import { motion, useAnimate, useInView, Variants } from "motion/react";
 import ArrowRight from "../../assets/icons/arrowRight.svg";
 import ChipList from "../ChipList";
 import CardWrapper from "./CardWrapper";
+import { StaticImage } from "gatsby-plugin-image";
 
 type Props = {
   title: string;
@@ -58,7 +59,7 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
         variants={bgColorVariants}
       >
         <ImageWrapper>
-          <Image src={imageSrc} />
+          <Image src={imageSrc} as={motion.img} alt="workImage" />
         </ImageWrapper>
         <ContentWrapper>
           <LeftContent>
@@ -115,7 +116,7 @@ const ImageWrapper = styled.div`
   margin-left: 20px;
 `;
 
-const Image = styled(motion.img)`
+const Image = styled(StaticImage)`
   object-fit: cover;
   height: 100%;
   width: 100%;
