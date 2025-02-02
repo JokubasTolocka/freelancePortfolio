@@ -5,34 +5,34 @@ import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleC
 
 const workData: ListItemType[] = [
   {
-    position: "Frontend Engineer",
-    place: "FinBytes",
-    time: "Oct 2024 - Present",
-    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
+    position: "Computer Science BSc",
+    place: "University of Leeds",
+    time: "3 years",
+    tags: ["Python", "C", "Java", "Systems Architecture", "Project Management"],
   },
   {
-    position: "Frontend Engineer",
-    place: "FinBytes",
-    time: "Oct 2024 - Present",
-    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
+    position: "Google UX Design Specialization",
+    time: "6 months",
+    tags: [
+      "UI",
+      "UX",
+      "Figma",
+      "AdobeXD",
+      "Wireframing",
+      "Prototyping",
+      "Testing",
+    ],
   },
   {
-    position: "Frontend Engineer",
-    place: "FinBytes",
-    time: "Oct 2024 - Present",
-    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
+    position: "Adobe Illustrator Mega course",
+    time: "3 months",
+    tags: ["Adobe Illustrator", "Illustration"],
   },
   {
-    position: "Frontend Engineer",
-    place: "FinBytes",
-    time: "Oct 2024 - Present",
-    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
-  },
-  {
-    position: "Frontend Engineer",
-    place: "FinBytes",
-    time: "Oct 2024 - Present",
-    tags: ["React", "Typescript", "Graphql", "Pupeteer"],
+    position: "Local Art School",
+    place: "Molėtai, Lithuania",
+    time: "7 years",
+    tags: ["Graphic Design", "Color Theory", "Sculpture", "Drawing"],
   },
 ];
 
