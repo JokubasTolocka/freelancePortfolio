@@ -3,8 +3,8 @@ backend:
   repo: JokubasTolocka/freelancePortfolio
   branch: master
 
-media_folder: static/assets
-public_folder: /assets
+media_folder: src/content
+public_folder: /content
 
 collections:
   - name: work

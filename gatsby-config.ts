@@ -20,6 +20,14 @@ const config: GatsbyConfig = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `work`,
+        path: `${__dirname}/src/content/work`, // Path to your Markdown files
+      },
+    },
     {
       resolve: "gatsby-source-filesystem",
       options: {

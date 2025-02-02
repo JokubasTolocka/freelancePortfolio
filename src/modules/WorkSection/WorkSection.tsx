@@ -3,48 +3,67 @@ import styled from "styled-components";
 // import muralImg from "../../assets/images/mural.jpg";
 import BrowseAllWorkButton from "./BrowseAllWorkButton";
 import Card from "../../components/Card/Card";
+import { graphql, useStaticQuery } from "gatsby";
 
-const WorkSection = () => (
-  <Wrapper>
-    <CardWrapper>
-      <Card
-        title="Murals worldwide"
-        subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={"../images/mural.jpg"}
-        tags={[
-          "Branding",
-          "Design",
-          "App Design",
-          "Web Design",
-          "Illustration",
-        ]}
-        linkTo="/murals"
-      />
-      <Card
-        title="Murals worldwide"
-        subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={"../images/mural.jpg"}
-        linkTo="/murals"
-      />
-      <Card
-        title="Murals worldwide"
-        subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={"../images/mural.jpg"}
-        linkTo="/murals"
-      />
-      <Card
-        title="Murals worldwide"
-        subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
-        imageSrc={"../images/mural.jpg"}
-        linkTo="/murals"
-      />
-      {/* <WorkCTACard /> */}
-    </CardWrapper>
-    <FooterWrapper>
-      <BrowseAllWorkButton title="Browse all work" />
-    </FooterWrapper>
-  </Wrapper>
-);
+const allWorkQuery = graphql`
+  query {
+    allMarkdownRemark {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            subtitle
+            coverImageSrc
+            tags
+          }
+        }
+      }
+    }
+  }
+`;
+
+interface Edge {
+  node: {
+    id: string;
+    frontmatter: {
+      title: string;
+      subtitle: string;
+      coverImageSrc: string;
+      tags?: string[];
+    };
+  };
+}
+
+const WorkSection = () => {
+  const data = useStaticQuery(allWorkQuery);
+
+  return (
+    <Wrapper>
+      <CardWrapper>
+        {data?.allMarkdownRemark.edges.map(({ node }: Edge) => (
+          <Card
+            title={node.frontmatter.title}
+            subtitle={node.frontmatter.subtitle}
+            imageSrc={node.frontmatter.coverImageSrc}
+            tags={node.frontmatter.tags}
+            linkTo={`/work/${node.id}`}
+          />
+        ))}
+        {/* <WorkCTACard /> */}
+        <Card
+          title="Murals worldwide"
+          subtitle="Painted walls for businesses to help attract more customers and brighten up local communities."
+          imageSrc={"../images/mural.jpg"}
+          linkTo="/murals"
+        />
+      </CardWrapper>
+      <FooterWrapper>
+        <BrowseAllWorkButton title="Browse all work" />
+      </FooterWrapper>
+    </Wrapper>
+  );
+};
 
 export default WorkSection;
 
