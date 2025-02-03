@@ -4,49 +4,70 @@ import Typography, { Heading } from "./Typography";
 import CopyOverlayContainer from "./CopyOverlayContainer";
 import constants from "../constants/constants.json";
 import { MAX_SITE_WIDTH } from "../utils/globalStyles";
+import { useGlobalContext } from "../contexts/GlobalContext/useGlobalContext";
+import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
+import { navigate } from "gatsby";
 
 const FOOTER_ITEMS = [
-  { title: "Work" },
-  { title: "Murals" },
-  { title: "Experience" },
-  { title: "Contact" },
-  { title: "LinkedIn" },
-  { title: "Github" },
+  { title: "Work", to: "/work" },
+  { title: "Murals", to: "/murals" },
 ];
 
-const Footer = () => (
-  <Wrapper>
-    <Content>
-      <TopContent>
-        <PersonalInfoWrapper>
-          <PersonalInfoNameWrapper>
-            <Typography variant={Heading.H3}>Jokūbas Toločka</Typography>
-            <Typography variant={Heading.H5}>
-              Freelance Designer / Frontend Developer
-            </Typography>
-          </PersonalInfoNameWrapper>
-        </PersonalInfoWrapper>
-        <CopyOverlayContainer>
-          <PointerTypography variant={Heading.H1}>
-            {constants.EMAIL}
-          </PointerTypography>
-        </CopyOverlayContainer>
-      </TopContent>
-      <BottomContent>
-        <Typography variant={Heading.H5}>
-          Website Designed + Developed by Me
-        </Typography>
-        <Typography variant={Heading.H5}>
-          <BottomLinks>
-            {FOOTER_ITEMS.map(({ title }) => (
-              <LinkText key={title}>{title}</LinkText>
-            ))}
-          </BottomLinks>
-        </Typography>
-      </BottomContent>
-    </Content>
-  </Wrapper>
-);
+const SOCIAL_MEDIA_LINKS = [
+  { title: "Github", to: constants.GITHUB_URL },
+  { title: "LinkedIn", to: constants.LINKED_IN_URL },
+];
+
+const Footer = () => {
+  const { openContactPopup } = useGlobalContext();
+
+  const goToExperience = () => {
+    navigate(`/#${SectionTitleEnum.Experience.replace(/ /g, "")}`);
+  };
+
+  return (
+    <Wrapper>
+      <Content>
+        <TopContent>
+          <PersonalInfoWrapper>
+            <PersonalInfoNameWrapper>
+              <Typography variant={Heading.H3}>Jokūbas Toločka</Typography>
+              <Typography variant={Heading.H5}>
+                Freelance Designer / Frontend Developer
+              </Typography>
+            </PersonalInfoNameWrapper>
+          </PersonalInfoWrapper>
+          <CopyOverlayContainer>
+            <PointerTypography variant={Heading.H1}>
+              {constants.EMAIL}
+            </PointerTypography>
+          </CopyOverlayContainer>
+        </TopContent>
+        <BottomContent>
+          <Typography variant={Heading.H5}>
+            Website Designed + Developed by Me
+          </Typography>
+          <Typography variant={Heading.H5}>
+            <BottomLinks>
+              {FOOTER_ITEMS.map(({ title, to }) => (
+                <LinkText key={title} href={to}>
+                  {title}
+                </LinkText>
+              ))}
+              <LinkText onClick={goToExperience}>Experience</LinkText>
+              <LinkText onClick={openContactPopup}>Contact</LinkText>
+              {SOCIAL_MEDIA_LINKS.map(({ title, to }) => (
+                <LinkText key={title} href={to} target="_blank">
+                  {title}
+                </LinkText>
+              ))}
+            </BottomLinks>
+          </Typography>
+        </BottomContent>
+      </Content>
+    </Wrapper>
+  );
+};
 
 export default Footer;
 
@@ -98,6 +119,8 @@ const BottomLinks = styled.div`
 
 const LinkText = styled.a`
   cursor: pointer;
+  text-decoration: none;
+  color: ${({ theme }) => `${theme.colors.black.dark} !important`};
 
   &:hover {
     color: ${({ theme }) => `${theme.colors.primary} !important`};

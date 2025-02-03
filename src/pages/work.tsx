@@ -3,7 +3,6 @@ import React from "react";
 import Layout from "../components/Layout";
 import SectionWrapper from "../components/SectionWrapper";
 import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
-import WorkSection from "../modules/Landing/WorkSection/WorkSection";
 import styled from "styled-components";
 import Card from "../components/Card/Card";
 
@@ -78,7 +77,7 @@ export const Head: HeadFC = () => <title>Jokūbas Toločka | Work</title>;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 `;
 
 const CardWrapper = styled.div`

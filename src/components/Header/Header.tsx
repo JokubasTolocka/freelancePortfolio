@@ -8,6 +8,8 @@ import SocialMedia from "../SocialMedia";
 import FlipText from "../FlipTextAnimation";
 import HeaderSectionTitle from "./HeaderSectionTitle";
 import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleContextProvider";
+import { useGlobalContext } from "../../contexts/GlobalContext/useGlobalContext";
+import { navigate } from "gatsby";
 
 export const HEADER_CONTENT_HEIGHT = 65;
 
@@ -20,6 +22,7 @@ const NAV_ITEMS = [
 const Header = () => {
   const theme = useTheme();
   const lenis = useLenis();
+  const { openContactPopup } = useGlobalContext();
 
   const linkAnimationVariants: Variants = {
     initial: {
@@ -53,8 +56,12 @@ const Header = () => {
     },
   };
 
-  const handleNavigate = (id?: SectionTitleEnum) => {
-    if (id) lenis?.scrollTo(`#${id.replace(/ /g, "")}`);
+  const handleNavigate = (id: SectionTitleEnum) => {
+    if (window.location.pathname !== "/") {
+      return navigate(`/#${id.replace(/ /g, "")}`);
+    }
+
+    lenis?.scrollTo(`#${id.replace(/ /g, "")}`);
   };
 
   return (
@@ -81,6 +88,7 @@ const Header = () => {
           initial="initial"
           whileHover="whileHover"
           variants={contactButtonVariants}
+          onClick={openContactPopup}
         >
           <Typography variant={Body.MD}>Contact</Typography>
         </ContactButton>
