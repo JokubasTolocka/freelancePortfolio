@@ -9,27 +9,11 @@ import {
 import React, { PropsWithChildren, useRef, useState } from "react";
 import styled from "styled-components";
 
-const CardWrapper = ({ children }: PropsWithChildren) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const rotationRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(wrapperRef, { amount: 0.3 });
-  //   const [_, animate] = useAnimate();
-  const [isAnimationFinished, setIsAnimationFinished] = useState(false);
+interface Props extends PropsWithChildren {
+  isVisible?: boolean;
+}
 
-  //   useEffect(() => {
-  //     if (wrapperRef.current && rotationRef.current && !isAnimationFinished) {
-  //       animate(wrapperRef.current, { opacity: 0 }, { duration: 0.3 });
-  //       animate(rotationRef.current, { rotateX: 30 }, { duration: 0.3 });
-
-  //       const duration = 1;
-  //       if (isInView) {
-  //         animate(wrapperRef.current, { opacity: 100 }, { duration });
-  //         animate(rotationRef.current, { rotateX: 0 }, { duration });
-  //         setIsAnimationFinished(true);
-  //       }
-  //     }
-  //   }, [isInView]);
-
+const CardWrapper = ({ children, isVisible }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const _ = useInView(ref);
   const { scrollY } = useScroll({ target: ref });
@@ -51,8 +35,10 @@ const CardWrapper = ({ children }: PropsWithChildren) => {
 
   return (
     <PerspectiveWrapper>
-      <RotationWrapper ref={ref} style={{ rotateX }}>
-        <AnimationWrapper style={{ opacity }}>{children}</AnimationWrapper>
+      <RotationWrapper ref={ref} style={{ rotateX: isVisible ? 0 : rotateX }}>
+        <AnimationWrapper style={{ opacity: isVisible ? 100 : opacity }}>
+          {children}
+        </AnimationWrapper>
       </RotationWrapper>
     </PerspectiveWrapper>
   );

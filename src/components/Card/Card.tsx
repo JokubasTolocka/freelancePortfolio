@@ -13,9 +13,17 @@ type Props = {
   imageSrc: string;
   linkTo: string;
   tags?: string[];
+  isVisible?: boolean;
 };
 
-const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
+const Card = ({
+  title,
+  subtitle,
+  imageSrc,
+  linkTo,
+  tags,
+  isVisible,
+}: Props) => {
   const theme = useTheme();
 
   const animationTransition = {
@@ -51,7 +59,7 @@ const Card = ({ title, subtitle, imageSrc, linkTo, tags }: Props) => {
   };
 
   return (
-    <CardWrapper>
+    <CardWrapper isVisible={isVisible}>
       <Wrapper
         href={linkTo}
         initial="initial"

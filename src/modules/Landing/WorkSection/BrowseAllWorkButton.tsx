@@ -29,7 +29,7 @@ interface Props {
 }
 
 const BrowseAllWorkButton = ({ title }: Props) => (
-  <Wrapper href="/" initial="initial" whileHover="hovered">
+  <Wrapper href="/work" initial="initial" whileHover="hovered">
     <Typography variant={Heading.H4}>{title ?? "Browse all"}</Typography>
     <IconWrapper
       transition={{ duration: 0.2 }}
