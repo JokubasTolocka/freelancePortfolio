@@ -42,7 +42,7 @@ const AboutSection = () => (
           <Typography variant={Heading.H5}>Services</Typography>
           <List style={{ marginBottom: "20px" }}>
             {DESIGN_SERVICES.map((name) => (
-              <ListItemWrapper>
+              <ListItemWrapper key={name}>
                 <StyledCheckIcon />
                 {name}
               </ListItemWrapper>
@@ -50,7 +50,7 @@ const AboutSection = () => (
           </List>
           <List>
             {DEVELOPMENT_SERVICES.map((name) => (
-              <ListItemWrapper>
+              <ListItemWrapper key={name}>
                 <StyledCheckIcon />
                 {name}
               </ListItemWrapper>

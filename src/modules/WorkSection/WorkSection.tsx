@@ -43,6 +43,7 @@ const WorkSection = () => {
       <CardWrapper>
         {data?.allMarkdownRemark.edges.map(({ node }: Edge) => (
           <Card
+            key={node.id}
             title={node.frontmatter.title}
             subtitle={node.frontmatter.subtitle}
             imageSrc={node.frontmatter.coverImageSrc}
