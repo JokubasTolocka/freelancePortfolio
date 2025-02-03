@@ -1,7 +1,7 @@
 import React from "react";
-import Typography, { Heading } from "../../components/Typography";
+import Typography, { Heading } from "../../../components/Typography";
 import styled from "styled-components";
-import ArrowRight from "../../assets/icons/arrowRight.svg";
+import ArrowRight from "../../../assets/icons/arrowRight.svg";
 import { motion } from "motion/react";
 
 const Wrapper = styled(motion.a)`

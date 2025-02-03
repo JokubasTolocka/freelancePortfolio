@@ -1,17 +1,13 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
-import Header from "../components/Header/Header";
-import AboutSection from "../modules/AboutSection/AboutSection";
-import BrowseAllWorkButton from "../modules/WorkSection/BrowseAllWorkButton";
-import WorkSection from "../modules/WorkSection/WorkSection";
-import LandingSection from "../modules/LandingSection/LandingSection";
-import Footer from "../components/Footer";
-import HeaderTitleContextProvider, {
-  SectionTitleEnum,
-} from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
+import AboutSection from "../modules/Landing/AboutSection/AboutSection";
+import BrowseAllWorkButton from "../modules/Landing/WorkSection/BrowseAllWorkButton";
+import WorkSection from "../modules/Landing/WorkSection/WorkSection";
+import LandingSection from "../modules/Landing/LandingSection/LandingSection";
+import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 import SectionWrapper from "../components/SectionWrapper";
-import ExperienceSection from "../modules/ExperienceSection/ExperienceSection";
-import EducationSection from "../modules/EducationSection/EducationSection";
+import ExperienceSection from "../modules/Landing/ExperienceSection/ExperienceSection";
+import EducationSection from "../modules/Landing/EducationSection/EducationSection";
 import Layout from "../components/Layout";
 
 const IndexPage: React.FC<PageProps> = () => (

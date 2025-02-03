@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Composite, Engine, Sleeping, World } from "matter-js";
 import styled from "styled-components";
-import Typography, { Heading } from "../../../components/Typography";
+import { useInView } from "motion/react";
+import Typography, { Heading } from "../../../../components/Typography";
+import { addLetterShapes } from "./addLetterShapes";
 import { ADJUSTED_LETTER_POSITIONS } from "./utils";
 import {
   addMouseDragHandling,
   createBoundingBox,
   handleExplosion,
 } from "./matterJsUtils";
-import { addLetterShapes } from "./addLetterShapes";
-import { useInView } from "motion/react";
-import { useGlobalContext } from "../../../contexts/GlobalContext/useGlobalContext";
+import { useGlobalContext } from "../../../../contexts/GlobalContext/useGlobalContext";
 
 // For polygons with angles more than 180 degrees
 // @ts-ignore

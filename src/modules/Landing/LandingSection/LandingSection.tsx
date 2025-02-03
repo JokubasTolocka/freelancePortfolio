@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import styled, { useTheme } from "styled-components";
-import { HEADER_CONTENT_HEIGHT } from "../../components/Header/Header";
-import Typography, { Body, Heading } from "../../components/Typography";
-import AnimatedLetters from "../../components/AnimatedLetters";
-import MatterCanvas from "./MatterCanvas/MatterCanvas";
+import { HEADER_CONTENT_HEIGHT } from "../../../components/Header/Header";
+import Typography, { Body, Heading } from "../../../components/Typography";
+import AnimatedLetters from "../../../components/AnimatedLetters";
 import { motion, useAnimate } from "motion/react";
 import AnimatedLine from "./AnimatedLine";
-import { useGlobalContext } from "../../contexts/GlobalContext/useGlobalContext";
+import { useGlobalContext } from "../../../contexts/GlobalContext/useGlobalContext";
 
 export const FALL_ANIMATION_DELAY_SECONDS = 1;
 

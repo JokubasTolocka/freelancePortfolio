@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 // import muralImg from "../../assets/images/mural.jpg";
 import BrowseAllWorkButton from "./BrowseAllWorkButton";
-import Card from "../../components/Card/Card";
+import Card from "../../../components/Card/Card";
 import { graphql, useStaticQuery } from "gatsby";
 
 const allWorkQuery = graphql`

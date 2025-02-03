@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import Typography, { Body } from "../../components/Typography";
-import constants from "../../constants/constants.json";
+import Typography, { Body } from "../../../components/Typography";
+import constants from "../../../constants/constants.json";
 import styled from "styled-components";
-import WaveIcon from "../../assets/icons/wave.svg";
+import WaveIcon from "../../../assets/icons/wave.svg";
 import { motion, useAnimate } from "motion/react";
 
 const WHITESPACE = " ";

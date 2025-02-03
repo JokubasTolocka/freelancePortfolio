@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Typography, { Body, Heading } from "../../components/Typography";
+import Typography, { Body, Heading } from "../../../components/Typography";
 import LinkLine from "./LinkLine";
-// import PortraitImage from "./PortraitImage";
-import Button from "../../components/Button";
-import CheckIcon from "../../assets/icons/check.svg";
+import Button from "../../../components/Button";
+import CheckIcon from "../../../assets/icons/check.svg";
 import PortraitImage from "./PortraitImage";
 
 const DESIGN_SERVICES = ["UI/UX Design", "Logo Design", "Branding"];

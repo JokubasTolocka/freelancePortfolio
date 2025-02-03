@@ -1,7 +1,7 @@
 import React from "react";
-import { ListItemType } from "../../components/List/List";
-import ListSection from "../../components/ListSection";
-import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleContextProvider";
+import { ListItemType } from "../../../components/List/List";
+import ListSection from "../../../components/ListSection";
+import { SectionTitleEnum } from "../../../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 
 const workData: ListItemType[] = [
   {
