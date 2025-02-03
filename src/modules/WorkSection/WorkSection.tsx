@@ -7,7 +7,7 @@ import { graphql, useStaticQuery } from "gatsby";
 
 const allWorkQuery = graphql`
   query {
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { frontmatter: { order: ASC } }) {
       edges {
         node {
           id

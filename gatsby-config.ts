@@ -25,7 +25,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `work`,
-        path: `${__dirname}/src/content/work`, // Path to your Markdown files
+        path: `${__dirname}/work`, // Path to your Markdown files
       },
     },
     {
