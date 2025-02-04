@@ -51,7 +51,7 @@ const Work = () => {
                 subtitle={node.frontmatter.subtitle}
                 imageSrc={node.frontmatter.coverImageSrc}
                 tags={node.frontmatter.tags}
-                linkTo={`/work/${node.id}`}
+                linkTo={node.id}
                 isVisible
               />
             ))}
