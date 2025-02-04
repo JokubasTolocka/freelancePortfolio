@@ -1,5 +1,6 @@
 ---
 title: UniSalad
+slug: unisalad
 order: 2
 subtitle: Complete app and website UI and UX redesign for a student social
   medial startup.
