@@ -1,5 +1,6 @@
 ---
 title: Pillminder
+slug: pillminder
 order: 3
 subtitle: Concept design for a pill reminder app made during my Google UI/UX
   design course.
