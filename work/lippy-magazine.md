@@ -1,5 +1,6 @@
 ---
 title: Lippy Magazine
+slug: lippy-magazine
 order: 4
 subtitle: Winner tote bag design for universities society at their annual bag
   design competition.
