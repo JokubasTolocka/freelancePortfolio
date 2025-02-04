@@ -5,36 +5,7 @@ import SectionWrapper from "../components/SectionWrapper";
 import { SectionTitleEnum } from "../contexts/HeaderTitleContext/HeaderTitleContextProvider";
 import styled from "styled-components";
 import Card from "../components/Card/Card";
-
-const allWorkQuery = graphql`
-  query {
-    allMarkdownRemark(sort: { frontmatter: { order: ASC } }) {
-      edges {
-        node {
-          id
-          frontmatter {
-            title
-            subtitle
-            coverImageSrc
-            tags
-          }
-        }
-      }
-    }
-  }
-`;
-
-interface Edge {
-  node: {
-    id: string;
-    frontmatter: {
-      title: string;
-      subtitle: string;
-      coverImageSrc: string;
-      tags?: string[];
-    };
-  };
-}
+import { allWorkQuery, Edge } from "../modules/Landing/WorkSection/WorkSection";
 
 const Work = () => {
   const data = useStaticQuery(allWorkQuery);
@@ -51,7 +22,7 @@ const Work = () => {
                 subtitle={node.frontmatter.subtitle}
                 imageSrc={node.frontmatter.coverImageSrc}
                 tags={node.frontmatter.tags}
-                linkTo={node.id}
+                linkTo={node.frontmatter.slug}
                 isVisible
               />
             ))}

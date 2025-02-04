@@ -9,6 +9,9 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            frontmatter {
+              slug
+            }
           }
         }
       }
@@ -21,7 +24,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
-      path: node.id,
+      path: node.frontmatter.slug,
       component: path.resolve("./src/templates/WorkPage.tsx"),
       context: {
         id: node.id,

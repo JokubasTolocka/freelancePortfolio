@@ -5,7 +5,7 @@ import BrowseAllWorkButton from "./BrowseAllWorkButton";
 import Card from "../../../components/Card/Card";
 import { graphql, useStaticQuery } from "gatsby";
 
-const allWorkQuery = graphql`
+export const allWorkQuery = graphql`
   query {
     allMarkdownRemark(sort: { frontmatter: { order: ASC } }) {
       edges {
@@ -16,6 +16,7 @@ const allWorkQuery = graphql`
             subtitle
             coverImageSrc
             tags
+            slug
           }
         }
       }
@@ -23,7 +24,7 @@ const allWorkQuery = graphql`
   }
 `;
 
-interface Edge {
+export interface Edge {
   node: {
     id: string;
     frontmatter: {
@@ -31,6 +32,7 @@ interface Edge {
       subtitle: string;
       coverImageSrc: string;
       tags?: string[];
+      slug: string;
     };
   };
 }
@@ -48,7 +50,7 @@ const WorkSection = () => {
             subtitle={node.frontmatter.subtitle}
             imageSrc={node.frontmatter.coverImageSrc}
             tags={node.frontmatter.tags}
-            linkTo={node.id}
+            linkTo={node.frontmatter.slug}
           />
         ))}
         {/* <WorkCTACard /> */}
