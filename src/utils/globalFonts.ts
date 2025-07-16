@@ -6,14 +6,14 @@ const GlobalFonts = createGlobalStyle`
   font-weight: 500;
   font-display: swap;
   font-style: normal;
-  src: url(/fonts/ppneuemontreal-medium.otf) format("otf");
+  src: url(/fonts/ppneuemontreal-medium.otf) format("opentype");
 }
   @font-face {
   font-family: 'PP Neue Montreal';
   font-weight: 400;
   font-display: swap;
   font-style: normal;
-   src: url(/fonts/ppneuemontreal-book.otf) format("otf");
+   src: url(/fonts/ppneuemontreal-book.otf) format("opentype");
 }
 `;
 
