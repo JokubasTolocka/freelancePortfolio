@@ -6,6 +6,7 @@ import { SectionTitleEnum } from "../../contexts/HeaderTitleContext/HeaderTitleC
 import { motion, useAnimate } from "motion/react";
 import LocalTime from "../LocalTime";
 import { Link } from "gatsby";
+import ExplodeSwitch from "./ExplodeSwitch";
 
 const TITLE_HEIGHT = 26;
 
@@ -31,43 +32,41 @@ const StyledLink = styled(Link)`
 `;
 
 const HeaderSectionTitle = () => {
-  const { titleValue } = useHeaderTitleContext();
-  const titleContainerRef = useRef(null);
-  const [_, animate] = useAnimate();
+	const { titleValue } = useHeaderTitleContext();
+	const titleContainerRef = useRef(null);
+	const [_, animate] = useAnimate();
 
-  useEffect(() => {
-    if (titleContainerRef.current) {
-      const distanceFromTop =
-        Object.values(SectionTitleEnum).indexOf(titleValue) * TITLE_HEIGHT;
-      animate(titleContainerRef.current, { y: -distanceFromTop });
-    }
-  }, [titleValue]);
+	useEffect(() => {
+		if (titleContainerRef.current) {
+			const distanceFromTop =
+				Object.values(SectionTitleEnum).indexOf(titleValue) * TITLE_HEIGHT;
+			animate(titleContainerRef.current, { y: -distanceFromTop });
+		}
+	}, [titleValue]);
 
-  if (window.location.pathname !== "/") {
-    console.log(window.location.pathname);
-    return (
-      <StyledLink to="/">
-        <StyledTypography variant={Heading.H5}>Go Back</StyledTypography>
-      </StyledLink>
-    );
-  }
+	if (window.location.pathname !== "/") {
+		return (
+			<StyledLink to="/">
+				<StyledTypography variant={Heading.H5}>Go Back</StyledTypography>
+			</StyledLink>
+		);
+	}
 
-  return (
-    <Wrapper>
-      <TitleContainer ref={titleContainerRef}>
-        {Object.values(SectionTitleEnum).map((value) => {
-          if (value === SectionTitleEnum.Landing)
-            return <LocalTime key="localTime" />;
+	return (
+		<Wrapper>
+			<TitleContainer ref={titleContainerRef}>
+				{Object.values(SectionTitleEnum).map((value) => {
+					if (value === SectionTitleEnum.Landing) return <LocalTime  key={value}/>;
 
-          return (
-            <StyledTypography variant={Heading.H5} key={value}>
-              {value}
-            </StyledTypography>
-          );
-        })}
-      </TitleContainer>
-    </Wrapper>
-  );
+					return (
+						<StyledTypography variant={Heading.H5} key={value}>
+							{value}
+						</StyledTypography>
+					);
+				})}
+			</TitleContainer>
+		</Wrapper>
+	);
 };
 
 export default HeaderSectionTitle;

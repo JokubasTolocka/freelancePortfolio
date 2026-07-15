@@ -61,7 +61,7 @@ const Card = ({
   return (
     <CardWrapper isVisible={isVisible}>
       <Wrapper
-        href={linkTo}
+        // href={linkTo}
         initial="initial"
         whileHover="whileHover"
         variants={bgColorVariants}
@@ -77,9 +77,9 @@ const Card = ({
             </SubtitleWrapper>
             {tags?.length && <ChipList items={tags} />}
           </LeftContent>
-          <motion.div variants={arrowVariants}>
+          {/* <motion.div variants={arrowVariants}>
             <StyledArrow />
-          </motion.div>
+          </motion.div> */}
         </ContentWrapper>
       </Wrapper>
     </CardWrapper>

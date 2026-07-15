@@ -62,7 +62,7 @@ const WorkSection = () => {
         />
       </CardWrapper>
       <FooterWrapper>
-        <BrowseAllWorkButton title="Browse all work" />
+        {/* <BrowseAllWorkButton title="Browse all work" /> */}
       </FooterWrapper>
     </Wrapper>
   );

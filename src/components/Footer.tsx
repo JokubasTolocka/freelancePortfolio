@@ -49,13 +49,13 @@ const Footer = () => {
           </Typography>
           <Typography variant={Heading.H5}>
             <BottomLinks>
-              {FOOTER_ITEMS.map(({ title, to }) => (
+              {/* {FOOTER_ITEMS.map(({ title, to }) => (
                 <LinkText key={title} href={to}>
                   {title}
                 </LinkText>
-              ))}
+              ))} */}
               <LinkText onClick={goToExperience}>Experience</LinkText>
-              <LinkText onClick={openContactPopup}>Contact</LinkText>
+              {/* <LinkText onClick={openContactPopup}>Contact</LinkText> */}
               {SOCIAL_MEDIA_LINKS.map(({ title, to }) => (
                 <LinkText key={title} href={to} target="_blank">
                   {title}

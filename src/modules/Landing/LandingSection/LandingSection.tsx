@@ -6,71 +6,72 @@ import AnimatedLetters from "../../../components/AnimatedLetters";
 import { motion, useAnimate } from "motion/react";
 import AnimatedLine from "./AnimatedLine";
 import { useGlobalContext } from "../../../contexts/GlobalContext/useGlobalContext";
+import MatterCanvas from "./MatterCanvas/MatterCanvas";
 
 export const FALL_ANIMATION_DELAY_SECONDS = 1;
 
 const LandingSection = () => {
-  const { shouldExplode } = useGlobalContext();
+	const { shouldExplode } = useGlobalContext();
 
-  const theme = useTheme();
-  const typographyRef = useRef<HTMLDivElement>(null);
-  const [_, animate] = useAnimate();
+	const theme = useTheme();
+	const typographyRef = useRef<HTMLDivElement>(null);
+	const [_, animate] = useAnimate();
 
-  useEffect(() => {
-    if (typographyRef.current && shouldExplode) {
-      animate(typographyRef.current, { color: theme.colors.black.light });
-    }
-  }, [shouldExplode]);
+	useEffect(() => {
+		if (typographyRef.current && shouldExplode) {
+			animate(typographyRef.current, { color: theme.colors.black.light });
+		}
+	}, [shouldExplode]);
 
-  const INITIAL_DELAY = 0.3;
+	const INITIAL_DELAY = 0.3;
 
-  return (
-    <Wrapper>
-      <AnimatedLine />
-      {/* <MatterCanvas /> */}
-      <Content>
-        <LandingHeaderTypography
-          variant={Body.Heading}
-          passedRef={typographyRef}
-        >
-          <AnimatedLetters>
-            I'm <Typography variant={Heading.H1}>Jacob,</Typography>
-          </AnimatedLetters>
-          <AnimatedLetters delayChildren={INITIAL_DELAY}>
-            a <Typography variant={Heading.H1}>web creator</Typography> crafting
-          </AnimatedLetters>
-          <AnimatedLetters delayChildren={INITIAL_DELAY * 2}>
-            <Typography variant={Heading.H1}>user experiences</Typography>{" "}
-            through
-          </AnimatedLetters>
-          <AnimatedLetters delayChildren={INITIAL_DELAY * 3}>
-            <Typography variant={Heading.H1}>design</Typography> and{" "}
-            <Typography variant={Heading.H1}>code</Typography>
-          </AnimatedLetters>
-        </LandingHeaderTypography>
-        <InfoTextWrapper
-          initial="initial"
-          animate="animate"
-          variants={{
-            initial: { opacity: 0, y: 20 },
-            animate: {
-              opacity: 100,
-              y: 0,
-              transition: {
-                ease: "easeOut",
-                duration: 0.5,
-                delay: FALL_ANIMATION_DELAY_SECONDS,
-              },
-            },
-          }}
-        >
-          <Typography variant={Heading.H5}>
-            Find work examples below.
-          </Typography>
-        </InfoTextWrapper>
-      </Content>
-    </Wrapper>
-  );
+	return (
+		<Wrapper>
+			<AnimatedLine />
+			{/* <MatterCanvas /> */}
+			<Content>
+				<LandingHeaderTypography
+					variant={Body.Heading}
+					passedRef={typographyRef}
+				>
+					<AnimatedLetters>
+						I'm <Typography variant={Heading.H1}>Jacob,</Typography>
+					</AnimatedLetters>
+					<AnimatedLetters delayChildren={INITIAL_DELAY}>
+						a <Typography variant={Heading.H1}>web creator</Typography> crafting
+					</AnimatedLetters>
+					<AnimatedLetters delayChildren={INITIAL_DELAY * 2}>
+						<Typography variant={Heading.H1}>user experiences</Typography>{" "}
+						through
+					</AnimatedLetters>
+					<AnimatedLetters delayChildren={INITIAL_DELAY * 3}>
+						<Typography variant={Heading.H1}>design</Typography> and{" "}
+						<Typography variant={Heading.H1}>code</Typography>
+					</AnimatedLetters>
+				</LandingHeaderTypography>
+				<InfoTextWrapper
+					initial="initial"
+					animate="animate"
+					variants={{
+						initial: { opacity: 0, y: 20 },
+						animate: {
+							opacity: 100,
+							y: 0,
+							transition: {
+								ease: "easeOut",
+								duration: 0.5,
+								delay: FALL_ANIMATION_DELAY_SECONDS,
+							},
+						},
+					}}
+				>
+					<Typography variant={Heading.H5}>
+						Find work examples below.
+					</Typography>
+				</InfoTextWrapper>
+			</Content>
+		</Wrapper>
+	);
 };
 
 export default LandingSection;

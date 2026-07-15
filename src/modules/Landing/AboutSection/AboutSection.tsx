@@ -29,13 +29,7 @@ const AboutSection = () => {
           Tolocka
         </Name>
         <Typography variant={Body.LG}>
-          After working in the tech industry for over half a decade I have
-          decided to expand my expertise to working with clients showing off my
-          development and design skills that I have gained over the past 5 years
-          working for startups and corporate companies. <br /> <br />
-          I am ready to improve your users' daily experience, create a business
-          website, rebrand design, or an experience-oriented web project. <br />
-          <br />
+         Frontend Engineer with 5+ years across startups, scale-ups, and fintech — including Robinhood following FinBytes' acquisition. Experienced in React, TypeScript, GraphQL, and NestJS, with a UI/UX design background (Google UX Certified) that shapes engineering and design decisions alike. <br/><br/>
           <LinkLine />
         </Typography>
       </TextWrapper>
@@ -44,7 +38,7 @@ const AboutSection = () => {
           <ServicesWrapper>
             <Typography variant={Heading.H5}>Services</Typography>
             <List style={{ marginBottom: "20px" }}>
-              {DESIGN_SERVICES.map((name) => (
+              {DEVELOPMENT_SERVICES.map((name) => (
                 <ListItemWrapper key={name}>
                   <StyledCheckIcon />
                   {name}
@@ -52,7 +46,7 @@ const AboutSection = () => {
               ))}
             </List>
             <List>
-              {DEVELOPMENT_SERVICES.map((name) => (
+              {DESIGN_SERVICES.map((name) => (
                 <ListItemWrapper key={name}>
                   <StyledCheckIcon />
                   {name}
@@ -62,9 +56,9 @@ const AboutSection = () => {
           </ServicesWrapper>
         </TextWrapper>
       </Typography>
-      <TextWrapper>
+      {/* <TextWrapper>
         <Button onClick={openContactPopup}>Contact</Button>
-      </TextWrapper>
+      </TextWrapper> */}
     </Wrapper>
   );
 };

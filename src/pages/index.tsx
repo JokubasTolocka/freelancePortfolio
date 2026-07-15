@@ -29,7 +29,7 @@ const IndexPage: React.FC<PageProps> = () => {
       </SectionWrapper>
       <SectionWrapper
         title={SectionTitleEnum.Work}
-        titleRightElement={<BrowseAllWorkButton />}
+        // titleRightElement={<BrowseAllWorkButton />}
       >
         <WorkSection />
       </SectionWrapper>

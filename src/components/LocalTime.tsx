@@ -8,7 +8,7 @@ const getCurrentTime = () => {
   const utcHours = now.getUTCHours();
   const utcMinutes = now.getUTCMinutes();
 
-  const utcPlus2Hours = (utcHours + 2) % 24;
+  const utcPlus2Hours = (utcHours + 3) % 24;
   const utcPlus2Minutes = utcMinutes;
 
   return `${utcPlus2Hours}:${utcPlus2Minutes}`;
@@ -17,7 +17,7 @@ const getCurrentTime = () => {
 const LocalTime = () => (
   <Wrapper>
     <Typography variant={Body.MD}>
-      Local time: <TimeSpan>{getCurrentTime()} (UTC+2)</TimeSpan>
+      Local time: <TimeSpan>{getCurrentTime()} (UTC+3)</TimeSpan>
     </Typography>
   </Wrapper>
 );

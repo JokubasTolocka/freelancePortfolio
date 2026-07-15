@@ -84,14 +84,14 @@ const Header = () => {
             {/* <Underline variants={linkAnimationVariants} /> */}
           </LinkHover>
         ))}
-        <ContactButton
+        {/* <ContactButton
           initial="initial"
           whileHover="whileHover"
           variants={contactButtonVariants}
           onClick={openContactPopup}
         >
           <Typography variant={Body.MD}>Contact</Typography>
-        </ContactButton>
+        </ContactButton> */}
         <SocialMedia />
       </RightContent>
     </Wrapper>
